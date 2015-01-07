@@ -1,0 +1,11 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository
+    id:
+        id:
+            type: bigint
+            id: true
+            generator:
+                strategy: AUTO
+    lifecycleCallbacks: {  }

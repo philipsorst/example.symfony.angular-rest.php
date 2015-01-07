@@ -1,0 +1,3 @@
+ddr_symfony_angular_rest_example_base_homepage:
+    path:     /
+    defaults: { _controller: DdrSymfonyAngularRestExampleBaseBundle:Index:index }
