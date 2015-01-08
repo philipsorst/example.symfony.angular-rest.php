@@ -1,2 +1,2 @@
 #!/bin/sh
-git pull && composer update && bin/console assetic:dump
+git pull && composer update && bower install && bin/console assetic:dump
