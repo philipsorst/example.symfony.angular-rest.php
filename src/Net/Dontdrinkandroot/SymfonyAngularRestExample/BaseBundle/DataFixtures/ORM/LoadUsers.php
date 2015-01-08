@@ -6,7 +6,6 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -19,7 +18,7 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
     protected $container;
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Load data fixtures with the passed EntityManager.
      *
      * @param ObjectManager $manager
      */
@@ -35,7 +34,7 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
         $admin->setEnabled(true);
         $admin->addRole('ROLE_ADMIN');
 
-        $userManager->updateUser($admin);
+        $userManager->updateUser($admin, true);
 
         $this->addReference('admin', $admin);
 
@@ -45,13 +44,13 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
         $user->setPlainPassword('user');
         $user->setEnabled(true);
 
-        $userManager->updateUser($admin);
+        $userManager->updateUser($user, true);
 
         $this->addReference('user', $user);
     }
 
     /**
-     * Get the order of this fixture
+     * Get the order of this fixture.
      *
      * @return integer
      */
