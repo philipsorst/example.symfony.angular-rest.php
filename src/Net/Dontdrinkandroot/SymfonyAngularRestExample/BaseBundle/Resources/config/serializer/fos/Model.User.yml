@@ -1,0 +1,12 @@
+FOS\UserBundle\Model\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            type: integer
+            expose: true
+        username:
+            type: string
+            expose: true
+        roles:
+            type: array
+            expose: true

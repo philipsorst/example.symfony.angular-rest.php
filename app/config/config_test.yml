@@ -14,3 +14,8 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+dbal:
+    driver: "pdo_sqlite"
+    memory: true
+    charset: UTF8

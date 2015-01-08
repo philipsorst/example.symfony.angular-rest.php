@@ -1,0 +1,11 @@
+ddr_symfony_angular_rest_example_rest_user:
+    prefix: user
+    resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/UserController.php"
+    type: rest
+    name_prefix: ddr_symfony_angular_rest_example_rest_user_
+
+ddr_symfony_angular_rest_example_rest_newsentry:
+    prefix: newsentry
+    resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/NewsEntryController.php"
+    type: rest
+    name_prefix: ddr_symfony_angular_rest_example_rest_newsentry_

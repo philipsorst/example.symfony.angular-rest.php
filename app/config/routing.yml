@@ -1,3 +1,8 @@
+ddr_symfony_angular_rest_example_rest:
+    prefix: /rest
+    type: rest
+    resource: "@DdrSymfonyAngularRestExampleRestBundle/Resources/config/routing.yml"
+
 ddr_symfony_angular_rest_example_base:
     resource: "@DdrSymfonyAngularRestExampleBaseBundle/Resources/config/routing.yml"
     prefix:   /

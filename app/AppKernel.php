@@ -16,7 +16,10 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DdrSymfonyAngularRestExampleBaseBundle(),
-            new FOS\UserBundle\FOSUserBundle()
+            new FOS\UserBundle\FOSUserBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\DdrSymfonyAngularRestExampleRestBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

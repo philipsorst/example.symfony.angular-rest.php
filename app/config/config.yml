@@ -52,9 +52,25 @@ doctrine:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
 
+# FOS User Bundle configuration
 fos_user:
     db_driver: orm
     user_class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User
     firewall_name: main
     service:
         mailer: fos_user.mailer.noop
+
+# FOS Rest Bundle configuration
+fos_rest:
+    routing_loader:
+        include_format: false
+        default_format: json
+
+# JMS Serializer Bundle configuration
+jms_serializer:
+    metadata:
+        auto_detection: true
+        directories:
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@DdrSymfonyAngularRestExampleBaseBundle/Resources/config/serializer/fos"
