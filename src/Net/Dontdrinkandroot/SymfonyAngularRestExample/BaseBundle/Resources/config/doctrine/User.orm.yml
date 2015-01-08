@@ -8,4 +8,9 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User:
             id: true
             generator:
                 strategy: AUTO
+    oneToMany:
+        newsEntries:
+            targetEntity: NewsEntry
+            mappedBy: author
+            cascade: [remove]
     lifecycleCallbacks: {  }

@@ -1,0 +1,29 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
+    type: entity
+    table: null
+    repositoryClass: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: false
+        content:
+            type: text
+            nullable: false
+        date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        author:
+            targetEntity: User
+            inversedBy: author
+            joinColumn:
+                nullable: false
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }
