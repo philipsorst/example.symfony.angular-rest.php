@@ -1,0 +1,4 @@
+services:
+#    ddr_symfony_angular_rest_example_web.example:
+#        class: Net\Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

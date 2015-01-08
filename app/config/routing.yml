@@ -1,11 +1,11 @@
+ddr_symfony_angular_rest_example_web:
+    resource: "@DdrSymfonyAngularRestExampleWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ddr_symfony_angular_rest_example_rest:
     prefix: /rest
     type: rest
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Resources/config/routing.yml"
-
-ddr_symfony_angular_rest_example_base:
-    resource: "@DdrSymfonyAngularRestExampleBaseBundle/Resources/config/routing.yml"
-    prefix:   /
 
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"

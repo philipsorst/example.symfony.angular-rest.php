@@ -1,0 +1,48 @@
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SymfonyAngularRestExample - {{ '{{ title }}' }}</title>
+    {% block css %}
+        <link href="{{ asset('lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"/>
+        <link href="{{ asset('bundles/ddrsymfonyangularrestexampleweb/css/style.css') }}" rel="stylesheet"/>
+    {% endblock css %}
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a>Home</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="ng-view">
+</div>
+
+{% block js %}
+    <script type="text/javascript">
+        var basePath = '{{ app.request.basepath }}';
+        var baseUrl = '{{ app.request.baseurl }}';
+        var partialsPath = basePath + '/bundles/ddrsymfonyangularrestexampleweb/partials/';
+    </script>
+    <script type="text/javascript" src="{{ asset('lib/jquery/dist/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/angular/angular.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/angular-route/angular-route.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/lodash/dist/lodash.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/restangular/dist/restangular.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/ddrsymfonyangularrestexampleweb/js/controllers.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleweb/js/app.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            angular.bootstrap(document, ['ExampleApp'])
+        });
+    </script>
+{% endblock js %}
+
+</body>
+</html>

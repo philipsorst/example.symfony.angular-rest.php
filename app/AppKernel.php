@@ -20,7 +20,8 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\DdrSymfonyAngularRestExampleRestBundle(),
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle()
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Net\Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\DdrSymfonyAngularRestExampleWebBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
