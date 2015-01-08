@@ -1,4 +1,6 @@
 /web/bundles/
+/web/lib/*
+!/web/lib/.gitkeep
 /app/config/parameters.yml
 /var/bootstrap.php.cache
 /var/cache/*
@@ -15,4 +17,3 @@
 !bin/set-permissions
 /composer.phar
 /.idea/
-
