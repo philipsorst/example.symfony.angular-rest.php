@@ -23,6 +23,7 @@ class User extends BaseUser implements Entity
      */
     public function __construct()
     {
+        parent::__construct();
         $this->newsEntries = new ArrayCollection();
     }
 
