@@ -19,4 +19,9 @@ interface NewsEntryService
      * @return NewsEntry
      */
     public function getNewsEntry($id);
+
+    /**
+     * @param NewsEntry $newsEntry
+     */
+    public function deleteNewsEntry($newsEntry);
 }

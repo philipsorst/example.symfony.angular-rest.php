@@ -1,11 +1,16 @@
 var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular', 'ngRoute'])
     .config(
-        [ '$routeProvider', '$locationProvider', '$httpProvider', function ($routeProvider, $locationProvider, $httpProvider) {
+        [ 'RestangularProvider', '$routeProvider', '$locationProvider', '$httpProvider', function (RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
 
 //            $routeProvider.when('/news/create', {
 //                templateUrl: 'partials/news/create.html',
 //                controller: NewsCreateController
 //            });
+
+            $routeProvider.when('/news/:id', {
+                templateUrl: partialsPath + '/news/detail.html',
+                controller: 'NewsDetailController'
+            });
 
             $routeProvider.otherwise({
                 templateUrl: partialsPath + '/index.html',
@@ -13,7 +18,17 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
             });
 
             $locationProvider.hashPrefix('!');
+
+            RestangularProvider.setBaseUrl(restPath);
         } ]
 
-    ).run(['$rootScope', function ($rootScope) {
+    ).run(['$rootScope', 'Restangular', function ($rootScope, Restangular) {
+        Restangular.one('user', 'me').get().then(
+            function (user) {
+                $rootScope.user = user;
+            },
+            function (error) {
+                console.log(error);
+            }
+        );
     }]);

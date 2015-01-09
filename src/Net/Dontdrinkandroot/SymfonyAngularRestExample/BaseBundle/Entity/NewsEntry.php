@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * NewsEntry
  */
-class NewsEntry
+class NewsEntry implements Entity
 {
     /**
      * @var integer

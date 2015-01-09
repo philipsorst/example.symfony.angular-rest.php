@@ -29,13 +29,23 @@ class UserController extends RestBaseController
     /**
      * @Get("/{id}")
      *
-     * @param integer $id
+     * @param integer|string $id
      *
      * @return Response
+     *
+     * @throws \InvalidArgumentException
      */
     public function getUserAction($id)
     {
-        $user = $this->getUserService()->getUser($id);
+        if (is_numeric($id)) {
+            $user = $this->getUserService()->getUser($id);
+        } else {
+            if ($id === 'me') {
+                $user = $this->getUser();
+            } else {
+                throw new \InvalidArgumentException("Unknown identifier '$id'. Can be 'me' or an id");
+            }
+        }
 
         $view = $this->view($user);
 

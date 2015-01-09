@@ -75,6 +75,12 @@ class NewsEntryController extends RestBaseController
      */
     public function deleteNewsEntryAction($id)
     {
-        // TODO: implement
+        $newsEntryService = $this->getNewsEntryService();
+        $newsEntry = $newsEntryService->getNewsEntry($id);
+        $newsEntryService->deleteNewsEntry($newsEntry);
+
+        $view = $this->view(null, 204);
+
+        return $this->handleView($view);
     }
 }

@@ -6,13 +6,13 @@ services:
         class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        arguments: [ Net\DontdrinkandrootHoodHero\SymfonyAngularRestExample\BaseBundle\Entity\User ]
+        arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User ]
 
     ddr.symfonyangularrestexample.repository.newsentry:
         class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        arguments: [ Net\DontdrinkandrootHoodHero\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
+        arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
 
     # Services
 

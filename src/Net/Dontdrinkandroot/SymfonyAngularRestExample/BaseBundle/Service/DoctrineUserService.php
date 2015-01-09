@@ -4,6 +4,7 @@
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\ResourceNotFoundException;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository;
 
 class DoctrineUserService implements UserService
@@ -24,16 +25,25 @@ class DoctrineUserService implements UserService
      */
     public function listUsers()
     {
-        // TODO: Implement listUsers() method.
+        $users = $this->userRepository->findAll();
+
+        return $users;
     }
 
     /**
      * @param integer $id
      *
      * @return User
+     *
+     * @throws ResourceNotFoundException
      */
     public function getUser($id)
     {
-        // TODO: Implement getUser() method.
+        $user = $this->userRepository->find($id);
+        if (null === $user) {
+            throw new ResourceNotFoundException();
+        }
+
+        return $user;
     }
 }

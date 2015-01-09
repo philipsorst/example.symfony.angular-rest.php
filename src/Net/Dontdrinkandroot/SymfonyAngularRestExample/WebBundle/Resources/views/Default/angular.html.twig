@@ -14,12 +14,17 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
         <ul class="nav navbar-nav navbar-left">
-            <li><a>Home</a></li>
+            <li><a href="#!/">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><p class="navbar-text">{{ '{{ user.username }}' }}</p></li>
         </ul>
     </div>
 </nav>
 
-<div class="ng-view">
+<div class="container">
+    <div class="ng-view">
+    </div>
 </div>
 
 {% block js %}
@@ -27,6 +32,7 @@
         var basePath = '{{ app.request.basepath }}';
         var baseUrl = '{{ app.request.baseurl }}';
         var partialsPath = basePath + '/bundles/ddrsymfonyangularrestexampleweb/partials/';
+        var restPath = baseUrl + '/rest/';
     </script>
     <script type="text/javascript" src="{{ asset('lib/jquery/dist/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ asset('lib/bootstrap/dist/js/bootstrap.js') }}"></script>
