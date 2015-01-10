@@ -15,4 +15,4 @@ If you like this project, please donate. I am not paid for this work. Thank you.
 Further reading
 ---------------
 
-* Symfony Cookbook: How to Authenticate Users with API Key (http://symfony.com/doc/current/cookbook/security/api_key_authentication.html)
+* [Symfony Cookbook: How to Authenticate Users with API Key](http://symfony.com/doc/current/cookbook/security/api_key_authentication.html)
