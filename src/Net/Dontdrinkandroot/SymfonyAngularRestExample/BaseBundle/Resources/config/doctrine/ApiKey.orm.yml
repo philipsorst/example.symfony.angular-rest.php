@@ -1,0 +1,21 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey:
+    type: entity
+    table: null
+    repositoryClass: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+            strategy: AUTO
+    fields:
+        key:
+            type: string
+            nullable: false
+    manyToOne:
+        user:
+            targetEntity: User
+            joinColumn:
+                nullable: false
+                inversedBy: user
+                onDelete: CASCADE

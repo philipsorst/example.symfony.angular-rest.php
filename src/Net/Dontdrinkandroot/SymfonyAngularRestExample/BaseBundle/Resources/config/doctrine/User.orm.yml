@@ -13,4 +13,8 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User:
             targetEntity: NewsEntry
             mappedBy: author
             cascade: [remove]
+        apiKeys:
+            targetEntity: ApiKey
+            mappedBy: user
+            cascade: [remove]
     lifecycleCallbacks: {  }

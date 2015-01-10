@@ -19,6 +19,11 @@ class User extends BaseUser implements Entity
     private $newsEntries;
 
     /**
+     * @var Collection
+     */
+    private $apiKeys;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -59,5 +64,39 @@ class User extends BaseUser implements Entity
     public function getNewsEntries()
     {
         return $this->newsEntries;
+    }
+
+    /**
+     * Add apiKeys
+     *
+     * @param ApiKey $apiKey
+     *
+     * @return User
+     */
+    public function addApiKey(ApiKey $apiKey)
+    {
+        $this->apiKeys[] = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * Remove apiKeys
+     *
+     * @param ApiKey $apiKey
+     */
+    public function removeApiKey(ApiKey $apiKey)
+    {
+        $this->apiKeys->removeElement($apiKey);
+    }
+
+    /**
+     * Get apiKeys
+     *
+     * @return Collection
+     */
+    public function getApiKeys()
+    {
+        return $this->apiKeys;
     }
 }
