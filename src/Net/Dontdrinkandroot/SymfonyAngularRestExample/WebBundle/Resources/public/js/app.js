@@ -2,10 +2,15 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
     .config(
         [ 'RestangularProvider', '$routeProvider', '$locationProvider', '$httpProvider', function (RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
 
-//            $routeProvider.when('/news/create', {
-//                templateUrl: 'partials/news/create.html',
-//                controller: NewsCreateController
-//            });
+            $routeProvider.when('/news/create', {
+                templateUrl: partialsPath + '/news/edit.html',
+                controller: 'NewsCreateController'
+            });
+
+            $routeProvider.when('/news/:id/edit', {
+                templateUrl: partialsPath + '/news/edit.html',
+                controller: 'NewsEditController'
+            });
 
             $routeProvider.when('/news/:id', {
                 templateUrl: partialsPath + '/news/detail.html',

@@ -54,4 +54,14 @@ class DoctrineNewsEntryService implements NewsEntryService
     {
         $this->newsEntryRepository->remove($newsEntry);
     }
+
+    /**
+     * @param NewsEntry $newsEntry
+     *
+     * @return NewsEntry
+     */
+    public function saveNewsEntry($newsEntry)
+    {
+        return $this->newsEntryRepository->save($newsEntry);
+    }
 }

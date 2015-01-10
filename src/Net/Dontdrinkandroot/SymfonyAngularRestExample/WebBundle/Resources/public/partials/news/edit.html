@@ -1,0 +1,23 @@
+<div class="page-header">
+    <h1 ng-hide="!newsEntry.id">Edit News Entry</h1>
+
+    <h1 ng-hide="newsEntry.id">Create News Entry</h1>
+</div>
+
+<form name="form" method="post" action="" role="form" ng-hide="loading">
+    <div class="form-group" ng-class="{'has-error': form.title.$invalid}">
+        <label class="control-label required" for="form_title">Title</label>
+        <input type="text" id="form_title" name="title" required="required" class="form-control"
+               ng-model="newsEntry.title" minlength="1" maxlength="50">
+    </div>
+    <div class="form-group" ng-class="{'has-error': form.content.$invalid}">
+        <label class="control-label required" for="form_content">Content</label>
+        <textarea id="form_content" name="content" required="required" rows="5"
+                  class="form-control" ng-model="newsEntry.content" minlength="1"
+                  maxlength="511"></textarea>
+    </div>
+    <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submit()"
+            ng-disabled="form.$invalid || submitting">
+        Save <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+    </button>
+</form>

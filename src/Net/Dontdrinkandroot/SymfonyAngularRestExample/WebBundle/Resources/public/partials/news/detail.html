@@ -1,10 +1,15 @@
 <div class="page-header">
     <div class="btn-group pull-right">
-        <a class="btn btn-large btn-default">&nbsp;<i class="glyphicon glyphicon-pencil"></i>&nbsp;</a>
+        <a class="btn btn-large btn-default" href="#!/news/{{newsEntry.id}}/edit">&nbsp;<i
+                class="glyphicon glyphicon-pencil"></i>&nbsp;</a>
         <a class="btn btn-large btn-default" ng-click="remove(newsEntry)">&nbsp;<i
                 class="glyphicon glyphicon-trash"></i>&nbsp;</a>
     </div>
-    <h1>{{newsEntry.title}}</h1>
+    <h1><span ng-hide="!loading" class="glyphicon glyphicon-refresh glyphicon-spin"></span>{{newsEntry.title}}</h1>
+</div>
+
+<div ng-hide="!loading" class="text-center">
+    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
 </div>
 
 <p>{{newsEntry.content}}</p>

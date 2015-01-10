@@ -9,13 +9,15 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\View\View;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class NewsEntryController extends RestBaseController
 {
 
     /**
-     * @Get("/")
+     * @Get("")
      *
      * @return Response
      */
@@ -45,25 +47,52 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Post("/")
+     * @Post("")
+     *
+     * @param Request $request
      *
      * @return Response
      */
-    public function createNewsEntryAction()
+    public function createNewsEntryAction(Request $request)
     {
-        // TODO: implement
+        /** @var NewsEntry $newsEntry */
+        $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+        $newsEntry->setAuthor($this->getUser());
+        $newsEntry->setDate(new \DateTime());
+        $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
+
+        $view = $this->view($newsEntry, 201);
+
+        $view->setHeader(
+            'Location',
+            $this->generateUrl(
+                'ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry',
+                ['id' => $newsEntry->getId()],
+                true
+            )
+        );
+
+        return $this->handleView($view);
     }
 
     /**
      * @Put("/{id}")
      *
+     * @param Request $request
      * @param integer $id
      *
      * @return Response
      */
-    public function updateNewsEntryAction($id)
+    public function updateNewsEntryAction(Request $request, $id)
     {
-        // TODO: implement
+        /** @var NewsEntry $newsEntry */
+        $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+        $newsEntry->setAuthor($this->getUser());
+        $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
+
+        $view = $this->view($newsEntry, 204);
+
+        return $this->handleView($view);
     }
 
     /**

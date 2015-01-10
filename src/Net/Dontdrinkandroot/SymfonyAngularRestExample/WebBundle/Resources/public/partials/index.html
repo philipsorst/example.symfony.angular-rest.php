@@ -1,5 +1,13 @@
 <div class="page-header">
+    <div class="btn-group pull-right">
+        <a href="#!/news/create" class="btn btn-default btn-large">&nbsp;<span class="glyphicon glyphicon-plus"></span>&nbsp;
+        </a>
+    </div>
     <h1>Welcome</h1>
+</div>
+
+<div ng-hide="!loading" class="text-center">
+    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
 </div>
 
 <div ng-repeat="newsEntry in newsEntries" class="panel panel-default">

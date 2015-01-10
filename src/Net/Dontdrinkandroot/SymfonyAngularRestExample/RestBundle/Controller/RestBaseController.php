@@ -4,8 +4,10 @@
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use JMS\Serializer\Serializer;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\NewsEntryService;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\UserService;
+use Symfony\Component\HttpFoundation\Request;
 
 class RestBaseController extends FOSRestController
 {
@@ -24,5 +26,21 @@ class RestBaseController extends FOSRestController
     protected function getUserService()
     {
         return $this->get('ddr.symfonyangularrestexample.service.user');
+    }
+
+    /**
+     * @param Request $request
+     * @param string  $type
+     *
+     * @return mixed
+     */
+    protected function deserializeJson(Request $request, $type)
+    {
+        /** @var Serializer $serializer */
+        $serializer = $this->get('jms_serializer');
+        $content = $request->getContent();
+        $object = $serializer->deserialize($content, $type, 'json');
+
+        return $object;
     }
 } 

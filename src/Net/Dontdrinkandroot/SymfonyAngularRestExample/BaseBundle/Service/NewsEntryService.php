@@ -24,4 +24,11 @@ interface NewsEntryService
      * @param NewsEntry $newsEntry
      */
     public function deleteNewsEntry($newsEntry);
+
+    /**
+     * @param NewsEntry $newsEntry
+     *
+     * @return NewsEntry
+     */
+    public function saveNewsEntry($newsEntry);
 }
