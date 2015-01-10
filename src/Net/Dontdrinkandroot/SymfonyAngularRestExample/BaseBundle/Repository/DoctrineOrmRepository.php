@@ -25,6 +25,20 @@ class DoctrineOrmRepository extends EntityRepository
         return $entity;
     }
 
+    public function findSingleBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    {
+        $results = $this->findBy($criteria, $offset, $limit, $offset);
+        if (count($results) > 1) {
+            throw new \Exception('Too many results');
+        }
+
+        if (count($results) == 0) {
+            return null;
+        }
+
+        return $results[0];
+    }
+
     /**
      * @param Entity $entity
      */

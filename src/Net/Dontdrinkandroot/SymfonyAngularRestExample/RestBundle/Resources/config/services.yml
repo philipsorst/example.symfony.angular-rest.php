@@ -1,1 +1,6 @@
 services:
+     ddr.symfonyangularrestexample.security.api_key_authenticator:
+        class: Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Security\ApiKeyAuthenticator
+        arguments:
+            - '@ddr.symfonyangularrestexample.service.user'
+            - '@security.http_utils'

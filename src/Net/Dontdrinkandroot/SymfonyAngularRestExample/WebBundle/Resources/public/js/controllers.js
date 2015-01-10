@@ -98,3 +98,36 @@ controllers.controller('NewsEditController', ['$scope', '$routeParams', '$locati
         )
     }
 }]);
+
+controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$location', 'Restangular', function ($scope, $rootScope, $routeParams, $location, Restangular) {
+
+    $scope.submitting = false;
+    $scope.credentials = { };
+
+    $scope.submit = function () {
+        $scope.submitting = true;
+        Restangular.all('user').all('createapikey').post($scope.credentials).then(
+            function (apiKeyResponse) {
+                Restangular.setDefaultHeaders({
+                    'X-Api-Key': apiKeyResponse.key
+                });
+                Restangular.one('user', 'me').get().then(
+                    function (user) {
+                        $scope.submitting = false;
+                        $rootScope.user = user;
+                        $location.path($scope.originalPath);
+                    },
+                    function (error) {
+                        $scope.submitting = false;
+                        console.log(error);
+                    }
+                );
+            },
+            function (error) {
+                $scope.submitting = false;
+                alert('Auth failed');
+                console.error(error);
+            }
+        )
+    }
+}]);

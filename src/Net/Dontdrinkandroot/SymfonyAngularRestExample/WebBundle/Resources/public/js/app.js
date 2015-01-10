@@ -2,6 +2,11 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
     .config(
         [ 'RestangularProvider', '$routeProvider', '$locationProvider', '$httpProvider', function (RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
 
+            $routeProvider.when('/login', {
+                templateUrl: partialsPath + '/login.html',
+                controller: 'LoginController'
+            });
+
             $routeProvider.when('/news/create', {
                 templateUrl: partialsPath + '/news/edit.html',
                 controller: 'NewsCreateController'
@@ -27,13 +32,7 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
             RestangularProvider.setBaseUrl(restPath);
         } ]
 
-    ).run(['$rootScope', 'Restangular', function ($rootScope, Restangular) {
-        Restangular.one('user', 'me').get().then(
-            function (user) {
-                $rootScope.user = user;
-            },
-            function (error) {
-                console.log(error);
-            }
-        );
+    ).run(['$rootScope', '$location', 'Restangular', function ($rootScope, $location, Restangular) {
+        $rootScope.originalPath = $location.path();
+        $location.path('/login');
     }]);

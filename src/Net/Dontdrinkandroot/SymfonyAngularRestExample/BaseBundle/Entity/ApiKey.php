@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ApiKey
  */
-class ApiKey
+class ApiKey implements Entity
 {
     /**
      * @var string

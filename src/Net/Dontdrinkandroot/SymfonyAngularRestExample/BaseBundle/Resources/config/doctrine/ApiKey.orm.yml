@@ -2,16 +2,21 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey:
     type: entity
     table: null
     repositoryClass: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
+    indexes:
+        key_index:
+          columns: [ key ]
     id:
         id:
             type: integer
             id: true
             generator:
-            strategy: AUTO
+                strategy: AUTO
     fields:
         key:
             type: string
             nullable: false
+            length: 64
+            unique: true
     manyToOne:
         user:
             targetEntity: User

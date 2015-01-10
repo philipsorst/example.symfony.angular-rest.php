@@ -6,19 +6,24 @@ namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Model\UserCredentials;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends RestBaseController
 {
 
     /**
-     * @Get("/")
+     * @Get("")
      *
      * @return Response
      */
     public function listUsersAction()
     {
+        $user = $this->getUser();
+
         $users = $this->getUserService()->listUsers();
 
         $view = $this->view($users);
@@ -50,5 +55,30 @@ class UserController extends RestBaseController
         $view = $this->view($user);
 
         return $this->handleView($view);
+    }
+
+    /**
+     * @Post("/createapikey")
+     *
+     * @param Request $request
+     */
+    public function createApiKeyAction(Request $request)
+    {
+        /** @var UserCredentials $credentials */
+        $credentials = $this->deserializeJson($request, get_class(new UserCredentials()));
+        $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
+
+        $view = $this->view($apiKey, 201);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Post("/invalidateapikey")
+     *
+     * @param Request $request
+     */
+    public function invalidateApiKeyAction(Request $request)
+    {
     }
 }

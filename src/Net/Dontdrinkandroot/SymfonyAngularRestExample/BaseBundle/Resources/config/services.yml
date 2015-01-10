@@ -14,6 +14,12 @@ services:
         factory_method: getRepository
         arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
 
+    ddr.symfonyangularrestexample.repository.apikey:
+        class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey ]
+
     # Services
 
     ddr.symfonyangularrestexample.service.newsentry:
@@ -25,3 +31,6 @@ services:
         class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineUserService
         arguments:
             - '@ddr.symfonyangularrestexample.repository.user'
+            - '@ddr.symfonyangularrestexample.repository.apikey'
+            - '@fos_user.user_provider.username'
+            - '@security.encoder_factory'

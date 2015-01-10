@@ -3,6 +3,7 @@
 
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 
 interface UserService
@@ -19,4 +20,19 @@ interface UserService
      * @return User
      */
     public function getUser($id);
+
+    /**
+     * @param string $userName
+     * @param string $password
+     *
+     * @return ApiKey
+     */
+    public function createApiKey($userName, $password);
+
+    /**
+     * @param string $apiKey
+     *
+     * @return User|null
+     */
+    public function findUserByApiKey($apiKey);
 }

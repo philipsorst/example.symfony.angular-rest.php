@@ -15,6 +15,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        rest:
+            pattern: ^/rest
+            stateless: true
+            simple_preauth:
+                authenticator: ddr.symfonyangularrestexample.security.api_key_authenticator
+
         main:
             pattern: ^/
             form_login:
@@ -24,8 +30,7 @@ security:
             anonymous:    true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rest/user/createapikey, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rest/*, roles: ROLE_USER }
         - { path: .*, roles: ROLE_USER }

@@ -30,6 +30,7 @@ class User extends BaseUser implements Entity
     {
         parent::__construct();
         $this->newsEntries = new ArrayCollection();
+        $this->apiKey = new ArrayCollection();
     }
 
     /**

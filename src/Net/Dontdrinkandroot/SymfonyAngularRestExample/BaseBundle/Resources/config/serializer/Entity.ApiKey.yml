@@ -1,0 +1,6 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey:
+    exclusion_policy: ALL
+    properties:
+        key:
+            type: string
+            expose: true
