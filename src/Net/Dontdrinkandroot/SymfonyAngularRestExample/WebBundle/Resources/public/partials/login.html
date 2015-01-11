@@ -2,20 +2,29 @@
     <h1>Login</h1>
 </div>
 
-<form name="form" method="post" action="" role="form" ng-hide="loading">
-    <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
-        <label class="control-label required" for="form_username">Username</label>
-        <input type="text" id="form_username" name="username" required="required" class="form-control"
-               ng-model="credentials.username" minlength="1">
+<div class="row">
+    <div class="col-lg-6">
+        <form name="form" method="post" action="" role="form" ng-hide="loading">
+            <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
+                <label class="control-label required" for="form_username">Username</label>
+                <input type="text" id="form_username" name="username" required="required" class="form-control"
+                       ng-model="credentials.username" minlength="1">
+            </div>
+            <div class="form-group" ng-class="{'has-error': form.password.$invalid}">
+                <label class="control-label required" for="form_password">Password</label>
+                <input type="password" id="form_password" name="password" required="required" rows="5"
+                       class="form-control" ng-model="credentials.password" minlength="1"
+                        />
+            </div>
+            <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submit()"
+                    ng-disabled="form.$invalid || submitting">
+                Login <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+            </button>
+        </form>
     </div>
-    <div class="form-group" ng-class="{'has-error': form.password.$invalid}">
-        <label class="control-label required" for="form_password">Password</label>
-        <input type="password" id="form_password" name="password" required="required" rows="5"
-               class="form-control" ng-model="credentials.password" minlength="1"
-                />
+    <div class="col-lg-6">
+        <div class="alert alert-info">
+            In a standard setup you can login with admin:admin or with user:user
+        </div>
     </div>
-    <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submit()"
-            ng-disabled="form.$invalid || submitting">
-        Login <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
-    </button>
-</form>
+</div>
