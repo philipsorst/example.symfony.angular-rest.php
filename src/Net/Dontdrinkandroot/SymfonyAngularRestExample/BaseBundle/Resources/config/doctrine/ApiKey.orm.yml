@@ -20,7 +20,7 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey:
     manyToOne:
         user:
             targetEntity: User
+            inversedBy: apiKeys
             joinColumn:
                 nullable: false
-                inversedBy: user
                 onDelete: CASCADE

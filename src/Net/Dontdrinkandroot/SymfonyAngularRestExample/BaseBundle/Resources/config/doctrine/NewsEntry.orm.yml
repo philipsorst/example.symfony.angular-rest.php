@@ -22,7 +22,7 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
     manyToOne:
         author:
             targetEntity: User
-            inversedBy: author
+            inversedBy: newsEntries
             joinColumn:
                 nullable: false
                 onDelete: CASCADE
