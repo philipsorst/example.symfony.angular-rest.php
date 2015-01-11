@@ -7,6 +7,11 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
                 controller: 'LoginController'
             });
 
+            $routeProvider.when('/logout', {
+                templateUrl: partialsPath + '/logout.html',
+                controller: 'LogoutController'
+            });
+
             $routeProvider.when('/news/create', {
                 templateUrl: partialsPath + '/news/edit.html',
                 controller: 'NewsCreateController'
@@ -33,6 +38,7 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
         } ]
 
     ).run(['$rootScope', '$location', '$cookieStore', 'Restangular', function ($rootScope, $location, $cookieStore, Restangular) {
+
         $rootScope.originalPath = $location.path();
         $location.path('/login');
 
@@ -44,6 +50,10 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
             Restangular.one('user', 'me').get().then(
                 function (user) {
                     $rootScope.user = user;
+                    $rootScope.user.admin = false;
+                    if (user.roles.indexOf('ROLE_ADMIN') != -1) {
+                        $rootScope.user.admin = true;
+                    }
                     $location.path($rootScope.originalPath);
                 },
                 function (error) {

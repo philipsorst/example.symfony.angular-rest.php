@@ -10,8 +10,10 @@ use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\View\View;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class NewsEntryController extends RestBaseController
 {
@@ -85,10 +87,19 @@ class NewsEntryController extends RestBaseController
      */
     public function updateNewsEntryAction(Request $request, $id)
     {
+        $newsEntryService = $this->getNewsEntryService();
+        $newsEntry = $newsEntryService->getNewsEntry($id);
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+
+        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $newsEntry->getAuthor()->getId()) {
+            throw new AccessDeniedHttpException('Cannot delete news entries of other users');
+        }
+
         /** @var NewsEntry $newsEntry */
         $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
-        $newsEntry->setAuthor($this->getUser());
-        $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
+        $newsEntry->setAuthor($newsEntry->getAuthor());
+        $newsEntry = $newsEntryService->saveNewsEntry($newsEntry);
 
         $view = $this->view($newsEntry, 204);
 
@@ -104,8 +115,15 @@ class NewsEntryController extends RestBaseController
      */
     public function deleteNewsEntryAction($id)
     {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
         $newsEntryService = $this->getNewsEntryService();
         $newsEntry = $newsEntryService->getNewsEntry($id);
+
+        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $newsEntry->getAuthor()->getId()) {
+            throw new AccessDeniedHttpException('Cannot delete news entries of other users');
+        }
+
         $newsEntryService->deleteNewsEntry($newsEntry);
 
         $view = $this->view(null, 204);

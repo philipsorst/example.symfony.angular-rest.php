@@ -2,6 +2,10 @@ body {
     padding-top: 50px;
 }
 
+.margin-bottom-none {
+    margin-bottom: 0px;
+}
+
 /* We need rotating icons for loading animations, similar to font awesome */
 .glyphicon-spin {
     -webkit-animation: spin 1000ms infinite linear;

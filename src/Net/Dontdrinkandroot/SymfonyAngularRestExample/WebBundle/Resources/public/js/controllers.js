@@ -116,7 +116,15 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
                     function (user) {
                         $scope.submitting = false;
                         $rootScope.user = user;
-                        $location.path($scope.originalPath);
+                        $rootScope.user.admin = false;
+                        if (user.roles.indexOf('ROLE_ADMIN') != -1) {
+                            $rootScope.user.admin = true;
+                        }
+                        if ($scope.originalPath !== '/login') {
+                            $location.path($scope.originalPath);
+                        } else {
+                            $location.path('/');
+                        }
                     },
                     function (error) {
                         $scope.submitting = false;
@@ -131,4 +139,11 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
             }
         )
     }
+}]);
+
+controllers.controller('LogoutController', ['$scope', '$rootScope', '$location', '$cookieStore', function ($scope, $rootScope, $location, $cookieStore) {
+
+    $cookieStore.remove('apiKey');
+    delete $rootScope.user;
+    $location.path('/login');
 }]);

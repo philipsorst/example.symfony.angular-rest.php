@@ -12,9 +12,15 @@
 
 <div ng-repeat="newsEntry in newsEntries" class="panel panel-default">
     <div class="panel-heading">
+        <div class="pull-right">
+            {{newsEntry.date | date:'short'}}
+        </div>
         <h2 class="panel-title"><a href="#!/news/{{newsEntry.id}}">{{newsEntry.title}}</a></h2>
     </div>
     <div class="panel-body">
         {{newsEntry.content}}
+        <p class="text-muted margin-bottom-none">
+            <small>by {{newsEntry.author.username}}</small>
+        </p>
     </div>
 </div>

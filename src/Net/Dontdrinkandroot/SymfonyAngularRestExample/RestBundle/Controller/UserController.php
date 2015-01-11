@@ -22,8 +22,6 @@ class UserController extends RestBaseController
      */
     public function listUsersAction()
     {
-        $user = $this->getUser();
-
         $users = $this->getUserService()->listUsers();
 
         $view = $this->view($users);
@@ -80,5 +78,6 @@ class UserController extends RestBaseController
      */
     public function invalidateApiKeyAction(Request $request)
     {
+        //TODO: implement
     }
 }

@@ -1,11 +1,16 @@
 <div class="page-header">
-    <div class="btn-group pull-right">
-        <a class="btn btn-large btn-default" href="#!/news/{{newsEntry.id}}/edit">&nbsp;<i
+    <div class="btn-group pull-right" ng-hide="!user.admin && user.id != newsEntry.author.id">
+    <a class="btn btn-large btn-default" href="#!/news/{{newsEntry.id}}/edit">&nbsp;<i
                 class="glyphicon glyphicon-pencil"></i>&nbsp;</a>
         <a class="btn btn-large btn-default" ng-click="remove(newsEntry)">&nbsp;<i
                 class="glyphicon glyphicon-trash"></i>&nbsp;</a>
     </div>
     <h1><span ng-hide="!loading" class="glyphicon glyphicon-refresh glyphicon-spin"></span>{{newsEntry.title}}</h1>
+
+    <div>
+        <span class="text-muted">Written by</span> {{newsEntry.author.username}} <span class="text-muted">on</span>
+        {{newsEntry.date | date:'short'}}
+    </div>
 </div>
 
 <div ng-hide="!loading" class="text-center">
