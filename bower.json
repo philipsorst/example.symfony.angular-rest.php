@@ -2,14 +2,14 @@
     "name": "symfony-angular-rest-example.php",
     "version": "0.1.0",
     "directory": "web/lib",
+    "private": true,
     "ignore": [],
     "dependencies": {
         "jquery": "~2.1",
-        "jquery.cookie": "~1.4",
         "angular": "1.2.x",
         "angular-route": "1.2.x",
+        "angular-cookies": "1.2.x",
         "bootstrap": "~3.2",
-        "less.js": "~1.7",
         "restangular": "~1.4"
     },
     "devDependencies": {}

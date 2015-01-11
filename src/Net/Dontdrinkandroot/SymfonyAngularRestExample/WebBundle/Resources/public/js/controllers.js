@@ -99,7 +99,7 @@ controllers.controller('NewsEditController', ['$scope', '$routeParams', '$locati
     }
 }]);
 
-controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$location', 'Restangular', function ($scope, $rootScope, $routeParams, $location, Restangular) {
+controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams', '$location', '$cookieStore', 'Restangular', function ($scope, $rootScope, $routeParams, $location, $cookieStore, Restangular) {
 
     $scope.submitting = false;
     $scope.credentials = { };
@@ -111,6 +111,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
                 Restangular.setDefaultHeaders({
                     'X-Api-Key': apiKeyResponse.key
                 });
+                $cookieStore.put('apiKey', apiKeyResponse.key);
                 Restangular.one('user', 'me').get().then(
                     function (user) {
                         $scope.submitting = false;

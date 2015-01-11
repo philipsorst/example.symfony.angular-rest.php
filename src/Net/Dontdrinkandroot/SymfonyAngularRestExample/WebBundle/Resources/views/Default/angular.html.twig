@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-hide="!user">
+<div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li><a href="#!/">Home</a></li>
         </ul>
@@ -38,6 +38,7 @@
     <script type="text/javascript" src="{{ asset('lib/bootstrap/dist/js/bootstrap.js') }}"></script>
     <script type="text/javascript" src="{{ asset('lib/angular/angular.js') }}"></script>
     <script type="text/javascript" src="{{ asset('lib/angular-route/angular-route.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('lib/angular-cookies/angular-cookies.js') }}"></script>
     <script type="text/javascript" src="{{ asset('lib/lodash/dist/lodash.js') }}"></script>
     <script type="text/javascript" src="{{ asset('lib/restangular/dist/restangular.js') }}"></script>
     <script type="text/javascript"

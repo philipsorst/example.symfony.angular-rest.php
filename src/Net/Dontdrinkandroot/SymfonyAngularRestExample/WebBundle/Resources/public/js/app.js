@@ -1,4 +1,4 @@
-var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular', 'ngRoute'])
+var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular', 'ngRoute', 'ngCookies'])
     .config(
         [ 'RestangularProvider', '$routeProvider', '$locationProvider', '$httpProvider', function (RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
 
@@ -32,7 +32,23 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
             RestangularProvider.setBaseUrl(restPath);
         } ]
 
-    ).run(['$rootScope', '$location', 'Restangular', function ($rootScope, $location, Restangular) {
+    ).run(['$rootScope', '$location', '$cookieStore', 'Restangular', function ($rootScope, $location, $cookieStore, Restangular) {
         $rootScope.originalPath = $location.path();
         $location.path('/login');
+
+        var apiKey = $cookieStore.get('apiKey');
+        if (apiKey !== undefined) {
+            Restangular.setDefaultHeaders({
+                'X-Api-Key': apiKey
+            });
+            Restangular.one('user', 'me').get().then(
+                function (user) {
+                    $rootScope.user = user;
+                    $location.path($rootScope.originalPath);
+                },
+                function (error) {
+                    console.log(error);
+                }
+            );
+        }
     }]);
