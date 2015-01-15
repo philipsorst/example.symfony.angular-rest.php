@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Comment
  */
-class Comment
+class Comment implements Entity
 {
     /**
      * @var integer

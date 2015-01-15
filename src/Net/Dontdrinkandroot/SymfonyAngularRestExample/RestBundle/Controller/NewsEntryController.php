@@ -9,6 +9,7 @@ use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
 use FOS\RestBundle\View\View;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
@@ -127,6 +128,103 @@ class NewsEntryController extends RestBaseController
         $newsEntryService->deleteNewsEntry($newsEntry);
 
         $view = $this->view(null, 204);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/{id}/comments")
+     *
+     * @param integer $id
+     *
+     * @return Response
+     */
+    public function listCommentsAction($id)
+    {
+        $newsEntryService = $this->getNewsEntryService();
+        $comments = $newsEntryService->findComments($id);
+
+        $view = $this->view($comments);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Get("/{newsEntryId}/comments/{commentId}")
+     *
+     * @param integer $newsEntryId
+     * @param integer $commentId
+     *
+     * @return Response
+     */
+    public function getCommentAction($newsEntryId, $commentId)
+    {
+        $newsEntryService = $this->getNewsEntryService();
+        $comments = $newsEntryService->getComment($commentId);
+
+        $view = $this->view($comments);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Delete("/{newsEntryId}/comments/{commentId}")
+     *
+     * @param integer $newsEntryId
+     * @param integer $commentId
+     *
+     * @return Response
+     */
+    public function deleteCommentAction($newsEntryId, $commentId)
+    {
+        $currentUser = $this->getUser();
+        $newsEntryService = $this->getNewsEntryService();
+
+        $comment = $newsEntryService->getComment($commentId);
+
+        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $comment->getAuthor()->getId()) {
+            throw new AccessDeniedHttpException('Cannot delete comment of other users');
+        }
+
+        $comments = $newsEntryService->deleteComment($comment);
+
+        $view = $this->view($comments);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Post("/{id}/comments")
+     *
+     * @param Request $request
+     * @param integer $id
+     *
+     * @return Response
+     */
+    public function createCommentAction(Request $request, $id)
+    {
+        /** @var User $currentUser */
+        $currentUser = $this->getUser();
+        $newsEntryService = $this->getNewsEntryService();
+        $newsEntry = $newsEntryService->getNewsEntry($id);
+
+        /** @var Comment $comment */
+        $comment = $this->deserializeJson($request, get_class(new Comment()));
+        $comment->setAuthor($this->getUser());
+        $comment->setDate(new \DateTime());
+        $comment->setNewsEntry($newsEntry);
+        $comment = $this->getNewsEntryService()->saveComment($comment);
+
+        $view = $this->view($comment, 201);
+
+        $view->setHeader(
+            'Location',
+            $this->generateUrl(
+                'ddr_symfony_angular_rest_example_rest_newsentry_get_comment',
+                ['newsEntryId' => $id, 'commentId' => $comment->getId()],
+                true
+            )
+        );
 
         return $this->handleView($view);
     }

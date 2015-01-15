@@ -20,12 +20,19 @@ services:
         factory_method: getRepository
         arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey ]
 
+    ddr.symfonyangularrestexample.repository.comment:
+        class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment ]
+
     # Services
 
     ddr.symfonyangularrestexample.service.newsentry:
         class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineNewsEntryService
         arguments:
             - '@ddr.symfonyangularrestexample.repository.newsentry'
+            - '@ddr.symfonyangularrestexample.repository.comment'
 
     ddr.symfonyangularrestexample.service.user:
         class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineUserService

@@ -3,8 +3,10 @@
 
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\ResourceNotFoundException;
+use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository;
 
 class DoctrineNewsEntryService implements NewsEntryService
@@ -15,9 +17,15 @@ class DoctrineNewsEntryService implements NewsEntryService
      */
     protected $newsEntryRepository;
 
-    public function __construct(NewsEntryRepository $newsEntryRepository)
+    /**
+     * @var CommentRepository
+     */
+    protected $commentRepository;
+
+    public function __construct(NewsEntryRepository $newsEntryRepository, CommentRepository $commentRepository)
     {
         $this->newsEntryRepository = $newsEntryRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     /**
@@ -50,7 +58,7 @@ class DoctrineNewsEntryService implements NewsEntryService
     /**
      * @param NewsEntry $newsEntry
      */
-    public function deleteNewsEntry($newsEntry)
+    public function deleteNewsEntry(NewsEntry $newsEntry)
     {
         $this->newsEntryRepository->remove($newsEntry);
     }
@@ -63,5 +71,50 @@ class DoctrineNewsEntryService implements NewsEntryService
     public function saveNewsEntry($newsEntry)
     {
         return $this->newsEntryRepository->save($newsEntry);
+    }
+
+    /**
+     * @param integer $id
+     *
+     * @return Comment[]
+     */
+    public function findComments($id)
+    {
+        $comments = $this->commentRepository->findBy(['newsEntry' => $id], ['date' => 'DESC']);
+
+        return $comments;
+    }
+
+    /**
+     * @param $commentId
+     *
+     * @return Comment
+     */
+    public function getComment($commentId)
+    {
+        $comment = $this->commentRepository->find($commentId);
+        if (null === $comment) {
+            throw new ResourceNotFoundException();
+        }
+
+        return $comment;
+    }
+
+    /**
+     * @param Comment $comment
+     */
+    public function deleteComment(Comment $comment)
+    {
+        $this->commentRepository->remove($comment);
+    }
+
+    /**
+     * @param Comment $comment
+     *
+     * @return Comment
+     */
+    public function saveComment($comment)
+    {
+        return $this->commentRepository->save($comment);
     }
 }

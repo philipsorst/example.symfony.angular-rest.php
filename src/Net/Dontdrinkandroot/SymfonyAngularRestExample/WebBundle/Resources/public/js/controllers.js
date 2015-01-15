@@ -19,12 +19,29 @@ controllers.controller('IndexController', ['$scope', 'Restangular', function ($s
 controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$window', 'Restangular', function ($scope, $routeParams, $window, Restangular) {
 
     var id = $routeParams.id;
+    $scope.comment = {};
+
+    $scope.loadComments = function () {
+        $scope.commentsLoading = true;
+        $scope.newsEntry.all('comments').getList().then(
+            function (comments) {
+                $scope.commentsLoading = false;
+                $scope.comments = comments;
+            },
+            function (error) {
+                $scope.commentsLoading = false;
+                console.error(error);
+            }
+        )
+    }
 
     $scope.loading = true;
     Restangular.one('newsentry', id).get().then(
         function (newsEntry) {
             $scope.loading = false;
             $scope.newsEntry = newsEntry;
+
+            $scope.loadComments();
         },
         function (error) {
             $scope.loading = false;
@@ -41,7 +58,32 @@ controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$wind
                 console.error(error);
             }
         );
-    }
+    };
+
+    $scope.removeComment = function (comment) {
+        comment.remove().then(
+            function () {
+                $scope.loadComments();
+            },
+            function (error) {
+                console.error(error);
+            }
+        )
+    };
+
+    $scope.submitComment = function () {
+        $scope.submitting = true;
+        $scope.newsEntry.all('comments').post($scope.comment).then(
+            function (newsEntry) {
+                $scope.submitting = false;
+                $scope.loadComments();
+            },
+            function (error) {
+                $scope.submitting = false;
+                console.error(error);
+            }
+        )
+    };
 }]);
 
 controllers.controller('NewsCreateController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
@@ -121,7 +163,9 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
                             $rootScope.user.admin = true;
                         }
                         if ($scope.originalPath !== '/login') {
-                            $location.path($scope.originalPath);
+                            var redirectTo = $scope.originalPath;
+                            delete $scope.originalPath;
+                            $location.path(redirectTo);
                         } else {
                             $location.path('/');
                         }
