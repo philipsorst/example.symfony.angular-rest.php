@@ -33,7 +33,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         $apiKey = $token->getCredentials();
-        if (null === $apiKey) {
+        if (null === $apiKey || 'null' === $apiKey) {
             return new PreAuthenticatedToken(
                 'anon.',
                 $apiKey,

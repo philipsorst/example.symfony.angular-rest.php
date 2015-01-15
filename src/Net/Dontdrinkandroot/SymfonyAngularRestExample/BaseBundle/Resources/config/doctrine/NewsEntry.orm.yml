@@ -19,6 +19,11 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
         date:
             type: datetime
             nullable: false
+        numComments:
+            type: integer
+            nullable: false
+            options:
+                default: 0
     manyToOne:
         author:
             targetEntity: User
@@ -26,4 +31,9 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
             joinColumn:
                 nullable: false
                 onDelete: CASCADE
+    oneToMany:
+        comments:
+            targetEntity: Comment
+            mappedBy: newsEntry
+            cascade: [remove]
     lifecycleCallbacks: {  }

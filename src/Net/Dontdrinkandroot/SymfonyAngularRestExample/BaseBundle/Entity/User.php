@@ -24,6 +24,11 @@ class User extends BaseUser implements Entity
     private $apiKeys;
 
     /**
+     * @var Collection
+     */
+    private $comments;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -31,6 +36,7 @@ class User extends BaseUser implements Entity
         parent::__construct();
         $this->newsEntries = new ArrayCollection();
         $this->apiKey = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -99,5 +105,39 @@ class User extends BaseUser implements Entity
     public function getApiKeys()
     {
         return $this->apiKeys;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Comment $comments
+     *
+     * @return User
+     */
+    public function addComment(Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param Comment $comments
+     */
+    public function removeComment(Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

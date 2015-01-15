@@ -17,4 +17,8 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User:
             targetEntity: ApiKey
             mappedBy: user
             cascade: [remove]
+        comments:
+            targetEntity: Comment
+            mappedBy: user
+            cascade: [remove]
     lifecycleCallbacks: {  }

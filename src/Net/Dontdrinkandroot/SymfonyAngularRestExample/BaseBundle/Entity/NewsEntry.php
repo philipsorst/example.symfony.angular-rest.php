@@ -2,6 +2,8 @@
 
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,12 +32,23 @@ class NewsEntry implements Entity
     private $date;
 
     /**
+     * @var integer
+     */
+    private $numComments = 0;
+
+    /**
+     * @var Collection
+     */
+    private $comments;
+
+    /**
      * @var User
      */
     private $author;
 
     public function __construct()
     {
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -142,5 +155,63 @@ class NewsEntry implements Entity
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set numComments
+     *
+     * @param integer $numComments
+     *
+     * @return NewsEntry
+     */
+    public function setNumComments($numComments)
+    {
+        $this->numComments = $numComments;
+
+        return $this;
+    }
+
+    /**
+     * Get numComments
+     *
+     * @return integer
+     */
+    public function getNumComments()
+    {
+        return $this->numComments;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param Comment $comment
+     *
+     * @return Comment
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

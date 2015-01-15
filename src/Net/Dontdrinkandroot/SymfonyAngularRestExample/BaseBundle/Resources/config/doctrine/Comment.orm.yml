@@ -1,0 +1,31 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment:
+    type: entity
+    table: null
+    repositoryClass: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: text
+            nullable: false
+        date:
+            type: datetime
+            nullable: false
+    manyToOne:
+        author:
+            targetEntity: User
+            inversedBy: newsEntries
+            joinColumn:
+                nullable: false
+                onDelete: CASCADE
+        newsEntry:
+            targetEntity: NewsEntry
+            inversedBy: comments
+            joinColumn:
+                nullable: false
+                onDelete: CASCADE
+    lifecycleCallbacks: {  }

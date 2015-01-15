@@ -58,6 +58,13 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
                 },
                 function (error) {
                     console.log(error);
+                    if (error.status === 401 || error.status === 403) {
+                        $cookieStore.remove('apiKey');
+                        Restangular.setDefaultHeaders({
+                            'X-Api-Key': null
+                        });
+                    }
+
                 }
             );
         }

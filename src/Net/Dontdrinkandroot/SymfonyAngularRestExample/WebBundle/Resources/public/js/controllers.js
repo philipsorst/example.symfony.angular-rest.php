@@ -136,14 +136,23 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
                 $scope.submitting = false;
                 alert('Auth failed');
                 console.error(error);
+                if (error.status === 401 || error.status === 403) {
+                    $cookieStore.remove('apiKey');
+                    Restangular.setDefaultHeaders({
+                        'X-Api-Key': null
+                    });
+                }
             }
         )
     }
 }]);
 
-controllers.controller('LogoutController', ['$scope', '$rootScope', '$location', '$cookieStore', function ($scope, $rootScope, $location, $cookieStore) {
+controllers.controller('LogoutController', ['$scope', '$rootScope', '$location', '$cookieStore', 'Restangular', function ($scope, $rootScope, $location, $cookieStore, Restangular) {
 
     $cookieStore.remove('apiKey');
     delete $rootScope.user;
+    Restangular.setDefaultHeaders({
+        'X-Api-Key': null
+    });
     $location.path('/login');
 }]);

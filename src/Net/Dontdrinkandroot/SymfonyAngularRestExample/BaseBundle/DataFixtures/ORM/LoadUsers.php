@@ -47,6 +47,16 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
         $userManager->updateUser($user, true);
 
         $this->addReference('user', $user);
+
+        $dummy = $userManager->createUser();
+        $dummy->setUsername('dummy');
+        $dummy->setEmail('dummy@example.com');
+        $dummy->setPlainPassword('dummy');
+        $dummy->setEnabled(true);
+
+        $userManager->updateUser($dummy, true);
+
+        $this->addReference('dummy', $dummy);
     }
 
     /**
