@@ -37,7 +37,7 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
             RestangularProvider.setBaseUrl(restPath);
         } ]
 
-    ).run(['$rootScope', '$location', '$cookieStore', 'Restangular', function ($rootScope, $location, $cookieStore, Restangular) {
+    ).run(['$rootScope', '$location', '$cookieStore', '$http', 'Restangular', function ($rootScope, $location, $cookieStore, $http, Restangular) {
 
         $rootScope.originalPath = $location.path();
         $location.path('/login');
@@ -60,9 +60,7 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
                     console.log(error);
                     if (error.status === 401 || error.status === 403) {
                         $cookieStore.remove('apiKey');
-                        Restangular.setDefaultHeaders({
-                            'X-Api-Key': null
-                        });
+                        delete $http.defaults.headers.common['X-Auth-Token'];
                     }
 
                 }

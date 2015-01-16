@@ -191,12 +191,10 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$routeParams
     }
 }]);
 
-controllers.controller('LogoutController', ['$scope', '$rootScope', '$location', '$cookieStore', 'Restangular', function ($scope, $rootScope, $location, $cookieStore, Restangular) {
+controllers.controller('LogoutController', ['$scope', '$rootScope', '$location', '$cookieStore', '$http', 'Restangular', function ($scope, $rootScope, $location, $cookieStore, $http, Restangular) {
 
     $cookieStore.remove('apiKey');
     delete $rootScope.user;
-    Restangular.setDefaultHeaders({
-        'X-Api-Key': null
-    });
+    delete $http.defaults.headers.common['X-Auth-Token'];
     $location.path('/login');
 }]);
