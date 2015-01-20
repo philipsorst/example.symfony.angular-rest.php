@@ -1,0 +1,15 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        title:
+            expose: true
+        content:
+            expose: true
+        date:
+            expose: true
+        numComments:
+            expose: true
+        author:
+            expose: true

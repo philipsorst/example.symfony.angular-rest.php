@@ -6,7 +6,7 @@ About
 
 This project demonstrates how to build a REST API with the Symfony Framework and how to run an AngularJS Application against it.
 
-If you like this project, please donate. I am not paid for this work. Thank you.
+If you like this project, please donate. Thank you.
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=shoxrocks&url=http://sorst.net/github/symfony-angular-rest-example.php&title=Symfony Angular Rest Example&language=&tags=github&category=software)
 

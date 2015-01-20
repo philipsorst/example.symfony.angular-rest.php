@@ -1,0 +1,11 @@
+Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+        content:
+            expose: true
+        date:
+            expose: true
+        author:
+            expose: true
