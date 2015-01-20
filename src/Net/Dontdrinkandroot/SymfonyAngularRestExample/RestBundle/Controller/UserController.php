@@ -66,7 +66,7 @@ class UserController extends RestBaseController
         $credentials = $this->deserializeJson($request, get_class(new UserCredentials()));
         $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
 
-        $view = $this->view($apiKey, 201);
+        $view = $this->view($apiKey, Response::HTTP_CREATED);
 
         return $this->handleView($view);
     }

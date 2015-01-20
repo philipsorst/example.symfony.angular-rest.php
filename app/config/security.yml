@@ -31,6 +31,6 @@ security:
 
     access_control:
         - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/rest/user/createapikey, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rest/users/createapikey, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest/*, roles: ROLE_USER }
         - { path: .*, roles: ROLE_USER }

@@ -60,11 +60,12 @@ class NewsEntryController extends RestBaseController
     {
         /** @var NewsEntry $newsEntry */
         $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+
         $newsEntry->setAuthor($this->getUser());
         $newsEntry->setDate(new \DateTime());
         $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
 
-        $view = $this->view($newsEntry, 201);
+        $view = $this->view($newsEntry, Response::HTTP_CREATED);
 
         $view->setHeader(
             'Location',
@@ -94,7 +95,7 @@ class NewsEntryController extends RestBaseController
         $currentUser = $this->getUser();
 
         if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $newsEntry->getAuthor()->getId()) {
-            throw new AccessDeniedHttpException('Cannot delete news entries of other users');
+            throw $this->createAccessDeniedException('Cannot delete news entries of other users');
         }
 
         /** @var NewsEntry $newsEntry */
@@ -102,7 +103,7 @@ class NewsEntryController extends RestBaseController
         $newsEntry->setAuthor($newsEntry->getAuthor());
         $newsEntry = $newsEntryService->saveNewsEntry($newsEntry);
 
-        $view = $this->view($newsEntry, 204);
+        $view = $this->view($newsEntry);
 
         return $this->handleView($view);
     }
@@ -127,7 +128,7 @@ class NewsEntryController extends RestBaseController
 
         $newsEntryService->deleteNewsEntry($newsEntry);
 
-        $view = $this->view(null, 204);
+        $view = $this->view(null, Response::HTTP_NO_CONTENT);
 
         return $this->handleView($view);
     }
@@ -188,7 +189,7 @@ class NewsEntryController extends RestBaseController
 
         $comments = $newsEntryService->deleteComment($comment);
 
-        $view = $this->view($comments);
+        $view = $this->view($comments, Response::HTTP_NO_CONTENT);
 
         return $this->handleView($view);
     }
@@ -215,7 +216,7 @@ class NewsEntryController extends RestBaseController
         $comment->setNewsEntry($newsEntry);
         $comment = $this->getNewsEntryService()->saveComment($comment);
 
-        $view = $this->view($comment, 201);
+        $view = $this->view($comment, Response::HTTP_CREATED);
 
         $view->setHeader(
             'Location',
