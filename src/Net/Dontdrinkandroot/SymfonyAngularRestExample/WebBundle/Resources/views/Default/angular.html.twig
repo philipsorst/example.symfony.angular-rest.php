@@ -11,13 +11,14 @@
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-hide="!user">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 <div class="container">
         <ul class="nav navbar-nav navbar-left">
             <li><a href="#!/">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <li ng-hide="user"><a href="#!/login">Login</a></li>
+            <li ng-show="user" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">{{ '{{ user.username }}' }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">

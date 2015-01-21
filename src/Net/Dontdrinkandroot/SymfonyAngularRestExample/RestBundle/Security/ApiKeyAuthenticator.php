@@ -30,24 +30,17 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         $this->httpUtils = $httpUtils;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function authenticateToken(TokenInterface $token, UserProviderInterface $userProvider, $providerKey)
     {
         $apiKey = $token->getCredentials();
-        if (null === $apiKey || 'null' === $apiKey) {
-            return new PreAuthenticatedToken(
-                'anon.',
-                $apiKey,
-                $providerKey,
-                []
-            );
-        }
 
         $user = $this->userService->findUserByApiKey($apiKey);
 
         if (null === $user) {
-            throw new AuthenticationException(
-                sprintf('API Key "%s" does not exist.', $apiKey)
-            );
+            throw new AuthenticationException('Invalid API Key');
         }
 
         return new PreAuthenticatedToken(
@@ -58,16 +51,26 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     public function supportsToken(TokenInterface $token, $providerKey)
     {
         return $token instanceof PreAuthenticatedToken && $token->getProviderKey() === $providerKey;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function createToken(Request $request, $providerKey)
     {
         $apiKey = $request->query->get('apikey');
         if (null === $apiKey) {
             $apiKey = $request->headers->get('X-Api-Key');
+        }
+
+        if (null === $apiKey || 'null' === $apiKey) {
+            return null;
         }
 
         return new PreAuthenticatedToken(
@@ -77,6 +80,9 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         );
     }
 
+    /**
+     * @inheritdoc
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         return new Response("Authentication Failed.", 403);

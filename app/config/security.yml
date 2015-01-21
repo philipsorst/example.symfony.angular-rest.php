@@ -20,6 +20,7 @@ security:
             stateless: true
             simple_preauth:
                 authenticator: ddr.symfonyangularrestexample.security.api_key_authenticator
+            anonymous:    true
 
         main:
             pattern: ^/
@@ -30,7 +31,4 @@ security:
             anonymous:    true
 
     access_control:
-        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/rest/users/createapikey, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/rest/*, roles: ROLE_USER }
-        - { path: .*, roles: ROLE_USER }
+        - { path: ^/rest/*, methods: [POST,PUT,DELETE], role: ROLE_USER }

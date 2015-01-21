@@ -42,15 +42,17 @@
     </div>
 </div>
 
-<form name="form" method="post" action="" role="form" ng-hide="loading">
-    <div class="form-group" ng-class="{'has-error': form.content.$invalid}">
-        <label class="control-label required" for="form_content">Content</label>
+<div ng-show="user">
+    <form name="form" method="post" action="" role="form" ng-hide="loading">
+        <div class="form-group" ng-class="{'has-error': form.content.$invalid}">
+            <label class="control-label required" for="form_content">Content</label>
         <textarea id="form_content" name="content" required="required" rows="5"
                   class="form-control" ng-model="comment.content" minlength="1"
                   maxlength="511"></textarea>
-    </div>
-    <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submitComment()"
-            ng-disabled="form.$invalid || submitting">
-        Save <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
-    </button>
-</form>
+        </div>
+        <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submitComment()"
+                ng-disabled="form.$invalid || submitting">
+            Save <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+        </button>
+    </form>
+</div>

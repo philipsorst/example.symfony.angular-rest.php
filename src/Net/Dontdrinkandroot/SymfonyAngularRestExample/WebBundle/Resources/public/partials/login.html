@@ -2,7 +2,11 @@
     <h1>Login</h1>
 </div>
 
-<div class="row">
+<div class="alert alert-info" ng-show="user">
+    You are logged in.
+</div>
+
+<div class="row" ng-hide="user">
     <div class="col-lg-6">
         <form name="form" method="post" action="" role="form" ng-hide="loading">
             <div class="form-group" ng-class="{'has-error': form.username.$invalid}">
