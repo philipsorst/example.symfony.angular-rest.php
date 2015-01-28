@@ -146,9 +146,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
 
     function verifyApiKey(apiKey) {
         $scope.submitting = true;
-        Restangular.setDefaultHeaders({
-            'X-Api-Key': apiKey
-        });
+        $http.defaults.headers.common['X-Api-Key'] = apiKey;
         $cookieStore.put('apiKey', apiKey);
         Restangular.one('users', 'me').get().then(
             function (user) {
@@ -185,7 +183,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
                 console.error(error);
                 if (error.status === 401 || error.status === 403) {
                     $cookieStore.remove('apiKey');
-                    delete $http.defaults.headers['X-Api-Key'];
+                    delete $http.defaults.headers.common['X-Api-Key'];
                 }
             }
         )
@@ -203,5 +201,5 @@ controllers.controller('LogoutController', ['$scope', '$rootScope', '$http', '$l
     $cookieStore.remove('apiKey');
     delete $rootScope.user;
     $location.path('/login');
-    delete $http.defaults.headers['X-Api-Key'];
+    delete $http.defaults.headers.common['X-Api-Key'];
 }]);

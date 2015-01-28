@@ -61,6 +61,12 @@ class NewsEntryController extends RestBaseController
         /** @var NewsEntry $newsEntry */
         $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
 
+        $errors = $this->validate($newsEntry);
+        if (count($errors) > 0) {
+            $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
+            return $this->handleView($view);
+        }
+
         $newsEntry->setAuthor($this->getUser());
         $newsEntry->setDate(new \DateTime());
         $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
@@ -100,6 +106,13 @@ class NewsEntryController extends RestBaseController
 
         /** @var NewsEntry $newsEntry */
         $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+
+        $errors = $this->validate($newsEntry);
+        if (count($errors) > 0) {
+            $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
+            return $this->handleView($view);
+        }
+
         $newsEntry->setAuthor($newsEntry->getAuthor());
         $newsEntry = $newsEntryService->saveNewsEntry($newsEntry);
 
@@ -211,6 +224,13 @@ class NewsEntryController extends RestBaseController
 
         /** @var Comment $comment */
         $comment = $this->deserializeJson($request, get_class(new Comment()));
+
+        $errors = $this->validate($comment);
+        if (count($errors) > 0) {
+            $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
+            return $this->handleView($view);
+        }
+
         $comment->setAuthor($this->getUser());
         $comment->setDate(new \DateTime());
         $comment->setNewsEntry($newsEntry);

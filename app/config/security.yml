@@ -31,4 +31,6 @@ security:
             anonymous:    true
 
     access_control:
+        - { path: ^/rest/users/createapikey$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest/*, methods: [POST,PUT,DELETE], role: ROLE_USER }
+        - { path: ^/rest/users*, role: ROLE_USER }

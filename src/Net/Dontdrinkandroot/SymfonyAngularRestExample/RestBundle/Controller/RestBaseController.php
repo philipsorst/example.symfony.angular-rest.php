@@ -8,6 +8,7 @@ use JMS\Serializer\Serializer;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\NewsEntryService;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\UserService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class RestBaseController extends FOSRestController
 {
@@ -39,8 +40,20 @@ class RestBaseController extends FOSRestController
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');
         $content = $request->getContent();
-        $object = $serializer->deserialize($content, $type, 'json');
+        $object = $serializer->deserialize($content, $type, $request->getContentType());
 
         return $object;
+    }
+
+    /**
+     * @param mixed $object
+     *
+     * @return ConstraintViolationListInterface
+     */
+    protected function validate($object) {
+        $validator = $this->get('validator');
+        $errors = $validator->validate($object);
+
+        return $errors;
     }
 } 

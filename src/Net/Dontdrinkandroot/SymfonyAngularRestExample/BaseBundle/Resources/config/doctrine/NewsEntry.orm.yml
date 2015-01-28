@@ -11,10 +11,11 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
     fields:
         title:
             type: string
-            length: 255
+            length: 63
             nullable: false
         content:
             type: text
+            length: 511
             nullable: false
         date:
             type: datetime

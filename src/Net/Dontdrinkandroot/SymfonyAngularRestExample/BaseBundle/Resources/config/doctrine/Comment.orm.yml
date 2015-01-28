@@ -10,7 +10,8 @@ Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment:
                 strategy: AUTO
     fields:
         content:
-            type: text
+            type: string
+            length: 255
             nullable: false
         date:
             type: datetime
