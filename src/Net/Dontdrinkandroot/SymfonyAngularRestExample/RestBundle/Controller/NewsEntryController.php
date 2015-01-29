@@ -3,12 +3,10 @@
 
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Put;
 use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations\Put;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
@@ -59,7 +57,7 @@ class NewsEntryController extends RestBaseController
     public function createNewsEntryAction(Request $request)
     {
         /** @var NewsEntry $newsEntry */
-        $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+        $newsEntry = $this->serializeRequestContent($request, get_class(new NewsEntry()));
 
         $errors = $this->validate($newsEntry);
         if (count($errors) > 0) {
@@ -105,7 +103,7 @@ class NewsEntryController extends RestBaseController
         }
 
         /** @var NewsEntry $newsEntry */
-        $newsEntry = $this->deserializeJson($request, get_class(new NewsEntry()));
+        $newsEntry = $this->serializeRequestContent($request, get_class(new NewsEntry()));
 
         $errors = $this->validate($newsEntry);
         if (count($errors) > 0) {
@@ -223,7 +221,7 @@ class NewsEntryController extends RestBaseController
         $newsEntry = $newsEntryService->getNewsEntry($id);
 
         /** @var Comment $comment */
-        $comment = $this->deserializeJson($request, get_class(new Comment()));
+        $comment = $this->serializeRequestContent($request, get_class(new Comment()));
 
         $errors = $this->validate($comment);
         if (count($errors) > 0) {

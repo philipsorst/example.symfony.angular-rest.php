@@ -4,10 +4,7 @@
 namespace Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
 use Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Model\UserCredentials;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,7 +60,7 @@ class UserController extends RestBaseController
     public function createApiKeyAction(Request $request)
     {
         /** @var UserCredentials $credentials */
-        $credentials = $this->deserializeJson($request, get_class(new UserCredentials()));
+        $credentials = $this->serializeRequestContent($request, get_class(new UserCredentials()));
         $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
 
         $view = $this->view($apiKey, Response::HTTP_CREATED);
