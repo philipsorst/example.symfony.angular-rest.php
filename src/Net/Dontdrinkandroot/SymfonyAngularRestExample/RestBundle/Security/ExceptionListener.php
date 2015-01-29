@@ -48,7 +48,7 @@ class ExceptionListener
             $token = $this->securityContext->getToken();
             if (!$this->trustResolver->isFullFledged($token)) {
                 $event->setException(new AccessDeniedHttpException($exception->getMessage(), $exception));
-                $event->setResponse(new Response($exception->getMessage(), 401));
+                $event->setResponse(new Response($exception->getMessage(), Response::HTTP_UNAUTHORIZED));
             }
         }
     }

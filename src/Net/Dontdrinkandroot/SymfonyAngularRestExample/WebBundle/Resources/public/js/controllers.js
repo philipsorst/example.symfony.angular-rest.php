@@ -144,6 +144,16 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     $scope.submitting = false;
     $scope.credentials = {};
 
+    function redirect() {
+        if ($scope.originalPath !== '/login') {
+            var redirectTo = $scope.originalPath;
+            delete $scope.originalPath;
+            $location.path(redirectTo);
+        } else {
+            $location.path('/');
+        }
+    }
+
     function verifyApiKey(apiKey) {
         $scope.submitting = true;
         $http.defaults.headers.common['X-Api-Key'] = apiKey;
@@ -156,13 +166,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
                 if (user.roles.indexOf('ROLE_ADMIN') != -1) {
                     $rootScope.user.admin = true;
                 }
-                if ($scope.originalPath !== '/login') {
-                    var redirectTo = $scope.originalPath;
-                    delete $scope.originalPath;
-                    $location.path(redirectTo);
-                } else {
-                    $location.path('/');
-                }
+                redirect();
             },
             function (error) {
                 $scope.submitting = false;
@@ -172,6 +176,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     }
 
     $scope.submit = function () {
+        delete $http.defaults.headers.common['X-Api-Key'];
         $scope.submitting = true;
         Restangular.all('users').all('createapikey').post($scope.credentials).then(
             function (apiKeyResponse) {
@@ -193,6 +198,8 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     var apiKey = $cookieStore.get('apiKey');
     if (apiKey !== undefined) {
         verifyApiKey(apiKey);
+    } else {
+        redirect();
     }
 }]);
 

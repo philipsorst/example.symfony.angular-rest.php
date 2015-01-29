@@ -20,15 +20,15 @@ security:
             stateless: true
             simple_preauth:
                 authenticator: ddr.symfonyangularrestexample.security.api_key_authenticator
-            anonymous:    true
+            anonymous: true
 
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
-            anonymous:    true
+            logout: true
+            anonymous: true
 
     access_control:
         - { path: ^/rest/users/createapikey$, role: IS_AUTHENTICATED_ANONYMOUSLY }

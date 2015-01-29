@@ -38,5 +38,4 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
     }]
 ).run(['$rootScope', '$location', function ($rootScope, $location) {
         $rootScope.originalPath = $location.path();
-        $location.path('/login');
     }]);
