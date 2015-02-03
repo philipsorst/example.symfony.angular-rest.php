@@ -1,0 +1,40 @@
+Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
+    type: entity
+    table: null
+    repositoryClass: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+            length: 63
+            nullable: false
+        content:
+            type: text
+            length: 511
+            nullable: false
+        date:
+            type: datetime
+            nullable: false
+        numComments:
+            type: integer
+            nullable: false
+            options:
+                default: 0
+    manyToOne:
+        author:
+            targetEntity: User
+            inversedBy: newsEntries
+            joinColumn:
+                nullable: false
+                onDelete: CASCADE
+    oneToMany:
+        comments:
+            targetEntity: Comment
+            mappedBy: newsEntry
+            cascade: [remove]
+    lifecycleCallbacks: {  }

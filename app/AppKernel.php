@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -15,13 +15,13 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DdrSymfonyAngularRestExampleBaseBundle(),
+            new Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DdrSymfonyAngularRestExampleBaseBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Net\Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\DdrSymfonyAngularRestExampleRestBundle(),
+            new Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\DdrSymfonyAngularRestExampleRestBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new Net\Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\DdrSymfonyAngularRestExampleWebBundle(),
+            new Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\DdrSymfonyAngularRestExampleWebBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -55,7 +55,7 @@ doctrine:
 # FOS User Bundle configuration
 fos_user:
     db_driver: orm
-    user_class: Net\Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User
+    user_class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User
     firewall_name: main
     service:
         mailer: fos_user.mailer.noop

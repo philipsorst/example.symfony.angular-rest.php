@@ -23,9 +23,9 @@ Installation
 ------------
 
 * Clone the repository and make sure ```web/``` dir is accessible by webserver.
+* Create the database: Run ```bin/console doctrine:schema:create``` and ```bin/console doctrine:fixtures:load```
 * [Make sure var/cache/, var/data/ and var/logs/ are writeable for the web server](http://symfony.com/doc/current/book/installation.html#checking-symfony-application-configuration-and-setup). If you use Ubuntu and have ACL enabled you can use the ```bin/set-permissions``` script.
 * Run ```bin/update-dev``` to run in dev mode or ```bin/install``` to run in prod mode.
-* Create the database: Run ```bin/console doctrine:schema:create``` and ```bin/console doctrine:fixtures:load```
 
 Further reading
 ---------------

@@ -1,0 +1,43 @@
+services:
+
+    # Repositories
+
+    ddr.symfonyangularrestexample.repository.user:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User ]
+
+    ddr.symfonyangularrestexample.repository.newsentry:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
+
+    ddr.symfonyangularrestexample.repository.apikey:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey ]
+
+    ddr.symfonyangularrestexample.repository.comment:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment ]
+
+    # Services
+
+    ddr.symfonyangularrestexample.service.newsentry:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineNewsEntryService
+        arguments:
+            - '@ddr.symfonyangularrestexample.repository.newsentry'
+            - '@ddr.symfonyangularrestexample.repository.comment'
+
+    ddr.symfonyangularrestexample.service.user:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineUserService
+        arguments:
+            - '@ddr.symfonyangularrestexample.repository.user'
+            - '@ddr.symfonyangularrestexample.repository.apikey'
+            - '@fos_user.user_provider.username'
+            - '@security.encoder_factory'
