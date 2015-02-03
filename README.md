@@ -1,6 +1,8 @@
 symfony-angular-rest-example.php
 ================================
 
+[![Build Status](https://travis-ci.org/philipsorst/symfony-angular-rest-example.php.svg?branch=master)](https://travis-ci.org/philipsorst/symfony-angular-rest-example.php)
+
 About
 -----
 
