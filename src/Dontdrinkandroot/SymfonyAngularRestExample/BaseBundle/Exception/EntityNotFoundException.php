@@ -2,7 +2,7 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception;
 
-class ResourceNotFoundException extends \Exception
+class EntityNotFoundException extends \Exception
 {
 
     public function __construct($message = "", $code = 0, \Exception $previous = null)

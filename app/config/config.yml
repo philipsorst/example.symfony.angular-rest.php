@@ -66,6 +66,9 @@ fos_rest:
         default_format: json
     serializer:
         groups: ['Default']
+    exception:
+        codes:
+            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\EntityNotFoundException': 404
 
 # JMS Serializer Bundle configuration
 jms_serializer:

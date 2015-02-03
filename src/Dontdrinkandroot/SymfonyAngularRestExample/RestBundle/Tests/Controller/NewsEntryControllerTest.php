@@ -30,6 +30,15 @@ class NewsEntryControllerTest extends RestControllerTestCase
         $this->assertEquals($expectedContent, $content);
     }
 
+    public function testGetMissingNewsEntry() {
+        $route = $this->getUrl('ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry', ['id' => 666]);
+
+        $this->client->request('GET', $route, [], [], ['HTTP_ACCEPT' => 'application/json']);
+        $response = $this->client->getResponse();
+
+        $content = $this->assertJsonResponse($response, 404);
+    }
+
     /**
      * @return string[]
      */
