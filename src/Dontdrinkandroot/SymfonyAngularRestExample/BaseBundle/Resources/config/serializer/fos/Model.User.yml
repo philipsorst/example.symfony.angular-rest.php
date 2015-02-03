@@ -9,4 +9,4 @@ FOS\UserBundle\Model\User:
             expose: true
         roles:
             type: array
-            expose: true
+            groups: [UserRoles]

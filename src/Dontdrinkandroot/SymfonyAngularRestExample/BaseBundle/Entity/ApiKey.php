@@ -26,6 +26,16 @@ class ApiKey implements Entity
     private $user;
 
     /**
+     * @param User|null   $user
+     * @param string|null $key
+     */
+    public function __construct(User $user = null, $key = null)
+    {
+        $this->user = $user;
+        $this->key = $key;
+    }
+
+    /**
      * Set id
      *
      * @param int $id

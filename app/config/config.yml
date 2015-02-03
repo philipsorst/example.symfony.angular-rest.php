@@ -63,8 +63,9 @@ fos_user:
 # FOS Rest Bundle configuration
 fos_rest:
     routing_loader:
-        include_format: false
         default_format: json
+    serializer:
+        groups: ['Default']
 
 # JMS Serializer Bundle configuration
 jms_serializer:

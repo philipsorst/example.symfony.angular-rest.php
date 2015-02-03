@@ -2,15 +2,17 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class Users extends AbstractOrderedFixture implements ContainerAwareInterface
 {
+
+    const ADMIN = 'admin';
+    const USER = 'user';
+    const DUMMY = 'dummy';
 
     /**
      * @var ContainerInterface
@@ -36,7 +38,8 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
 
         $userManager->updateUser($admin, true);
 
-        $this->addReference('admin', $admin);
+        $this->addReference(self::ADMIN, $admin);
+        $this->addReference('user-1', $admin);
 
         $user = $userManager->createUser();
         $user->setUsername('user');
@@ -46,7 +49,8 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
 
         $userManager->updateUser($user, true);
 
-        $this->addReference('user', $user);
+        $this->addReference(self::USER, $user);
+        $this->addReference('user-2', $user);
 
         $dummy = $userManager->createUser();
         $dummy->setUsername('dummy');
@@ -56,7 +60,8 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface, Cont
 
         $userManager->updateUser($dummy, true);
 
-        $this->addReference('dummy', $dummy);
+        $this->addReference(self::DUMMY, $dummy);
+        $this->addReference('user-3', $dummy);
     }
 
     /**

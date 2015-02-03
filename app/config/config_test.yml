@@ -12,10 +12,8 @@ web_profiler:
     toolbar: false
     intercept_redirects: false
 
-swiftmailer:
-    disable_delivery: true
-
-dbal:
-    driver: "pdo_sqlite"
-    memory: true
-    charset: UTF8
+doctrine:
+    dbal:
+        driver: "pdo_sqlite"
+        memory: true
+        charset: UTF8

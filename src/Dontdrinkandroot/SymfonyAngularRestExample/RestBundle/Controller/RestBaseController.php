@@ -56,4 +56,4 @@ class RestBaseController extends FOSRestController
 
         return $errors;
     }
-} 
+}

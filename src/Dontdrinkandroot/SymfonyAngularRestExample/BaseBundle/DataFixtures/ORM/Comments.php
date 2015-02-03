@@ -3,14 +3,10 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 
-class LoadComments extends AbstractFixture implements OrderedFixtureInterface
+class Comments extends AbstractOrderedFixture
 {
 
     /**
@@ -20,20 +16,12 @@ class LoadComments extends AbstractFixture implements OrderedFixtureInterface
      */
     function load(ObjectManager $manager)
     {
-        /** @var NewsEntry $newsEntry1 */
-        $newsEntry1 = $this->getReference('news-entry-1');
+        $newsEntry1 = $this->getNewsEntryReference('news-entry-1');
+        $newsEntry2 = $this->getNewsEntryReference('news-entry-2');
 
-        /** @var NewsEntry $newsEntry2 */
-        $newsEntry2 = $this->getReference('news-entry-2');
-
-        /** @var User $admin */
-        $admin = $this->getReference('admin');
-
-        /** @var User $user */
-        $user = $this->getReference('user');
-
-        /** @var User $dummy */
-        $dummy = $this->getReference('dummy');
+        $admin = $this->getUserReference('admin');
+        $user = $this->getUserReference('user');
+        $dummy = $this->getUserReference('dummy');
 
         $newsEntry1comment1 = new Comment();
         $newsEntry1comment1->setNewsEntry($newsEntry1);
@@ -78,6 +66,6 @@ class LoadComments extends AbstractFixture implements OrderedFixtureInterface
      */
     function getOrder()
     {
-        return 3;
+        return 4;
     }
 }
