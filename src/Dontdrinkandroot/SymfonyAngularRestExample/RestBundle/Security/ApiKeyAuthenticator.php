@@ -11,7 +11,6 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
-use Symfony\Component\Security\Http\HttpUtils;
 
 class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, AuthenticationFailureHandlerInterface
 {
@@ -19,13 +18,9 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
     /** @var UserService */
     protected $userService;
 
-    /** @var HttpUtils */
-    protected $httpUtils;
-
-    public function __construct(UserService $userService, HttpUtils $httpUtils)
+    public function __construct(UserService $userService)
     {
         $this->userService = $userService;
-        $this->httpUtils = $httpUtils;
     }
 
     /**
