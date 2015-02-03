@@ -6,10 +6,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
-use FOS\RestBundle\Controller\Annotations\Delete;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -18,7 +15,7 @@ class NewsEntryController extends RestBaseController
 {
 
     /**
-     * @Get("")
+     * @Rest\Get("")
      *
      * @return Response
      */
@@ -32,7 +29,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Get("/{id}")
+     * @Rest\Get("/{id}", requirements={"id" = "\d+"})
      *
      * @param int $id
      *
@@ -48,7 +45,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Post("")
+     * @Rest\Post("")
      *
      * @param Request $request
      *
@@ -84,7 +81,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Put("/{id}")
+     * @Rest\Put("/{id}", requirements={"id" = "\d+"})
      *
      * @param Request $request
      * @param int     $id
@@ -120,7 +117,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Delete("/{id}")
+     * @Rest\Delete("/{id}", requirements={"id" = "\d+"})
      *
      * @param int $id
      *
@@ -145,7 +142,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Get("/{id}/comments")
+     * @Rest\Get("/{id}/comments", requirements={"id" = "\d+"})
      *
      * @param int $id
      *
@@ -162,7 +159,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Get("/{newsEntryId}/comments/{commentId}")
+     * @Rest\Get("/{newsEntryId}/comments/{commentId}", requirements={"newsEntryId" = "\d+", "commentId" = "\d+"})
      *
      * @param int $newsEntryId
      * @param int $commentId
@@ -180,7 +177,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Delete("/{newsEntryId}/comments/{commentId}")
+     * @Rest\Delete("/{newsEntryId}/comments/{commentId}", requirements={"newsEntryId" = "\d+", "commentId" = "\d+"})
      *
      * @param int $newsEntryId
      * @param int $commentId
@@ -206,7 +203,7 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Post("/{id}/comments")
+     * @Rest\Post("/{id}/comments", requirements={"id" = "\d+"})
      *
      * @param Request $request
      * @param int     $id

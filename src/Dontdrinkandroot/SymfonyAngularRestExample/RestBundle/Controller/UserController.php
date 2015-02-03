@@ -4,8 +4,7 @@
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Model\UserCredentials;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,7 +12,7 @@ class UserController extends RestBaseController
 {
 
     /**
-     * @Get("")
+     * @Rest\Get("")
      *
      * @return Response
      */
@@ -27,7 +26,7 @@ class UserController extends RestBaseController
     }
 
     /**
-     * @Get("/{id}")
+     * @Rest\Get("/{id}")
      *
      * @param int|string $id
      *
@@ -53,7 +52,7 @@ class UserController extends RestBaseController
     }
 
     /**
-     * @Post("/createapikey")
+     * @Rest\Post("/createapikey")
      *
      * @param Request $request
      */
@@ -69,7 +68,7 @@ class UserController extends RestBaseController
     }
 
     /**
-     * @Post("/invalidateapikey")
+     * @Rest\Post("/invalidateapikey")
      *
      * @param Request $request
      */
