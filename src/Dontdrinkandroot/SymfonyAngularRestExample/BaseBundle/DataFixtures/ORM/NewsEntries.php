@@ -15,7 +15,7 @@ class NewsEntries extends AbstractOrderedFixture
      *
      * @param ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $newsEntry1 = new NewsEntry();
         $newsEntry1->setTitle('News Entry 1');
@@ -43,7 +43,7 @@ class NewsEntries extends AbstractOrderedFixture
      *
      * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 3;
     }

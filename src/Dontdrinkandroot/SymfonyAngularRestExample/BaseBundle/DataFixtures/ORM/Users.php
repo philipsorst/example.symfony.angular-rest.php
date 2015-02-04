@@ -24,7 +24,7 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
      *
      * @param ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         /** @var UserManagerInterface $userManager */
         $userManager = $this->container->get('fos_user.user_manager');
@@ -69,7 +69,7 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
      *
      * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 1;
     }

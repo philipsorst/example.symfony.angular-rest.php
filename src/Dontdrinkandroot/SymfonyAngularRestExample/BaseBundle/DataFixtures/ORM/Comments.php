@@ -14,7 +14,7 @@ class Comments extends AbstractOrderedFixture
      *
      * @param ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $newsEntry1 = $this->getNewsEntryReference('news-entry-1');
         $newsEntry2 = $this->getNewsEntryReference('news-entry-2');
@@ -64,7 +64,7 @@ class Comments extends AbstractOrderedFixture
      *
      * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 4;
     }

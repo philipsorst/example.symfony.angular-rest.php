@@ -24,7 +24,7 @@ class ApiKeys extends AbstractOrderedFixture implements ContainerAwareInterface
      *
      * @param ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
         $admin = $this->getUserReference('admin');
 
@@ -59,7 +59,7 @@ class ApiKeys extends AbstractOrderedFixture implements ContainerAwareInterface
      *
      * @return int
      */
-    function getOrder()
+    public function getOrder()
     {
         return 2;
     }
