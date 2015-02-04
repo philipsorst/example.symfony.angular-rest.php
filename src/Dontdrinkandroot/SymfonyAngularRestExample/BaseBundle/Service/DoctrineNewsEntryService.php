@@ -5,7 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\EntityNotFoundException;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\NoResultException;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository;
 
@@ -43,13 +43,13 @@ class DoctrineNewsEntryService implements NewsEntryService
      *
      * @return NewsEntry
      *
-     * @throws EntityNotFoundException
+     * @throws NoResultException
      */
     public function getNewsEntry($id)
     {
         $newsEntry = $this->newsEntryRepository->find($id);
         if (null === $newsEntry) {
-            throw new EntityNotFoundException();
+            throw new NoResultException();
         }
 
         return $newsEntry;
@@ -90,13 +90,13 @@ class DoctrineNewsEntryService implements NewsEntryService
      *
      * @return Comment
      *
-     * @throws EntityNotFoundException
+     * @throws NoResultException
      */
     public function getComment($commentId)
     {
         $comment = $this->commentRepository->find($commentId);
         if (null === $comment) {
-            throw new EntityNotFoundException();
+            throw new NoResultException();
         }
 
         return $comment;

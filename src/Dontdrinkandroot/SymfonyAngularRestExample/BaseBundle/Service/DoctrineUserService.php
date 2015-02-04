@@ -5,7 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\EntityNotFoundException;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\NoResultException;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
@@ -63,13 +63,13 @@ class DoctrineUserService implements UserService
      *
      * @return User
      *
-     * @throws EntityNotFoundException
+     * @throws NoResultException
      */
     public function getUser($id)
     {
         $user = $this->userRepository->find($id);
         if (null === $user) {
-            throw new EntityNotFoundException();
+            throw new NoResultException();
         }
 
         return $user;
