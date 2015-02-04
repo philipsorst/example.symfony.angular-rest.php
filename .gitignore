@@ -17,5 +17,6 @@
 !bin/update-dev
 !bin/install
 !bin/set-permissions
+!bin/run-tests
 /composer.phar
 /.idea/
