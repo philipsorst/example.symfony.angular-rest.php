@@ -89,5 +89,5 @@ abstract class RestControllerTestCase extends WebTestCase
     /**
      * @return string[]
      */
-    protected abstract function getFixtureClasses();
+    abstract protected function getFixtureClasses();
 }

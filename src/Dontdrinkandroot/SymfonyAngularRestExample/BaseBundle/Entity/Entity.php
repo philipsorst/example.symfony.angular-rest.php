@@ -10,4 +10,3 @@ interface Entity
      */
     public function getId();
 }
- 

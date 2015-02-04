@@ -144,7 +144,8 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     $scope.submitting = false;
     $scope.credentials = {};
 
-    function redirect() {
+    function redirect()
+    {
         if ($scope.originalPath !== '/login') {
             var redirectTo = $scope.originalPath;
             delete $scope.originalPath;
@@ -154,7 +155,8 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
         }
     }
 
-    function verifyApiKey(apiKey) {
+    function verifyApiKey(apiKey)
+    {
         $scope.submitting = true;
         $http.defaults.headers.common['X-Api-Key'] = apiKey;
         $cookieStore.put('apiKey', apiKey);

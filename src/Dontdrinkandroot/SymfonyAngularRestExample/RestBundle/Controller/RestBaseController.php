@@ -50,7 +50,8 @@ class RestBaseController extends FOSRestController
      *
      * @return ConstraintViolationListInterface
      */
-    protected function validate($object) {
+    protected function validate($object)
+    {
         $validator = $this->get('validator');
         $errors = $validator->validate($object);
 
