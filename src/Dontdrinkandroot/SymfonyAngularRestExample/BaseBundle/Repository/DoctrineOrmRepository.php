@@ -28,32 +28,6 @@ class DoctrineOrmRepository extends EntityRepository
     }
 
     /**
-     * Finds a single entity by a set of criteria.
-     *
-     * @param array      $criteria
-     * @param array|null $orderBy
-     * @param int|null   $limit
-     * @param int|null   $offset
-     *
-     * @return Entity|null The object found or null if none was found.
-     *
-     * @throws \Exception Thrown if too many results were found.
-     */
-    public function findSingleBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
-    {
-        $results = $this->findBy($criteria, $orderBy, $limit, $offset);
-        if (count($results) > 1) {
-            throw new \Exception('Too many results');
-        }
-
-        if (count($results) == 0) {
-            return null;
-        }
-
-        return $results[0];
-    }
-
-    /**
      * @param Entity $entity
      */
     public function remove(Entity $entity)

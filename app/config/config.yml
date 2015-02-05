@@ -62,13 +62,14 @@ fos_user:
 
 # FOS Rest Bundle configuration
 fos_rest:
-    routing_loader:
-        default_format: json
     serializer:
         groups: ['Default']
     exception:
         codes:
             'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\NoResultException': 404
+    format_listener:
+        rules:
+            - { path: '^/rest/', priorities: ['json', 'xml'], prefer_extension: true }
 
 # JMS Serializer Bundle configuration
 jms_serializer:

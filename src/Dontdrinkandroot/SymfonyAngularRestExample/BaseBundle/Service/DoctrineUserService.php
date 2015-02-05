@@ -116,7 +116,7 @@ class DoctrineUserService implements UserService
     public function findUserByApiKey($apiKey)
     {
         /** @var ApiKey $apiKey */
-        $apiKey = $this->apiKeyRepository->findSingleBy(['key' => $apiKey]);
+        $apiKey = $this->apiKeyRepository->findOneBy(['key' => $apiKey]);
         if (null === $apiKey) {
             return null;
         }
