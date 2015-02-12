@@ -70,6 +70,7 @@ fos_rest:
     format_listener:
         rules:
             - { path: '^/rest/', priorities: ['json', 'xml'], prefer_extension: true }
+            - { path: '^/', stop: true }
 
 # JMS Serializer Bundle configuration
 jms_serializer:
