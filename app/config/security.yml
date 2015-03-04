@@ -18,6 +18,7 @@ security:
         rest:
             pattern: ^/rest
             stateless: true
+            http_basic: ~
             simple_preauth:
                 authenticator: ddr.symfonyangularrestexample.security.api_key_authenticator
             anonymous: true
