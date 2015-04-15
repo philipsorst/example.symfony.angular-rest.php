@@ -5,12 +5,12 @@
     "private": true,
     "ignore": [],
     "dependencies": {
-        "jquery": "~2.1",
+        "jquery": "2.1.x",
         "angular": "1.2.x",
         "angular-route": "1.2.x",
         "angular-cookies": "1.2.x",
-        "bootstrap": "~3.2",
-        "restangular": "~1.4"
+        "bootstrap": "3.2.x",
+        "restangular": "1.4.x"
     },
     "devDependencies": {}
 }

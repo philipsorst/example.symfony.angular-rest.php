@@ -200,8 +200,6 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     var apiKey = $cookieStore.get('apiKey');
     if (apiKey !== undefined) {
         verifyApiKey(apiKey);
-    } else {
-        redirect();
     }
 }]);
 
