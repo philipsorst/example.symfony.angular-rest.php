@@ -13,3 +13,4 @@ sudo chown :www-data var/
 setAcl var/logs/
 setAcl var/cache/
 setAcl var/data/
+

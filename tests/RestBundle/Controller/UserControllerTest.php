@@ -1,6 +1,6 @@
 <?php
 
-namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Tests\Controller;
+namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ApiKeys;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users;

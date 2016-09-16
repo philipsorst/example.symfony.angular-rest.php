@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Tests\Controller;
+namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\ReferenceRepository;

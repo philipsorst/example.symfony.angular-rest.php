@@ -4,26 +4,22 @@ services:
 
     ddr.symfonyangularrestexample.repository.user:
         class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User ]
 
     ddr.symfonyangularrestexample.repository.newsentry:
         class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
 
     ddr.symfonyangularrestexample.repository.apikey:
         class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey ]
 
     ddr.symfonyangularrestexample.repository.comment:
         class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment ]
 
     # Services

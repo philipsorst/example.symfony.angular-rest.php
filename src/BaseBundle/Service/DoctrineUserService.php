@@ -11,7 +11,6 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\UserReposit
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 
 class DoctrineUserService implements UserService
 {
@@ -67,6 +66,7 @@ class DoctrineUserService implements UserService
      */
     public function getUser($id)
     {
+        /** @var User|null $user */
         $user = $this->userRepository->find($id);
         if (null === $user) {
             throw new NoResultException();
@@ -97,8 +97,7 @@ class DoctrineUserService implements UserService
 
     protected function generateAndSaveApiKey($user)
     {
-        $generator = new SecureRandom();
-        $key = bin2hex($generator->nextBytes(32));
+        $key = bin2hex(random_bytes(32));
         $apiKey = new ApiKey();
         $apiKey->setKey($key);
         $apiKey->setUser($user);
