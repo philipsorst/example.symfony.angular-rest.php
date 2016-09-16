@@ -23,4 +23,3 @@ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey:
             inversedBy: apiKeys
             joinColumn:
                 nullable: false
-                onDelete: CASCADE

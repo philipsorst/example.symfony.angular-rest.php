@@ -26,6 +26,22 @@ class UserController extends RestBaseController
     }
 
     /**
+     * @Rest\Post("/createapikey")
+     *
+     * @param Request $request
+     */
+    public function createApiKeyAction(Request $request)
+    {
+        /** @var UserCredentials $credentials */
+        $credentials = $this->serializeRequestContent($request, get_class(new UserCredentials()));
+        $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
+
+        $view = $this->view($apiKey, Response::HTTP_CREATED);
+
+        return $this->handleView($view);
+    }
+
+    /**
      * @Rest\Get("/{id}")
      *
      * @param int|string $id
@@ -48,22 +64,6 @@ class UserController extends RestBaseController
 
         $view = $this->view($user);
         $view->getContext()->setGroups(['Default', 'UserRoles']);
-
-        return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\Post("/createapikey")
-     *
-     * @param Request $request
-     */
-    public function createApiKeyAction(Request $request)
-    {
-        /** @var UserCredentials $credentials */
-        $credentials = $this->serializeRequestContent($request, get_class(new UserCredentials()));
-        $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
-
-        $view = $this->view($apiKey, Response::HTTP_CREATED);
 
         return $this->handleView($view);
     }

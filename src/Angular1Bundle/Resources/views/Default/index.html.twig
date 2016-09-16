@@ -1,0 +1,62 @@
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SymfonyAngularRestExample - {{ '{{ title }}' }}</title>
+    {% block css %}
+        <link href="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link href="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/css/style.css') }}" rel="stylesheet" />
+    {% endblock css %}
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-left">
+            <li><a href="#!/">Home</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-hide="user"><a href="#!/login">Login</a></li>
+            <li ng-show="user" class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                   aria-expanded="false">{{ '{{ user.username }}' }} <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#!/logout">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="ng-view">
+    </div>
+</div>
+
+{% block js %}
+    <script type="text/javascript">
+        var basePath = '{{ app.request.basepath }}';
+        var baseUrl = '{{ app.request.baseurl }}';
+        var partialsPath = basePath + '/bundles/ddrsymfonyangularrestexampleangular1/partials/';
+        var restPath = baseUrl + '/rest/';
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/angular/angular.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/angular-route/angular-route.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/angular-cookies/angular-cookies.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/lodash/dist/lodash.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/lib/restangular/dist/restangular.min.js') }}"></script>
+    <script type="text/javascript"
+            src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/js/controllers.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/js/app.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            angular.bootstrap(document, ['ExampleApp'])
+        });
+    </script>
+{% endblock js %}
+
+</body>
+</html>

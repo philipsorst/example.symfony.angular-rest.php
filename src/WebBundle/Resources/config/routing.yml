@@ -1,3 +1,6 @@
-ddr_symfony_angular_rest_example_web_homepage:
-    path:     /
-    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:Default:angular }
+ddr_symfony_angular_rest_example_web_index:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /angular1/
+        permanent: true

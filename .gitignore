@@ -1,6 +1,4 @@
 /web/bundles/
-/web/lib/*
-!/web/lib/.gitkeep
 /app/config/parameters.yml
 /var/bootstrap.php.cache
 /var/cache/*
@@ -12,6 +10,8 @@
 /build/
 /vendor/
 /bin/*
+/src/Angular1Bundle/Resources/public/lib/
+/src/Angular2Bundle/Resources/public/lib/
 !bin/console
 !bin/symfony_requirements
 !bin/update-dev

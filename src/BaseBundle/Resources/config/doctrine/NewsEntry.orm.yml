@@ -31,7 +31,6 @@ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
             inversedBy: newsEntries
             joinColumn:
                 nullable: false
-                onDelete: CASCADE
     oneToMany:
         comments:
             targetEntity: Comment

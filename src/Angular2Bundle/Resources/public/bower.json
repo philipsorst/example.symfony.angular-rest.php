@@ -1,0 +1,10 @@
+{
+    "name": "symfony-angular-rest-example.angular2.php",
+    "version": "0.1.0",
+    "directory": "web/lib",
+    "private": true,
+    "ignore": [],
+    "dependencies": {
+    },
+    "devDependencies": {}
+}

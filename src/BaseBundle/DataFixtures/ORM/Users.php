@@ -36,7 +36,7 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
         $admin->setEnabled(true);
         $admin->addRole('ROLE_ADMIN');
 
-        $userManager->updateUser($admin, true);
+        $userManager->updateUser($admin);
 
         $this->addReference(self::ADMIN, $admin);
         $this->addReference('user-1', $admin);
@@ -47,7 +47,7 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
         $user->setPlainPassword('user');
         $user->setEnabled(true);
 
-        $userManager->updateUser($user, true);
+        $userManager->updateUser($user);
 
         $this->addReference(self::USER, $user);
         $this->addReference('user-2', $user);
@@ -58,10 +58,12 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
         $dummy->setPlainPassword('dummy');
         $dummy->setEnabled(true);
 
-        $userManager->updateUser($dummy, true);
+        $userManager->updateUser($dummy);
 
         $this->addReference(self::DUMMY, $dummy);
         $this->addReference('user-3', $dummy);
+
+        $manager->flush();
     }
 
     /**

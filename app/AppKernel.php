@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\DdrSymfonyAngularRestExampleRestBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\DdrSymfonyAngularRestExampleWebBundle(),
+            new Dontdrinkandroot\SymfonyAngularRestExample\Angular1Bundle\DdrSymfonyAngularRestExampleAngular1Bundle(),
+            new Dontdrinkandroot\SymfonyAngularRestExample\Angular2Bundle\DdrSymfonyAngularRestExampleAngular2Bundle(),
         );
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {

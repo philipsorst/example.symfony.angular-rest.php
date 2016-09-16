@@ -1,6 +1,6 @@
 <?php
 
-namespace Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\DependencyInjection;
+namespace Dontdrinkandroot\SymfonyAngularRestExample\Angular1Bundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -13,7 +13,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ddr_symfony_angular_rest_example_web');
+        $rootNode = $treeBuilder->root('ddr_symfony_angular_rest_example_angular1');
 
         return $treeBuilder;
     }
