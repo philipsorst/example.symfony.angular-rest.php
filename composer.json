@@ -31,7 +31,6 @@
     },
     "scripts": {
         "post-root-package-install": [
-            "SymfonyStandard\\Composer::hookRootPackageInstall"
         ],
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
