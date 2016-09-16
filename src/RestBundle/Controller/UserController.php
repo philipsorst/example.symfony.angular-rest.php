@@ -47,8 +47,7 @@ class UserController extends RestBaseController
         }
 
         $view = $this->view($user);
-
-        $view->getSerializationContext()->setGroups(['Default', 'UserRoles']);
+        $view->getContext()->setGroups(['Default', 'UserRoles']);
 
         return $this->handleView($view);
     }
