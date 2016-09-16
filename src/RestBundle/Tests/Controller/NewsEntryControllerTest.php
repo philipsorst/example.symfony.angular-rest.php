@@ -2,6 +2,7 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Tests\Controller;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Comments;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\NewsEntries;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users;
 
@@ -32,7 +33,6 @@ class NewsEntryControllerTest extends RestControllerTestCase
         ];
 
         $this->assertEquals($expectedContent, $content[1]);
-
     }
 
     public function testGetNewsEntry()
@@ -77,9 +77,9 @@ class NewsEntryControllerTest extends RestControllerTestCase
     protected function getFixtureClasses()
     {
         return [
-            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users',
-            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\NewsEntries',
-            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Comments'
+            Users::class,
+            NewsEntries::class,
+            Comments::class
         ];
     }
 }

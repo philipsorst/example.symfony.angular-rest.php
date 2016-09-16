@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Tests\Controller;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ApiKeys;
@@ -37,8 +36,8 @@ class UserControllerTest extends RestControllerTestCase
     protected function getFixtureClasses()
     {
         return [
-            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users',
-            'Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ApiKeys'
+            Users::class,
+            ApiKeys::class
         ];
     }
 }
