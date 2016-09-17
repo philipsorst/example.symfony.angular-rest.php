@@ -1,9 +1,9 @@
 body {
-    padding-top: 50px;
+    padding-top: 30px;
 }
 
 .margin-bottom-none {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 /* We need rotating icons for loading animations, similar to font awesome */

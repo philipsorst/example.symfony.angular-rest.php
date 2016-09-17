@@ -1,5 +1,3 @@
 #!/bin/sh
 composer install --no-dev --optimize-autoloader && \
-(cd src/Angular1Bundle/Resources/public/ && bower install) && \
-(cd src/Angular2Bundle/Resources/public/ && bower install) && \
 bin/console --env=prod assetic:dump

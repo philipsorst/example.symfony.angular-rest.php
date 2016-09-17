@@ -5,7 +5,7 @@
         <a class="btn btn-large btn-default" ng-click="remove(newsEntry)">&nbsp;<i
                 class="glyphicon glyphicon-trash"></i>&nbsp;</a>
     </div>
-    <h1><span ng-hide="!loading" class="glyphicon glyphicon-refresh glyphicon-spin"></span>{{newsEntry.title}}</h1>
+    <h1><span ng-hide="!loading" class="fa fa-spin fa-spinner"></span>{{newsEntry.title}}</h1>
 
     <div>
         <span class="text-muted">Written by</span> {{newsEntry.author.username}} <span class="text-muted">on</span>
@@ -14,7 +14,7 @@
 </div>
 
 <div ng-hide="!loading" class="text-center">
-    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+    <span class="fa fa-spin fa-spinner"></span>
 </div>
 
 <p>{{newsEntry.content}}</p>
@@ -24,7 +24,7 @@
 </div>
 
 <div ng-hide="!commentsLoading" class="text-center">
-    <span class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+    <span class="fa fa-spin fa-spinner"></span>
 </div>
 
 <div ng-hide="commentsLoading">
@@ -52,7 +52,7 @@
         </div>
         <button type="submit" id="form_save" name="form[save]" class="btn btn-primary" ng-click="submitComment()"
                 ng-disabled="form.$invalid || submitting">
-            Save <span ng-hide="!submitting" class="glyphicon glyphicon-refresh glyphicon-spin"></span>
+            Save <span ng-hide="!submitting" class="fa fa-spin fa-spinner"></span>
         </button>
     </form>
 </div>
