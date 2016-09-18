@@ -16,15 +16,14 @@ Prerequisites
 
 * [Symfony 3.1 requirements](https://symfony.com/doc/3.1/reference/requirements.html)
 * pdo_sqlite
-* [Bower](http://bower.io)
 
 Installation
 ------------
 
 * Clone the repository and make sure ```web/``` dir is accessible by webserver.
-* [Make sure var/cache/, var/data/ and var/logs/ are writeable for the web server](https://symfony.com/doc/current/setup/file_permissions.html). If you use Ubuntu and have ACL enabled you can use the ```bin/set-permissions``` script.
 * Run ```bin/update-dev``` to run in dev mode or ```bin/install``` to run in prod mode.
 * Create the database: Run ```bin/console doctrine:schema:create``` and ```bin/console doctrine:fixtures:load```
+* [Make sure var/cache/, var/data/ and var/logs/ are writeable for the web server](https://symfony.com/doc/current/setup/file_permissions.html). If you use Ubuntu and have ACL enabled you can use the ```bin/set-permissions``` script.
 
 Further reading
 ---------------

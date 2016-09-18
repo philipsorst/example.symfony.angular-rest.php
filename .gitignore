@@ -10,8 +10,6 @@
 /build/
 /vendor/
 /bin/*
-/src/Angular1Bundle/Resources/public/lib/
-/src/Angular2Bundle/Resources/public/lib/
 !bin/console
 !bin/symfony_requirements
 !bin/update-dev
