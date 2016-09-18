@@ -164,10 +164,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
             function (user) {
                 $scope.submitting = false;
                 $rootScope.user = user;
-                $rootScope.user.admin = false;
-                if (user.roles.indexOf('ROLE_ADMIN') != -1) {
-                    $rootScope.user.admin = true;
-                }
+                $rootScope.user.admin = user.roles.indexOf('ROLE_ADMIN') != -1;
                 redirect();
             },
             function (error) {
