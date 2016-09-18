@@ -13,5 +13,5 @@ before_script:
   - bin/console doctrine:schema:create
 
 script:
-  - bin/phpcs --standard=psr2 ./src
+  - bin/phpcs --standard=psr2 --ignore=*.js ./src
   - bin/phpunit
