@@ -54,7 +54,7 @@ class NewsEntryController extends RestBaseController
     public function createNewsEntryAction(Request $request)
     {
         /** @var NewsEntry $newsEntry */
-        $newsEntry = $this->serializeRequestContent($request, get_class(new NewsEntry()));
+        $newsEntry = $this->unserializeRequestContent($request, get_class(new NewsEntry()));
 
         $errors = $this->validate($newsEntry);
         if (count($errors) > 0) {
@@ -100,7 +100,7 @@ class NewsEntryController extends RestBaseController
         }
 
         /** @var NewsEntry $newsEntry */
-        $newsEntry = $this->serializeRequestContent($request, get_class(new NewsEntry()));
+        $newsEntry = $this->unserializeRequestContent($request, get_class(new NewsEntry()));
 
         $errors = $this->validate($newsEntry);
         if (count($errors) > 0) {
@@ -218,7 +218,7 @@ class NewsEntryController extends RestBaseController
         $newsEntry = $newsEntryService->getNewsEntry($id);
 
         /** @var Comment $comment */
-        $comment = $this->serializeRequestContent($request, get_class(new Comment()));
+        $comment = $this->unserializeRequestContent($request, get_class(new Comment()));
 
         $errors = $this->validate($comment);
         if (count($errors) > 0) {

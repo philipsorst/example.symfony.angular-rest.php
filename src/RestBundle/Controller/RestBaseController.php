@@ -35,7 +35,7 @@ class RestBaseController extends FOSRestController
      *
      * @return mixed
      */
-    protected function serializeRequestContent(Request $request, $type)
+    protected function unserializeRequestContent(Request $request, $type)
     {
         /** @var Serializer $serializer */
         $serializer = $this->get('jms_serializer');

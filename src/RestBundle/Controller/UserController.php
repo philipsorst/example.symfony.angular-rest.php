@@ -33,7 +33,7 @@ class UserController extends RestBaseController
     public function createApiKeyAction(Request $request)
     {
         /** @var UserCredentials $credentials */
-        $credentials = $this->serializeRequestContent($request, get_class(new UserCredentials()));
+        $credentials = $this->unserializeRequestContent($request, get_class(new UserCredentials()));
         $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
 
         $view = $this->view($apiKey, Response::HTTP_CREATED);
