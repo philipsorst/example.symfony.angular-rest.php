@@ -11,6 +11,16 @@ If you like this project, please donate. Thank you.
 [![Build Status](https://travis-ci.org/philipsorst/example.symfony.angular-rest.php.svg?branch=master)](https://travis-ci.org/philipsorst/example.symfony.angular-rest.php)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=W9NAXW8YAZ4D6&item_name=example.symfony.angular-rest.php%20Donation&currency_code=EUR) 
 
+Technologies
+------------
+
+* Symfony 3.1
+* Doctrine
+* FosUserBundle
+* FosRestBundle
+* BraincraftedBootstrapBundle
+* Angular 1.5
+
 Prerequisites
 -------------
 
