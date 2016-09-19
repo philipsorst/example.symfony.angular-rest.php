@@ -14,10 +14,10 @@ If you like this project, please donate. Thank you.
 Technologies
 ------------
 
-* Symfony 3.1
+* Symfony 3.1.*
 * Doctrine
 * FosUserBundle
-* FosRestBundle
+* FosRestBundle ^2.1
 * BraincraftedBootstrapBundle
 * Angular 1.5
 
