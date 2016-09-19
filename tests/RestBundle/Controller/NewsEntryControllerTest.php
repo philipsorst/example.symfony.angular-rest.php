@@ -2,22 +2,20 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ApiKeys;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Comments;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\NewsEntries;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class NewsEntryControllerTest extends RestControllerTestCase
 {
     public function testListNewsEntries()
     {
-        $route = $this->getUrl('ddr_symfony_angular_rest_example_rest_newsentry_list_news_entries');
-
-        $this->client->request('GET', $route, [], [], ['HTTP_ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $content = $this->assertJsonResponse($response, 200);
+        $response = $this->doGetRequest('/rest/newsentries');
+        $content = $this->assertJsonResponse($response, Response::HTTP_OK);
         $this->assertCount(2, $content);
-
         $newsEntry2 = $this->getNewsEntryReference(NewsEntries::NEWS_ENTRY_2);
         $user = $this->getUserReference(Users::ADMIN);
         $expectedContent = [
@@ -37,13 +35,8 @@ class NewsEntryControllerTest extends RestControllerTestCase
 
     public function testGetNewsEntry()
     {
-        $route = $this->getUrl('ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry', ['id' => 1]);
-
-        $this->client->request('GET', $route, [], [], ['HTTP_ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $content = $this->assertJsonResponse($response, 200);
-
+        $response = $this->doGetRequest('/rest/newsentries/1');
+        $content = $this->assertJsonResponse($response, Response::HTTP_OK);
         $newsEntry = $this->getNewsEntryReference(NewsEntries::NEWS_ENTRY_1);
         $user = $this->getUserReference('user');
         $expectedContent = [
@@ -61,14 +54,31 @@ class NewsEntryControllerTest extends RestControllerTestCase
         $this->assertEquals($expectedContent, $content);
     }
 
+    public function testCreateNewsEntry()
+    {
+        $response = $this->doPostRequest(
+            '/rest/newsentries',
+            ['title' => 'TestTitle', 'content' => 'TestContent'],
+            $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
+        );
+        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+    }
+
+    public function testCreateInvalidNewsEntry()
+    {
+        /* Content is missing */
+        $response = $this->doPostRequest(
+            '/rest/newsentries',
+            ['title' => 'TestTitle'],
+            $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
+        );
+        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+    }
+
     public function testGetMissingNewsEntry()
     {
-        $route = $this->getUrl('ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry', ['id' => 666]);
-
-        $this->client->request('GET', $route, [], [], ['HTTP_ACCEPT' => 'application/json']);
-        $response = $this->client->getResponse();
-
-        $content = $this->assertJsonResponse($response, 404);
+        $response = $this->doGetRequest('/rest/newsentries/666');
+        $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
     }
 
     /**
@@ -79,7 +89,8 @@ class NewsEntryControllerTest extends RestControllerTestCase
         return [
             Users::class,
             NewsEntries::class,
-            Comments::class
+            Comments::class,
+            ApiKeys::class
         ];
     }
 }

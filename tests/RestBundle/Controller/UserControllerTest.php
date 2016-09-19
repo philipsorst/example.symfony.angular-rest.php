@@ -10,23 +10,14 @@ class UserControllerTest extends RestControllerTestCase
 
     public function testGetUser()
     {
-        $route = $this->getUrl('ddr_symfony_angular_rest_example_rest_user_get_user', ['id' => 1]);
-        $headers = [
-            'HTTP_ACCEPT'    => 'application/json',
-            'HTTP_X-API-KEY' => $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)->getKey()
-        ];
-        $this->client->request('GET', $route, [], [], $headers);
-        $response = $this->client->getResponse();
-
+        $response = $this->doGetRequest('/rest/users/1', [], $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY));
         $content = $this->assertJsonResponse($response, 200);
-
         $user = $this->getUserReference(Users::ADMIN);
         $expectedContent = [
             'id'       => (int)$user->getId(),
             'username' => $user->getUsername(),
             'roles'    => ['ROLE_ADMIN']
         ];
-
         $this->assertEquals($expectedContent, $content);
     }
 
