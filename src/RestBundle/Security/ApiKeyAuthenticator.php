@@ -36,11 +36,13 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new AuthenticationException('Invalid API Key');
         }
 
+        $userRoles = $user->getRoles();
+        $userRoles[] = 'ROLE_REST_API';
         return new PreAuthenticatedToken(
             $user,
             $apiKey,
             $providerKey,
-            $user->getRoles()
+            $userRoles
         );
     }
 
