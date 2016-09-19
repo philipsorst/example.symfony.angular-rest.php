@@ -1,5 +1,5 @@
 {
-    "name": "philipsorst/symfony-angular-rest-example",
+    "name": "dontdrinkandroot/symfony-angular-rest-example",
     "type": "project",
     "autoload": {
         "psr-4": {
