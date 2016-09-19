@@ -24,14 +24,21 @@ security:
             anonymous: true
 
         main:
-            pattern: ^/
+            pattern: ^/twig
             form_login:
+                login_path: /twig/login
+                check_path: /twig/login_check
                 provider: fos_userbundle
-                #csrf_provider: form.csrf_provider
-            logout: true
+                default_target_path: /twig/
+            logout:
+                path: /twig/logout
+                target: /twig/
             anonymous: true
 
     access_control:
+        - { path: ^/twig/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/twig/newsentries/.*/edit$, role: ROLE_USER }
+        - { path: ^/twig/newsentries/.*/delete$, role: ROLE_USER }
         - { path: ^/rest/users/createapikey$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest/*, methods: [POST,PUT,DELETE], role: ROLE_USER }
         - { path: ^/rest/users*, role: ROLE_USER }

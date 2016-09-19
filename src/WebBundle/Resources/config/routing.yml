@@ -1,6 +1,15 @@
+ddr_symfony_angular_rest_example_web_newsentry_edit:
+    path:     /newsentries/{id}/edit
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:edit }
+
+ddr_symfony_angular_rest_example_web_newsentry_delete:
+    path:     /newsentries/{id}/delete
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:delete }
+
+ddr_symfony_angular_rest_example_web_newsentry_detail:
+    path:     /newsentries/{id}
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:detail }
+
 ddr_symfony_angular_rest_example_web_index:
-    path: /
-    defaults:
-        _controller: FrameworkBundle:Redirect:urlRedirect
-        path: /angular1/
-        permanent: true
+    path:     /
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:Default:index }

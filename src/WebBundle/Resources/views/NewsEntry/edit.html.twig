@@ -1,0 +1,16 @@
+{% extends 'DdrSymfonyAngularRestExampleWebBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="page-header ng-scope">
+        {% if newsEntry.id is empty %}
+            <h1>Create News Entry</h1>
+        {% else %}
+            <h1>Edit News Entry</h1>
+        {% endif %}
+    </div>
+
+    {{ form_start(form) }}
+    {{ form_rest(form) }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    {{ form_end(form) }}
+{% endblock content %}

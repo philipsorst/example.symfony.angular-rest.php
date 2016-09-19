@@ -7,7 +7,6 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Entity;
 
 class DoctrineOrmRepository extends EntityRepository
 {
-
     /**
      * Persists or updates the given entity.
      *

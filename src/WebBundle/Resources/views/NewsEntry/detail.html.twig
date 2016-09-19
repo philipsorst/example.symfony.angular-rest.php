@@ -1,0 +1,58 @@
+{% extends 'DdrSymfonyAngularRestExampleWebBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="page-header">
+        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == newsEntry.author.id) %}
+            <div class="btn-group pull-right">
+                <a class="btn btn-lg btn-default" href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_edit',{'id':newsEntry.id}) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+                <a class="btn btn-lg btn-default" href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_delete', {'id':newsEntry.id}) }}">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+            </div>
+        {% endif %}
+        <h1>{{ newsEntry.title }}</h1>
+
+        <span class="text-muted">Written by</span> {{ newsEntry.author.username }} <span class="text-muted">on</span>
+        {{ newsEntry.date|date }}
+    </div>
+
+    <p class="margin-bottom-double">{{ newsEntry.content }}</p>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">Comments</h2>
+        </div>
+        <div class="list-group">
+            {% for comment in comments %}
+                <div class="list-group-item">
+                    {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == comment.author.id) %}
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-large btn-default" ng-click="removeComment(comment)">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div>
+                        <p>{{ comment.content }}</p>
+                        <div>
+                            <small>
+                                <span class="text-muted">Written by</span> {{ comment.author.username }} <span class="text-muted">on</span>
+                                {{ comment.date|date }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if is_granted('ROLE_USER') %}
+                <div class="list-group-item">
+                    {{ form_start(commentForm) }}
+                    {{ form_rest(commentForm) }}
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                    {{ form_end(commentForm) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
