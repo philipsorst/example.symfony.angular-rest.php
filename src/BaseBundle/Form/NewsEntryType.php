@@ -25,4 +25,9 @@ class NewsEntryType extends AbstractType
             ]
         );
     }
+
+    public function getBlockPrefix()
+    {
+        return '';
+    }
 }

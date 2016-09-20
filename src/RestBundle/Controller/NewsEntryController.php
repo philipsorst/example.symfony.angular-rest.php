@@ -7,11 +7,9 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\NewsEntryType;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class NewsEntryController extends RestBaseController
 {
@@ -48,38 +46,36 @@ class NewsEntryController extends RestBaseController
 
     /**
      * @Rest\Post("")
-     * @ParamConverter("newsEntry", converter="fos_rest.request_body")
      *
-     * @param Request                          $request
-     * @param NewsEntry                        $newsEntry
-     * @param ConstraintViolationListInterface $validationErrors
+     * @param Request $request
      *
      * @return Response
      */
-    public function createNewsEntryAction(
-        Request $request,
-        NewsEntry $newsEntry,
-        ConstraintViolationListInterface $validationErrors
-    ) {
-        if (count($validationErrors) > 0) {
-            return $this->handleView($this->view($validationErrors, Response::HTTP_BAD_REQUEST));
+    public function createNewsEntryAction(Request $request)
+    {
+        $form = $this->createForm(NewsEntryType::class, new NewsEntry());
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            /** @var NewsEntry $newsEntry */
+            $newsEntry = $form->getData();
+            $newsEntry->setAuthor($this->getUser());
+            $newsEntry->setDate(new \DateTime());
+            $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
+
+            $view = $this->view($newsEntry, Response::HTTP_CREATED);
+            $view->setHeader(
+                'Location',
+                $this->generateUrl(
+                    'ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry',
+                    ['id' => $newsEntry->getId()],
+                    true
+                )
+            );
+
+            return $this->handleView($view);
         }
 
-        $newsEntry->setAuthor($this->getUser());
-        $newsEntry->setDate(new \DateTime());
-        $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
-
-        $view = $this->view($newsEntry, Response::HTTP_CREATED);
-        $view->setHeader(
-            'Location',
-            $this->generateUrl(
-                'ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry',
-                ['id' => $newsEntry->getId()],
-                true
-            )
-        );
-
-        return $this->handleView($view);
+        return $this->handleView($this->view($form, Response::HTTP_BAD_REQUEST));
     }
 
     /**
