@@ -60,6 +60,10 @@ fos_user:
     service:
         mailer: fos_user.mailer.noop
 
+braincrafted_bootstrap:
+    auto_configure:
+        assetic: false
+
 # FOS Rest Bundle configuration
 fos_rest:
     serializer:
