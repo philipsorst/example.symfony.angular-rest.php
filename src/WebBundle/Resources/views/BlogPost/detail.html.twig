@@ -2,23 +2,23 @@
 
 {% block content %}
     <div class="page-header">
-        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == newsEntry.author.id) %}
+        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == blogPost.author.id) %}
             <div class="btn-group pull-right">
-                <a class="btn btn-lg btn-default" href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_edit',{'id':newsEntry.id}) }}">
+                <a class="btn btn-lg btn-default" href="{{ path('ddr_example_web_blogpost_edit',{'id':blogPost.id}) }}">
                     <i class="fa fa-pencil"></i>
                 </a>
-                <a class="btn btn-lg btn-default" href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_delete', {'id':newsEntry.id}) }}">
+                <a class="btn btn-lg btn-default" href="{{ path('ddr_example_web_blogpost_delete', {'id':blogPost.id}) }}">
                     <i class="fa fa-trash-o"></i>
                 </a>
             </div>
         {% endif %}
-        <h1>{{ newsEntry.title }}</h1>
+        <h1>{{ blogPost.title }}</h1>
 
-        <span class="text-muted">Written by</span> {{ newsEntry.author.username }} <span class="text-muted">on</span>
-        {{ newsEntry.date|date }}
+        <span class="text-muted">Written by</span> {{ blogPost.author.username }} <span class="text-muted">on</span>
+        {{ blogPost.date|date }}
     </div>
 
-    <p class="margin-bottom-double">{{ newsEntry.content }}</p>
+    <p class="margin-bottom-double">{{ blogPost.content }}</p>
 
     <div class="panel panel-default">
         <div class="panel-heading">

@@ -3,27 +3,26 @@
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ApiKeys;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\BlogPosts;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Comments;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\NewsEntries;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\Users;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class NewsEntryControllerTest extends RestControllerTestCase
+class BlogPostControllerTest extends RestControllerTestCase
 {
     public function testListNewsEntries()
     {
-        $response = $this->doGetRequest('/rest/newsentries');
+        $response = $this->doGetRequest('/rest/blogposts');
         $content = $this->assertJsonResponse($response, Response::HTTP_OK);
         $this->assertCount(2, $content);
-        $newsEntry2 = $this->getNewsEntryReference(NewsEntries::NEWS_ENTRY_2);
+        $blogPost2 = $this->getNewsEntryReference(BlogPosts::BLOG_POST_2);
         $user = $this->getUserReference(Users::ADMIN);
         $expectedContent = [
-            'id'           => $newsEntry2->getId(),
-            'title'        => $newsEntry2->getTitle(),
-            'content'      => $newsEntry2->getContent(),
-            'date'         => $newsEntry2->getDate()->format('Y-m-d\TH:i:sO'),
-            'num_comments' => $newsEntry2->getNumComments(),
+            'id'           => $blogPost2->getId(),
+            'title'        => $blogPost2->getTitle(),
+            'content'      => $blogPost2->getContent(),
+            'date'         => $blogPost2->getDate()->format('Y-m-d\TH:i:sO'),
+            'num_comments' => $blogPost2->getNumComments(),
             'author'       => [
                 'id'       => $user->getId(),
                 'username' => $user->getUsername()
@@ -35,16 +34,16 @@ class NewsEntryControllerTest extends RestControllerTestCase
 
     public function testGetNewsEntry()
     {
-        $response = $this->doGetRequest('/rest/newsentries/1');
+        $response = $this->doGetRequest('/rest/blogposts/1');
         $content = $this->assertJsonResponse($response, Response::HTTP_OK);
-        $newsEntry = $this->getNewsEntryReference(NewsEntries::NEWS_ENTRY_1);
+        $blogPost = $this->getNewsEntryReference(BlogPosts::BLOG_POST_1);
         $user = $this->getUserReference('user');
         $expectedContent = [
-            'id'           => $newsEntry->getId(),
-            'title'        => $newsEntry->getTitle(),
-            'content'      => $newsEntry->getContent(),
-            'date'         => $newsEntry->getDate()->format('Y-m-d\TH:i:sO'),
-            'num_comments' => $newsEntry->getNumComments(),
+            'id'           => $blogPost->getId(),
+            'title'        => $blogPost->getTitle(),
+            'content'      => $blogPost->getContent(),
+            'date'         => $blogPost->getDate()->format('Y-m-d\TH:i:sO'),
+            'num_comments' => $blogPost->getNumComments(),
             'author'       => [
                 'id'       => $user->getId(),
                 'username' => $user->getUsername()
@@ -57,7 +56,7 @@ class NewsEntryControllerTest extends RestControllerTestCase
     public function testCreateNewsEntry()
     {
         $response = $this->doPostRequest(
-            '/rest/newsentries',
+            '/rest/blogposts',
             ['title' => 'TestTitle', 'content' => 'TestContent'],
             $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
         );
@@ -68,7 +67,7 @@ class NewsEntryControllerTest extends RestControllerTestCase
     {
         /* Content is missing */
         $response = $this->doPostRequest(
-            '/rest/newsentries',
+            '/rest/blogposts',
             ['title' => 'TestTitle'],
             $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
         );
@@ -77,7 +76,7 @@ class NewsEntryControllerTest extends RestControllerTestCase
 
     public function testGetMissingNewsEntry()
     {
-        $response = $this->doGetRequest('/rest/newsentries/666');
+        $response = $this->doGetRequest('/rest/blogposts/666');
         $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
     }
 
@@ -88,7 +87,7 @@ class NewsEntryControllerTest extends RestControllerTestCase
     {
         return [
             Users::class,
-            NewsEntries::class,
+            BlogPosts::class,
             Comments::class,
             ApiKeys::class
         ];

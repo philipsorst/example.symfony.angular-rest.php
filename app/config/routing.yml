@@ -19,21 +19,21 @@ ddr_symfony_angular_rest_example_rest:
     type: rest
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Resources/config/routing.yml"
 
-ddr_symfony_angular_rest_example_index:
+ddr_example_index:
     path: /
     defaults:
         _controller: FrameworkBundle:Redirect:urlRedirect
         path: /angular1/
         permanent: false
 
-ddr_symfony_angular_rest_example_web:
+ddr_example_web:
     resource: "@DdrSymfonyAngularRestExampleWebBundle/Resources/config/routing.yml"
     prefix:   /twig/
 
-ddr_symfony_angular_rest_example_angular1:
+ddr_example_angular1:
     resource: "@DdrSymfonyAngularRestExampleAngular1Bundle/Resources/config/routing.yml"
     prefix:   /angular1/
 
-ddr_symfony_angular_rest_example_angular2:
+ddr_example_angular2:
     resource: "@DdrSymfonyAngularRestExampleAngular2Bundle/Resources/config/routing.yml"
     prefix:   /angular2/

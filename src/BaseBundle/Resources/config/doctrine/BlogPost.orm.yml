@@ -1,7 +1,7 @@
-Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
+Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost:
     type: entity
     table: null
-    repositoryClass: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
+    repositoryClass: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\BlogPostRepository
     id:
         id:
             type: integer
@@ -28,12 +28,12 @@ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
     manyToOne:
         author:
             targetEntity: User
-            inversedBy: newsEntries
+            inversedBy: blogPosts
             joinColumn:
                 nullable: false
     oneToMany:
         comments:
             targetEntity: Comment
-            mappedBy: newsEntry
+            mappedBy: blogPost
             cascade: [remove]
     lifecycleCallbacks: {  }

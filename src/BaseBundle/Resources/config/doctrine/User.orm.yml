@@ -9,8 +9,8 @@ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User:
             generator:
                 strategy: AUTO
     oneToMany:
-        newsEntries:
-            targetEntity: NewsEntry
+        blogPosts:
+            targetEntity: BlogPost
             mappedBy: author
         apiKeys:
             targetEntity: ApiKey

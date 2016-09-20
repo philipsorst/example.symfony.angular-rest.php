@@ -30,27 +30,15 @@ class Comment implements Entity
     private $author;
 
     /**
-     * @var NewsEntry
+     * @var BlogPost
      */
-    private $newsEntry;
+    private $blogPost;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Comment
-     */
     public function setContent($content)
     {
         $this->content = $content;
@@ -58,23 +46,11 @@ class Comment implements Entity
         return $this;
     }
 
-    /**
-     * Get content
-     *
-     * @return string
-     */
     public function getContent()
     {
         return $this->content;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return Comment
-     */
     public function setDate($date)
     {
         $this->date = $date;
@@ -82,61 +58,28 @@ class Comment implements Entity
         return $this;
     }
 
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
     public function getDate()
     {
         return $this->date;
     }
 
-    /**
-     * Set author
-     *
-     * @param User $author
-     *
-     * @return Comment
-     */
     public function setAuthor(User $author)
     {
         $this->author = $author;
-
-        return $this;
     }
 
-    /**
-     * Get author
-     *
-     * @return User
-     */
     public function getAuthor()
     {
         return $this->author;
     }
 
-    /**
-     * Set newsEntry
-     *
-     * @param NewsEntry $newsEntry
-     *
-     * @return Comment
-     */
-    public function setNewsEntry(NewsEntry $newsEntry)
+    public function setBlogPost(BlogPost $blogPost)
     {
-        $this->newsEntry = $newsEntry;
-
-        return $this;
+        $this->blogPost = $blogPost;
     }
 
-    /**
-     * Get newsEntry
-     *
-     * @return NewsEntry
-     */
-    public function getNewsEntry()
+    public function getBlogPost()
     {
-        return $this->newsEntry;
+        return $this->blogPost;
     }
 }

@@ -16,46 +16,46 @@ class Comments extends AbstractOrderedFixture
      */
     public function load(ObjectManager $manager)
     {
-        $newsEntry1 = $this->getNewsEntryReference('news-entry-1');
-        $newsEntry2 = $this->getNewsEntryReference('news-entry-2');
+        $blogPost1 = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
+        $blogPost2 = $this->getBlogPostReference(BlogPosts::BLOG_POST_2);
 
         $admin = $this->getUserReference('admin');
         $user = $this->getUserReference('user');
         $dummy = $this->getUserReference('dummy');
 
-        $newsEntry1comment1 = new Comment();
-        $newsEntry1comment1->setNewsEntry($newsEntry1);
-        $newsEntry1comment1->setAuthor($dummy);
-        $newsEntry1comment1->setDate(new \DateTime());
-        $newsEntry1comment1->setContent('News Entry 1 Comment 1');
+        $blogPost1comment1 = new Comment();
+        $blogPost1comment1->setBlogPost($blogPost1);
+        $blogPost1comment1->setAuthor($dummy);
+        $blogPost1comment1->setDate(new \DateTime());
+        $blogPost1comment1->setContent('Blog Post 1 Comment 1');
 
-        $manager->persist($newsEntry1comment1);
+        $manager->persist($blogPost1comment1);
         $manager->flush();
 
-        $newsEntry1comment2 = new Comment();
-        $newsEntry1comment2->setNewsEntry($newsEntry1);
-        $newsEntry1comment2->setAuthor($user);
-        $newsEntry1comment2->setDate(new \DateTime());
-        $newsEntry1comment2->setContent('News Entry 1 Comment 2');
+        $blogPost1comment2 = new Comment();
+        $blogPost1comment2->setBlogPost($blogPost1);
+        $blogPost1comment2->setAuthor($user);
+        $blogPost1comment2->setDate(new \DateTime());
+        $blogPost1comment2->setContent('Blog Post 1 Comment 2');
 
-        $manager->persist($newsEntry1comment2);
+        $manager->persist($blogPost1comment2);
         $manager->flush();
 
-        $newsEntry1->setNumComments(2);
-        $manager->persist($newsEntry1);
+        $blogPost1->setNumComments(2);
+        $manager->persist($blogPost1);
         $manager->flush();
 
-        $newsEntry2comment1 = new Comment();
-        $newsEntry2comment1->setNewsEntry($newsEntry2);
-        $newsEntry2comment1->setAuthor($user);
-        $newsEntry2comment1->setDate(new \DateTime());
-        $newsEntry2comment1->setContent('News Entry 2 Comment 1');
+        $blogPost2comment1 = new Comment();
+        $blogPost2comment1->setBlogPost($blogPost2);
+        $blogPost2comment1->setAuthor($user);
+        $blogPost2comment1->setDate(new \DateTime());
+        $blogPost2comment1->setContent('Blog Post 2 Comment 1');
 
-        $manager->persist($newsEntry2comment1);
+        $manager->persist($blogPost2comment1);
         $manager->flush();
 
-        $newsEntry2->setNumComments(1);
-        $manager->persist($newsEntry2);
+        $blogPost2->setNumComments(1);
+        $manager->persist($blogPost2);
         $manager->flush();
     }
 

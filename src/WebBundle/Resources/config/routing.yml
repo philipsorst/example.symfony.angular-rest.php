@@ -1,15 +1,15 @@
-ddr_symfony_angular_rest_example_web_newsentry_edit:
+ddr_example_web_blogpost_edit:
     path:     /newsentries/{id}/edit
-    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:edit }
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:edit }
 
-ddr_symfony_angular_rest_example_web_newsentry_delete:
+ddr_example_web_blogpost_delete:
     path:     /newsentries/{id}/delete
-    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:delete }
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:delete }
 
-ddr_symfony_angular_rest_example_web_newsentry_detail:
+ddr_example_web_blogpost_detail:
     path:     /newsentries/{id}
-    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:NewsEntry:detail }
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:detail }
 
-ddr_symfony_angular_rest_example_web_index:
+ddr_example_web_index:
     path:     /
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:Default:index }

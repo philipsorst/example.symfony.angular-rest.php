@@ -2,16 +2,16 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\NewsEntryType;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\BlogPostType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-class NewsEntryController extends RestBaseController
+class BlogPostController extends RestBaseController
 {
 
     /**
@@ -21,7 +21,7 @@ class NewsEntryController extends RestBaseController
      */
     public function listNewsEntriesAction()
     {
-        $newsEntries = $this->getNewsEntryService()->listNewsEntries();
+        $newsEntries = $this->getBlogPostService()->listBlogPosts();
 
         $view = $this->view($newsEntries);
 
@@ -35,11 +35,11 @@ class NewsEntryController extends RestBaseController
      *
      * @return Response
      */
-    public function getNewsEntryAction($id)
+    public function getBlogPostAction($id)
     {
-        $newsEntry = $this->getNewsEntryService()->getNewsEntry($id);
+        $blogPost = $this->getBlogPostService()->getBlogPost($id);
 
-        $view = $this->view($newsEntry);
+        $view = $this->view($blogPost);
 
         return $this->handleView($view);
     }
@@ -51,23 +51,23 @@ class NewsEntryController extends RestBaseController
      *
      * @return Response
      */
-    public function createNewsEntryAction(Request $request)
+    public function createBlogPostAction(Request $request)
     {
-        $form = $this->createForm(NewsEntryType::class, new NewsEntry());
+        $form = $this->createForm(BlogPostType::class, new BlogPost());
         $form->handleRequest($request);
         if ($form->isValid()) {
-            /** @var NewsEntry $newsEntry */
-            $newsEntry = $form->getData();
-            $newsEntry->setAuthor($this->getUser());
-            $newsEntry->setDate(new \DateTime());
-            $newsEntry = $this->getNewsEntryService()->saveNewsEntry($newsEntry);
+            /** @var BlogPost $blogPost */
+            $blogPost = $form->getData();
+            $blogPost->setAuthor($this->getUser());
+            $blogPost->setDate(new \DateTime());
+            $blogPost = $this->getBlogPostService()->saveBlogPost($blogPost);
 
-            $view = $this->view($newsEntry, Response::HTTP_CREATED);
+            $view = $this->view($blogPost, Response::HTTP_CREATED);
             $view->setHeader(
                 'Location',
                 $this->generateUrl(
-                    'ddr_symfony_angular_rest_example_rest_newsentry_get_news_entry',
-                    ['id' => $newsEntry->getId()],
+                    'ddr_example_rest_blogpost_get_blog_post',
+                    ['id' => $blogPost->getId()],
                     true
                 )
             );
@@ -86,31 +86,31 @@ class NewsEntryController extends RestBaseController
      *
      * @return Response
      */
-    public function updateNewsEntryAction(Request $request, $id)
+    public function updateBlogPostAction(Request $request, $id)
     {
-        $newsEntryService = $this->getNewsEntryService();
-        $newsEntry = $newsEntryService->getNewsEntry($id);
+        $blogPostService = $this->getBlogPostService();
+        $blogPost = $blogPostService->getBlogPost($id);
         /** @var User $currentUser */
         $currentUser = $this->getUser();
 
-        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $newsEntry->getAuthor()->getId()) {
+        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
             throw $this->createAccessDeniedException('Cannot delete news entries of other users');
         }
 
-        /** @var NewsEntry $newsEntry */
-        $newsEntry = $this->unserializeRequestContent($request, get_class(new NewsEntry()));
+        /** @var BlogPost $blogPost */
+        $blogPost = $this->unserializeRequestContent($request, get_class(new BlogPost()));
 
-        $errors = $this->validate($newsEntry);
+        $errors = $this->validate($blogPost);
         if (count($errors) > 0) {
             $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
 
             return $this->handleView($view);
         }
 
-        $newsEntry->setAuthor($newsEntry->getAuthor());
-        $newsEntry = $newsEntryService->saveNewsEntry($newsEntry);
+        $blogPost->setAuthor($blogPost->getAuthor());
+        $blogPost = $blogPostService->saveBlogPost($blogPost);
 
-        $view = $this->view($newsEntry);
+        $view = $this->view($blogPost);
 
         return $this->handleView($view);
     }
@@ -122,18 +122,18 @@ class NewsEntryController extends RestBaseController
      *
      * @return Response
      */
-    public function deleteNewsEntryAction($id)
+    public function deleteBlogPostAction($id)
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
-        $newsEntryService = $this->getNewsEntryService();
-        $newsEntry = $newsEntryService->getNewsEntry($id);
+        $blogPostService = $this->getBlogPostService();
+        $blogPost = $blogPostService->getBlogPost($id);
 
-        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $newsEntry->getAuthor()->getId()) {
+        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
             throw new AccessDeniedHttpException('Cannot delete news entries of other users');
         }
 
-        $newsEntryService->deleteNewsEntry($newsEntry);
+        $blogPostService->deleteBlogPost($blogPost);
 
         $view = $this->view(null, Response::HTTP_NO_CONTENT);
 
@@ -149,8 +149,8 @@ class NewsEntryController extends RestBaseController
      */
     public function listCommentsAction($id)
     {
-        $newsEntryService = $this->getNewsEntryService();
-        $comments = $newsEntryService->findComments($id);
+        $blogPostService = $this->getBlogPostService();
+        $comments = $blogPostService->findComments($id);
 
         $view = $this->view($comments);
 
@@ -158,17 +158,17 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Rest\Get("/{newsEntryId}/comments/{commentId}", requirements={"newsEntryId" = "\d+", "commentId" = "\d+"})
+     * @Rest\Get("/{blogPostId}/comments/{commentId}", requirements={"blogPostId" = "\d+", "commentId" = "\d+"})
      *
-     * @param int $newsEntryId
+     * @param int $blogPostId
      * @param int $commentId
      *
      * @return Response
      */
-    public function getCommentAction($newsEntryId, $commentId)
+    public function getCommentAction($blogPostId, $commentId)
     {
-        $newsEntryService = $this->getNewsEntryService();
-        $comments = $newsEntryService->getComment($commentId);
+        $blogPostService = $this->getBlogPostService();
+        $comments = $blogPostService->getComment($commentId);
 
         $view = $this->view($comments);
 
@@ -176,25 +176,25 @@ class NewsEntryController extends RestBaseController
     }
 
     /**
-     * @Rest\Delete("/{newsEntryId}/comments/{commentId}", requirements={"newsEntryId" = "\d+", "commentId" = "\d+"})
+     * @Rest\Delete("/{blogPostId}/comments/{commentId}", requirements={"blogPostId" = "\d+", "commentId" = "\d+"})
      *
-     * @param int $newsEntryId
+     * @param int $blogPostId
      * @param int $commentId
      *
      * @return Response
      */
-    public function deleteCommentAction($newsEntryId, $commentId)
+    public function deleteCommentAction($blogPostId, $commentId)
     {
         $currentUser = $this->getUser();
-        $newsEntryService = $this->getNewsEntryService();
+        $blogPostService = $this->getBlogPostService();
 
-        $comment = $newsEntryService->getComment($commentId);
+        $comment = $blogPostService->getComment($commentId);
 
         if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $comment->getAuthor()->getId()) {
             throw new AccessDeniedHttpException('Cannot delete comment of other users');
         }
 
-        $comments = $newsEntryService->deleteComment($comment);
+        $comments = $blogPostService->deleteComment($comment);
 
         $view = $this->view($comments, Response::HTTP_NO_CONTENT);
 
@@ -213,8 +213,8 @@ class NewsEntryController extends RestBaseController
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
-        $newsEntryService = $this->getNewsEntryService();
-        $newsEntry = $newsEntryService->getNewsEntry($id);
+        $blogPostService = $this->getBlogPostService();
+        $blogPost = $blogPostService->getBlogPost($id);
 
         /** @var Comment $comment */
         $comment = $this->unserializeRequestContent($request, get_class(new Comment()));
@@ -228,16 +228,16 @@ class NewsEntryController extends RestBaseController
 
         $comment->setAuthor($this->getUser());
         $comment->setDate(new \DateTime());
-        $comment->setNewsEntry($newsEntry);
-        $comment = $this->getNewsEntryService()->saveComment($comment);
+        $comment->setBlogPost($blogPost);
+        $comment = $this->getBlogPostService()->saveComment($comment);
 
         $view = $this->view($comment, Response::HTTP_CREATED);
 
         $view->setHeader(
             'Location',
             $this->generateUrl(
-                'ddr_symfony_angular_rest_example_rest_newsentry_get_comment',
-                ['newsEntryId' => $id, 'commentId' => $comment->getId()],
+                'ddr_example_rest_blogpost_get_comment',
+                ['blogPostId' => $id, 'commentId' => $comment->getId()],
                 true
             )
         );

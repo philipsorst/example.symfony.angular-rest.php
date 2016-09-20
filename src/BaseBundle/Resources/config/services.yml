@@ -7,10 +7,10 @@ services:
         factory: ['@doctrine.orm.entity_manager', getRepository]
         arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User ]
 
-    ddr.symfonyangularrestexample.repository.newsentry:
-        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository
+    ddr.symfonyangularrestexample.repository.blogpost:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\BlogPostRepository
         factory: ['@doctrine.orm.entity_manager', getRepository]
-        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry ]
+        arguments: [ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost ]
 
     ddr.symfonyangularrestexample.repository.apikey:
         class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\ApiKeyRepository
@@ -24,10 +24,10 @@ services:
 
     # Services
 
-    ddr.symfonyangularrestexample.service.newsentry:
-        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineNewsEntryService
+    ddr.symfonyangularrestexample.service.blogpost:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\DoctrineBlogPostService
         arguments:
-            - '@ddr.symfonyangularrestexample.repository.newsentry'
+            - '@ddr.symfonyangularrestexample.repository.blogpost'
             - '@ddr.symfonyangularrestexample.repository.comment'
 
     ddr.symfonyangularrestexample.service.user:

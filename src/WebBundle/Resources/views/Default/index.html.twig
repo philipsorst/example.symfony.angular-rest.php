@@ -4,7 +4,7 @@
     <div class="page-header">
         {% if is_granted('ROLE_USER') %}
             <div class="pull-right">
-                <a href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_edit', {'id':'create'}) }}" class="btn btn-lg btn-default">
+                <a href="{{ path('ddr_example_web_blogpost_edit', {'id':'create'}) }}" class="btn btn-lg btn-default">
                     <span class="fa fa-plus"></span>
                 </a>
             </div>
@@ -12,23 +12,23 @@
         <h1>Welcome</h1>
     </div>
 
-    {% for newsEntry in newsEntries %}
+    {% for blogpost in blogPosts %}
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="pull-right">
-                    {{ newsEntry.date|date }}
+                    {{ blogpost.date|date }}
                 </div>
                 <h2 class="panel-title"><a
-                            href="{{ path('ddr_symfony_angular_rest_example_web_newsentry_detail', {'id':newsEntry.id}) }}">{{ newsEntry.title }}</a></h2>
+                            href="{{ path('ddr_example_web_blogpost_detail', {'id':blogpost.id}) }}">{{ blogpost.title }}</a></h2>
             </div>
             <div class="panel-body">
-                {{ newsEntry.content }}
+                {{ blogpost.content }}
                 <p class="text-muted margin-bottom-none">
-                    <small>by {{ newsEntry.author.username }}</small>
+                    <small>by {{ blogpost.author.username }}</small>
                 </p>
             </div>
             <div class="panel-footer">
-                <span class="fa fa-comments"></span> {{ newsEntry.numComments }} Comments
+                <span class="fa fa-comments"></span> {{ blogpost.numComments }} Comments
             </div>
         </div>
     {% endfor %}

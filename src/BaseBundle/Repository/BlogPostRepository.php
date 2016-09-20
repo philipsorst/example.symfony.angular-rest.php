@@ -3,7 +3,7 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository;
 
-class NewsEntryRepository extends DoctrineOrmRepository
+class BlogPostRepository extends DoctrineOrmRepository
 {
 
 }

@@ -12,11 +12,11 @@
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <a class="navbar-brand" href="{{ path('ddr_symfony_angular_rest_example_web_index') }}">Home</a>
+        <a class="navbar-brand" href="{{ path('ddr_example_web_index') }}">Home</a>
         <ul class="nav navbar-nav navbar-left">
-            <li><a href="{{ url('ddr_symfony_angular_rest_example_angular1_homepage') }}">Angular1</a></li>
-            <li><a href="{{ url('ddr_symfony_angular_rest_example_angular2_homepage') }}">Angular2</a></li>
-            <li class="active"><a href="{{ url('ddr_symfony_angular_rest_example_web_index') }}">Twig</a></li>
+            <li><a href="{{ url('ddr_example_angular1_homepage') }}">Angular1</a></li>
+            <li><a href="{{ url('ddr_example_angular2_homepage') }}">Angular2</a></li>
+            <li class="active"><a href="{{ url('ddr_example_web_index') }}">Twig</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             {% if is_granted('ROLE_USER') %}

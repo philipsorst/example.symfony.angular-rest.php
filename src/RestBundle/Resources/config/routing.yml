@@ -2,10 +2,10 @@ ddr_symfony_angular_rest_example_rest_user:
     prefix: users
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/UserController.php"
     type: rest
-    name_prefix: ddr_symfony_angular_rest_example_rest_user_
+    name_prefix: ddr_example_rest_user_
 
-ddr_symfony_angular_rest_example_rest_newsentry:
-    prefix: newsentries
-    resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/NewsEntryController.php"
+ddr_symfony_angular_rest_example_rest_blogpost:
+    prefix: blogposts
+    resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/BlogPostController.php"
     type: rest
-    name_prefix: ddr_symfony_angular_rest_example_rest_newsentry_
+    name_prefix: ddr_example_rest_blogpost_

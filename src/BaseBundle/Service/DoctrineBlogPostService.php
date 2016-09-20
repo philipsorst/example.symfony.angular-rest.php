@@ -3,37 +3,37 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Exception\NoResultException;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\BlogPostRepository;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepository;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\NewsEntryRepository;
 
-class DoctrineNewsEntryService implements NewsEntryService
+class DoctrineBlogPostService implements BlogPostService
 {
 
     /**
-     * @var NewsEntryRepository
+     * @var BlogPostRepository
      */
-    protected $newsEntryRepository;
+    protected $blogPostRepository;
 
     /**
      * @var CommentRepository
      */
     protected $commentRepository;
 
-    public function __construct(NewsEntryRepository $newsEntryRepository, CommentRepository $commentRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, CommentRepository $commentRepository)
     {
-        $this->newsEntryRepository = $newsEntryRepository;
+        $this->blogPostRepository = $blogPostRepository;
         $this->commentRepository = $commentRepository;
     }
 
     /**
-     * @return NewsEntry[]
+     * @return BlogPost[]
      */
-    public function listNewsEntries()
+    public function listBlogPosts()
     {
-        $newsEntries = $this->newsEntryRepository->findBy([], ['date' => 'DESC']);
+        $newsEntries = $this->blogPostRepository->findBy([], ['date' => 'DESC']);
 
         return $newsEntries;
     }
@@ -41,36 +41,37 @@ class DoctrineNewsEntryService implements NewsEntryService
     /**
      * @param int $id
      *
-     * @return NewsEntry
+     * @return BlogPost
      *
      * @throws NoResultException
      */
-    public function getNewsEntry($id)
+    public function getBlogPost($id)
     {
-        $newsEntry = $this->newsEntryRepository->find($id);
-        if (null === $newsEntry) {
+        /** @var BlogPost|null $blogPost */
+        $blogPost = $this->blogPostRepository->find($id);
+        if (null === $blogPost) {
             throw new NoResultException();
         }
 
-        return $newsEntry;
+        return $blogPost;
     }
 
     /**
-     * @param NewsEntry $newsEntry
+     * @param BlogPost $blogPost
      */
-    public function deleteNewsEntry(NewsEntry $newsEntry)
+    public function deleteBlogPost(BlogPost $blogPost)
     {
-        $this->newsEntryRepository->remove($newsEntry);
+        $this->blogPostRepository->remove($blogPost);
     }
 
     /**
-     * @param NewsEntry $newsEntry
+     * @param BlogPost $blogPost
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
-    public function saveNewsEntry($newsEntry)
+    public function saveBlogPost($blogPost)
     {
-        return $this->newsEntryRepository->save($newsEntry);
+        return $this->blogPostRepository->save($blogPost);
     }
 
     /**
@@ -80,7 +81,7 @@ class DoctrineNewsEntryService implements NewsEntryService
      */
     public function findComments($id)
     {
-        $comments = $this->commentRepository->findBy(['newsEntry' => $id], ['date' => 'DESC']);
+        $comments = $this->commentRepository->findBy(['blogPost' => $id], ['date' => 'DESC']);
 
         return $comments;
     }
@@ -94,6 +95,7 @@ class DoctrineNewsEntryService implements NewsEntryService
      */
     public function getComment($commentId)
     {
+        /** @var Comment|null $comment */
         $comment = $this->commentRepository->find($commentId);
         if (null === $comment) {
             throw new NoResultException();

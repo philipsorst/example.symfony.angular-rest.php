@@ -1,17 +1,17 @@
 <div class="page-header">
-    <div class="btn-group pull-right" ng-hide="!user.admin && user.id != newsEntry.author.id">
-        <a class="btn btn-lg btn-default" href="#!/news/{{newsEntry.id}}/edit">
+    <div class="btn-group pull-right" ng-hide="!user.admin && user.id != blogPost.author.id">
+        <a class="btn btn-lg btn-default" href="#!/blogposts/{{blogPost.id}}/edit">
             <i class="fa fa-pencil"></i>
         </a>
-        <a class="btn btn-lg btn-default" ng-click="remove(newsEntry)">
+        <a class="btn btn-lg btn-default" ng-click="remove(blogPost)">
             <i class="fa fa-trash-o"></i>
         </a>
     </div>
-    <h1><span ng-hide="!loading" class="fa fa-spin fa-spinner"></span>{{newsEntry.title}}</h1>
+    <h1><span ng-hide="!loading" class="fa fa-spin fa-spinner"></span>{{blogPost.title}}</h1>
 
     <div>
-        <span class="text-muted">Written by</span> {{newsEntry.author.username}} <span class="text-muted">on</span>
-        {{newsEntry.date | date:'short'}}
+        <span class="text-muted">Written by</span> {{blogPost.author.username}} <span class="text-muted">on</span>
+        {{blogPost.date | date:'short'}}
     </div>
 </div>
 
@@ -19,7 +19,7 @@
     <span class="fa fa-spin fa-spinner"></span>
 </div>
 
-<p class="margin-bottom-double">{{newsEntry.content}}</p>
+<p class="margin-bottom-double">{{blogPost.content}}</p>
 
 <div class="panel panel-default">
     <div class="panel-heading">

@@ -16,19 +16,19 @@ var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular',
                 controller: 'LogoutController'
             });
 
-            $routeProvider.when('/news/create', {
-                templateUrl: partialsPath + '/news/edit.html',
-                controller: 'NewsCreateController'
+            $routeProvider.when('/blogposts/create', {
+                templateUrl: partialsPath + '/blogpost/edit.html',
+                controller: 'BlogPostCreateController'
             });
 
-            $routeProvider.when('/news/:id/edit', {
-                templateUrl: partialsPath + '/news/edit.html',
-                controller: 'NewsEditController'
+            $routeProvider.when('/blogposts/:id/edit', {
+                templateUrl: partialsPath + '/blogpost/edit.html',
+                controller: 'BlogPostEditController'
             });
 
-            $routeProvider.when('/news/:id', {
-                templateUrl: partialsPath + '/news/detail.html',
-                controller: 'NewsDetailController'
+            $routeProvider.when('/blogposts/:id', {
+                templateUrl: partialsPath + '/blogpost/detail.html',
+                controller: 'BlogPostDetailController'
             });
 
             $routeProvider.otherwise({

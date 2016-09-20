@@ -5,7 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 
 abstract class AbstractOrderedFixture extends AbstractFixture implements OrderedFixtureInterface
@@ -24,9 +24,9 @@ abstract class AbstractOrderedFixture extends AbstractFixture implements Ordered
     /**
      * @param string $name
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
-    protected function getNewsEntryReference($name)
+    protected function getBlogPostReference($name)
     {
         return $this->getReference($name);
     }

@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="btn-group pull-right" ng-show="user">
-        <a href="#!/news/create" class="btn btn-default btn-large">&nbsp;<span class="fa fa-plus"></span>&nbsp;
+        <a href="#!/blogposts/create" class="btn btn-default btn-large">&nbsp;<span class="fa fa-plus"></span>&nbsp;
         </a>
     </div>
     <h1>Welcome</h1>
@@ -10,20 +10,20 @@
     <span class="fa fa-spin fa-spinner"></span>
 </div>
 
-<div ng-repeat="newsEntry in newsEntries" class="panel panel-default">
+<div ng-repeat="blogPost in blogPosts" class="panel panel-default">
     <div class="panel-heading">
         <div class="pull-right">
-            {{newsEntry.date | date:'short'}}
+            {{blogPost.date | date:'short'}}
         </div>
-        <h2 class="panel-title"><a href="#!/news/{{newsEntry.id}}">{{newsEntry.title}}</a></h2>
+        <h2 class="panel-title"><a href="#!/blogposts/{{blogPost.id}}">{{blogPost.title}}</a></h2>
     </div>
     <div class="panel-body">
-        {{newsEntry.content}}
+        {{blogPost.content}}
         <p class="text-muted margin-bottom-none">
-            <small>by {{newsEntry.author.username}}</small>
+            <small>by {{blogPost.author.username}}</small>
         </p>
     </div>
     <div class="panel-footer">
-        <span class="fa fa-comments"></span> {{newsEntry.num_comments}} Comments
+        <span class="fa fa-comments"></span> {{blogPost.num_comments}} Comments
     </div>
 </div>

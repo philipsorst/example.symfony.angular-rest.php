@@ -22,8 +22,8 @@ Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment:
             inversedBy: comments
             joinColumn:
                 nullable: false
-        newsEntry:
-            targetEntity: NewsEntry
+        blogPost:
+            targetEntity: BlogPost
             inversedBy: comments
             joinColumn:
                 nullable: false

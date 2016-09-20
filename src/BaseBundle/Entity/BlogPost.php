@@ -6,10 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * NewsEntry
- */
-class NewsEntry implements Entity
+class BlogPost implements Entity
 {
     /**
      * @var int
@@ -66,7 +63,7 @@ class NewsEntry implements Entity
      *
      * @param string $title
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     public function setTitle($title)
     {
@@ -90,7 +87,7 @@ class NewsEntry implements Entity
      *
      * @param string $content
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     public function setContent($content)
     {
@@ -114,7 +111,7 @@ class NewsEntry implements Entity
      *
      * @param \DateTime $date
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     public function setDate($date)
     {
@@ -138,7 +135,7 @@ class NewsEntry implements Entity
      *
      * @param User $author
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     public function setAuthor(User $author)
     {
@@ -162,7 +159,7 @@ class NewsEntry implements Entity
      *
      * @param int $numComments
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     public function setNumComments($numComments)
     {

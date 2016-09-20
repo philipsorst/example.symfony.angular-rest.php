@@ -3,10 +3,10 @@ var controllers = angular.module('ExampleApp.controllers', []);
 controllers.controller('IndexController', ['$scope', 'Restangular', function ($scope, Restangular) {
 
     $scope.loading = true;
-    Restangular.all('newsentries').getList().then(
-        function (newsEntries) {
+    Restangular.all('blogposts').getList().then(
+        function (blogPosts) {
             $scope.loading = false;
-            $scope.newsEntries = newsEntries;
+            $scope.blogPosts = blogPosts;
         },
         function (error) {
             $scope.loading = false;
@@ -15,14 +15,14 @@ controllers.controller('IndexController', ['$scope', 'Restangular', function ($s
     );
 }]);
 
-controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$window', 'Restangular', function ($scope, $routeParams, $window, Restangular) {
+controllers.controller('BlogPostDetailController', ['$scope', '$routeParams', '$window', 'Restangular', function ($scope, $routeParams, $window, Restangular) {
 
     var id = $routeParams.id;
     $scope.comment = {};
 
     $scope.loadComments = function () {
         $scope.commentsLoading = true;
-        $scope.newsEntry.all('comments').getList().then(
+        $scope.blogPost.all('comments').getList().then(
             function (comments) {
                 $scope.commentsLoading = false;
                 $scope.comments = comments;
@@ -35,10 +35,10 @@ controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$wind
     };
 
     $scope.loading = true;
-    Restangular.one('newsentries', id).get().then(
-        function (newsEntry) {
+    Restangular.one('blogposts', id).get().then(
+        function (blogPost) {
             $scope.loading = false;
-            $scope.newsEntry = newsEntry;
+            $scope.blogPost = blogPost;
 
             $scope.loadComments();
         },
@@ -48,8 +48,8 @@ controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$wind
         }
     );
 
-    $scope.remove = function (newsEntry) {
-        newsEntry.remove().then(
+    $scope.remove = function (blogPost) {
+        blogPost.remove().then(
             function () {
                 $window.history.back();
             },
@@ -72,8 +72,8 @@ controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$wind
 
     $scope.submitComment = function () {
         $scope.submitting = true;
-        $scope.newsEntry.all('comments').post($scope.comment).then(
-            function (newsEntry) {
+        $scope.blogPost.all('comments').post($scope.comment).then(
+            function (blogPost) {
                 $scope.submitting = false;
                 $scope.loadComments();
             },
@@ -85,17 +85,17 @@ controllers.controller('NewsDetailController', ['$scope', '$routeParams', '$wind
     };
 }]);
 
-controllers.controller('NewsCreateController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
+controllers.controller('BlogPostCreateController', ['$scope', '$location', 'Restangular', function ($scope, $location, Restangular) {
 
     $scope.submitting = false;
-    $scope.newsEntry = {};
+    $scope.blogPost = {};
 
     $scope.submit = function () {
         $scope.submitting = true;
-        Restangular.all('newsentries').post($scope.newsEntry).then(
-            function (newsEntry) {
+        Restangular.all('blogposts').post($scope.blogPost).then(
+            function (blogPost) {
                 $scope.submitting = false;
-                $location.path('/news/' + newsEntry.id);
+                $location.path('/blogposts/' + blogPost.id);
             },
             function (error) {
                 $scope.submitting = false;
@@ -105,7 +105,7 @@ controllers.controller('NewsCreateController', ['$scope', '$location', 'Restangu
     }
 }]);
 
-controllers.controller('NewsEditController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
+controllers.controller('BlogPostEditController', ['$scope', '$routeParams', '$location', 'Restangular', function ($scope, $routeParams, $location, Restangular) {
 
     var id = $routeParams.id;
 
@@ -113,10 +113,10 @@ controllers.controller('NewsEditController', ['$scope', '$routeParams', '$locati
     $scope.submitting = false;
 
     $scope.loading = true;
-    Restangular.one('newsentries', id).get().then(
-        function (newsEntry) {
+    Restangular.one('blogposts', id).get().then(
+        function (blogPost) {
             $scope.loading = false;
-            $scope.newsEntry = newsEntry;
+            $scope.blogPost = blogPost;
         },
         function (error) {
             $scope.loading = false;
@@ -126,10 +126,10 @@ controllers.controller('NewsEditController', ['$scope', '$routeParams', '$locati
 
     $scope.submit = function () {
         $scope.submitting = true;
-        $scope.newsEntry.save().then(
-            function (newsEntry) {
+        $scope.blogPost.save().then(
+            function (blogPost) {
                 $scope.submitting = false;
-                $location.path('/news/' + id);
+                $location.path('/blogposts/' + id);
             },
             function (error) {
                 $scope.submitting = false;

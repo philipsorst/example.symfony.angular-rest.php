@@ -3,7 +3,7 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\NewsEntryService;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\BlogPostService;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\UserService;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\Serializer\Serializer;
@@ -14,11 +14,11 @@ class RestBaseController extends FOSRestController
 {
 
     /**
-     * @return NewsEntryService
+     * @return BlogPostService
      */
-    protected function getNewsEntryService()
+    protected function getBlogPostService()
     {
-        return $this->get('ddr.symfonyangularrestexample.service.newsentry');
+        return $this->get('ddr.symfonyangularrestexample.service.blogpost');
     }
 
     /**

@@ -3,35 +3,35 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
 
-interface NewsEntryService
+interface BlogPostService
 {
 
     /**
-     * @return NewsEntry[]
+     * @return BlogPost[]
      */
-    public function listNewsEntries();
+    public function listBlogPosts();
 
     /**
      * @param int $id
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
-    public function getNewsEntry($id);
+    public function getBlogPost($id);
 
     /**
-     * @param NewsEntry $newsEntry
+     * @param BlogPost $blogPost
      */
-    public function deleteNewsEntry(NewsEntry $newsEntry);
+    public function deleteBlogPost(BlogPost $blogPost);
 
     /**
-     * @param NewsEntry $newsEntry
+     * @param BlogPost $blogPost
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
-    public function saveNewsEntry($newsEntry);
+    public function saveBlogPost($blogPost);
 
     /**
      * @param int $id

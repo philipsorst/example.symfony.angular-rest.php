@@ -2,9 +2,8 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\Controller;
 
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class DefaultController extends Controller
 {
@@ -14,12 +13,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $newsEntryRepository = $this->getDoctrine()->getRepository(NewsEntry::class);
-        $newsEntries = $newsEntryRepository->findBy([], ['date' => 'desc']);
+        $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);
+        $blogPosts = $blogPostRepository->findBy([], ['date' => 'desc']);
 
         return $this->render(
             '@DdrSymfonyAngularRestExampleWeb/Default/index.html.twig',
-            ['newsEntries' => $newsEntries]
+            ['blogPosts' => $blogPosts]
         );
     }
 }

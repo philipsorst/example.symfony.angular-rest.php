@@ -5,7 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\ApiKey;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -110,7 +110,7 @@ abstract class RestControllerTestCase extends WebTestCase
     /**
      * @param string $name
      *
-     * @return NewsEntry
+     * @return BlogPost
      */
     protected function getNewsEntryReference($name)
     {

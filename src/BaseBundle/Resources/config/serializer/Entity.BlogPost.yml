@@ -1,4 +1,4 @@
-Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\NewsEntry:
+Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost:
     exclusion_policy: ALL
     properties:
         id:
