@@ -1,13 +1,13 @@
 ddr_example_web_blogpost_edit:
-    path:     /newsentries/{id}/edit
+    path:     /blogposts/{id}/edit
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:edit }
 
 ddr_example_web_blogpost_delete:
-    path:     /newsentries/{id}/delete
+    path:     /blogposts/{id}/delete
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:delete }
 
 ddr_example_web_blogpost_detail:
-    path:     /newsentries/{id}
+    path:     /blogposts/{id}
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:detail }
 
 ddr_example_web_index:

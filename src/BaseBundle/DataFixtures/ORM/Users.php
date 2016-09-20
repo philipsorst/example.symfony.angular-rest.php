@@ -7,9 +7,8 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class Users extends AbstractOrderedFixture implements ContainerAwareInterface
+class Users extends AbstractFixture implements ContainerAwareInterface
 {
-
     const ADMIN = 'admin';
     const USER = 'user';
     const DUMMY = 'dummy';
@@ -19,11 +18,6 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
      */
     protected $container;
 
-    /**
-     * Load data fixtures with the passed EntityManager.
-     *
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager)
     {
         /** @var UserManagerInterface $userManager */
@@ -66,21 +60,6 @@ class Users extends AbstractOrderedFixture implements ContainerAwareInterface
         $manager->flush();
     }
 
-    /**
-     * Get the order of this fixture.
-     *
-     * @return int
-     */
-    public function getOrder()
-    {
-        return 1;
-    }
-
-    /**
-     * Sets the Container.
-     *
-     * @param ContainerInterface|null $container A ContainerInterface instance or null
-     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;

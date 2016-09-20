@@ -3,12 +3,13 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\AbstractFixture as BaseFixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 
-abstract class AbstractOrderedFixture extends AbstractFixture implements OrderedFixtureInterface
+abstract class AbstractFixture extends BaseFixture
 {
 
     /**

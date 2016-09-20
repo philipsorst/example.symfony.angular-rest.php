@@ -1,20 +1,15 @@
 <?php
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 
-class BlogPosts extends AbstractOrderedFixture
+class BlogPosts extends AbstractFixture implements DependentFixtureInterface
 {
-
     const BLOG_POST_1 = 'blog-post-1';
     const BLOG_POST_2 = 'blog-post-2';
 
-    /**
-     * Load data fixtures with the passed EntityManager.
-     *
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager)
     {
         $blogPost1 = new BlogPost();
@@ -38,13 +33,8 @@ class BlogPosts extends AbstractOrderedFixture
         $this->setReference(self::BLOG_POST_2, $blogPost2);
     }
 
-    /**
-     * Get the order of this fixture.
-     *
-     * @return int
-     */
-    public function getOrder()
+    public function getDependencies()
     {
-        return 3;
+        return [Users::class];
     }
 }

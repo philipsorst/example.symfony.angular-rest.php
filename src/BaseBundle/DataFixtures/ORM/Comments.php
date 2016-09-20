@@ -3,17 +3,12 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 
-class Comments extends AbstractOrderedFixture
+class Comments extends AbstractFixture implements DependentFixtureInterface
 {
-
-    /**
-     * Load data fixtures with the passed EntityManager.
-     *
-     * @param ObjectManager $manager
-     */
     public function load(ObjectManager $manager)
     {
         $blogPost1 = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
@@ -59,13 +54,8 @@ class Comments extends AbstractOrderedFixture
         $manager->flush();
     }
 
-    /**
-     * Get the order of this fixture.
-     *
-     * @return int
-     */
-    public function getOrder()
+    public function getDependencies()
     {
-        return 4;
+        return [BlogPosts::class];
     }
 }
