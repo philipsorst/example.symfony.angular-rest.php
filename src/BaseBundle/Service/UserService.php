@@ -19,7 +19,7 @@ interface UserService
      *
      * @return User
      */
-    public function getUser($id);
+    public function loadUser($id);
 
     /**
      * @param string $userName

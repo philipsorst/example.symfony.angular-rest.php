@@ -7,17 +7,18 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\BlogPostType;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\CommentType;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\BlogPostRepository;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\ContainerServicesTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class BlogPostController extends Controller
+class BlogPostController extends BaseController
 {
     public function detailAction(Request $request, $id)
     {
-        $blogPost = $this->loadBlogPost($id);
-        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
+        $blogPost = $this->getBlogPostService()->loadBlogPost($id);
 
         $commentForm = $this->createForm(CommentType::class);
         $commentForm->handleRequest($request);
@@ -30,10 +31,10 @@ class BlogPostController extends Controller
             $comment->setBlogPost($blogPost);
             $comment->setAuthor($this->getUser());
             $comment->setDate(new \DateTime());
-            $commentRepository->save($comment);
+            $this->getBlogPostService()->saveComment($comment);
         }
 
-        $comments = $commentRepository->findBy(['blogPost' => $blogPost], ['date' => 'desc']);
+        $comments = $this->getBlogPostService()->listCommentsByBlogPost($id);
 
         return $this->render(
             '@DdrSymfonyAngularRestExampleWeb/BlogPost/detail.html.twig',
@@ -43,13 +44,12 @@ class BlogPostController extends Controller
 
     public function editAction(Request $request, $id)
     {
-        $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);
         $blogPost = null;
         if ('create' === $id) {
             $blogPost = new BlogPost();
             $blogPost->setAuthor($this->getUser());
         } else {
-            $blogPost = $this->loadBlogPost($id, $blogPostRepository);
+            $blogPost = $this->getBlogPostService()->loadBlogPost($id);
             if (!$this->isGranted('ROLE_ADMIN') || !$blogPost->getAuthor()->getId() === $this->getUser()->getId()) {
                 throw new AccessDeniedException();
             }
@@ -61,7 +61,7 @@ class BlogPostController extends Controller
             /** @var BlogPost $blogPost */
             $blogPost = $form->getData();
             $blogPost->setDate(new \DateTime());
-            $blogPostRepository->save($blogPost);
+            $this->getBlogPostService()->saveBlogPost($blogPost);
 
             return $this->redirectToRoute('ddr_example_web_index');
         }
@@ -74,56 +74,30 @@ class BlogPostController extends Controller
 
     public function deleteAction($id)
     {
-        $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);
-        $blogPost = $this->loadBlogPost($id, $blogPostRepository);
+        $blogPost = $this->getBlogPostService()->loadBlogPost($id);
 
         if (!$this->isGranted('ROLE_ADMIN') || !$blogPost->getAuthor()->getId() === $this->getUser()->getId()) {
             throw new AccessDeniedException();
         }
 
-        $blogPostRepository->remove($blogPost);
+        $this->getBlogPostService()->deleteBlogPost($blogPost);
 
         return $this->redirectToRoute('ddr_example_web_index');
     }
 
     public function deleteCommentAction($id)
     {
-        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comment = $commentRepository->findOneBy(['id' => $id]);
-        if (null == $comment) {
-            throw new NotFoundHttpException();
-        }
+        $comment = $this->getBlogPostService()->loadComment($id);
 
         if (!$this->isGranted('ROLE_ADMIN') || !$comment->getAuthor()->getId() === $this->getUser()->getId()) {
             throw new AccessDeniedException();
         }
 
-        $commentRepository->remove($comment);
+        $this->getBlogPostService()->deleteComment($comment);
 
         return $this->redirectToRoute(
             'ddr_example_web_blogpost_detail',
             ['id' => $comment->getBlogPost()->getId()]
         );
-    }
-
-    /**
-     * @param int                $id
-     * @param BlogPostRepository $blogPostRepository
-     *
-     * @return BlogPost
-     */
-    protected function loadBlogPost($id, $blogPostRepository = null)
-    {
-        if (null == $blogPostRepository) {
-            $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);
-        }
-
-        /** @var BlogPost|null $blogPost */
-        $blogPost = $blogPostRepository->findOneBy(['id' => $id]);
-        if (null == $blogPost) {
-            throw new NotFoundHttpException();
-        }
-
-        return $blogPost;
     }
 }

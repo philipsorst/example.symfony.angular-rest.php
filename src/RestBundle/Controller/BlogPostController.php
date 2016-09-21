@@ -37,7 +37,7 @@ class BlogPostController extends RestBaseController
      */
     public function getBlogPostAction($id)
     {
-        $blogPost = $this->getBlogPostService()->getBlogPost($id);
+        $blogPost = $this->getBlogPostService()->loadBlogPost($id);
 
         $view = $this->view($blogPost);
 
@@ -89,7 +89,7 @@ class BlogPostController extends RestBaseController
     public function updateBlogPostAction(Request $request, $id)
     {
         $blogPostService = $this->getBlogPostService();
-        $blogPost = $blogPostService->getBlogPost($id);
+        $blogPost = $blogPostService->loadBlogPost($id);
         /** @var User $currentUser */
         $currentUser = $this->getUser();
 
@@ -127,7 +127,7 @@ class BlogPostController extends RestBaseController
         /** @var User $currentUser */
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
-        $blogPost = $blogPostService->getBlogPost($id);
+        $blogPost = $blogPostService->loadBlogPost($id);
 
         if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
             throw new AccessDeniedHttpException('Cannot delete blog posts of other users');
@@ -150,7 +150,7 @@ class BlogPostController extends RestBaseController
     public function listCommentsAction($id)
     {
         $blogPostService = $this->getBlogPostService();
-        $comments = $blogPostService->findComments($id);
+        $comments = $blogPostService->listCommentsByBlogPost($id);
 
         $view = $this->view($comments);
 
@@ -168,7 +168,7 @@ class BlogPostController extends RestBaseController
     public function getCommentAction($blogPostId, $commentId)
     {
         $blogPostService = $this->getBlogPostService();
-        $comments = $blogPostService->getComment($commentId);
+        $comments = $blogPostService->loadComment($commentId);
 
         $view = $this->view($comments);
 
@@ -188,7 +188,7 @@ class BlogPostController extends RestBaseController
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
 
-        $comment = $blogPostService->getComment($commentId);
+        $comment = $blogPostService->loadComment($commentId);
 
         if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $comment->getAuthor()->getId()) {
             throw new AccessDeniedHttpException('Cannot delete comment of other users');
@@ -214,7 +214,7 @@ class BlogPostController extends RestBaseController
         /** @var User $currentUser */
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
-        $blogPost = $blogPostService->getBlogPost($id);
+        $blogPost = $blogPostService->loadBlogPost($id);
 
         /** @var Comment $comment */
         $comment = $this->unserializeRequestContent($request, get_class(new Comment()));

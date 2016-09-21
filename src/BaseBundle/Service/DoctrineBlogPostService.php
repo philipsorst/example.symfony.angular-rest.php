@@ -45,7 +45,7 @@ class DoctrineBlogPostService implements BlogPostService
      *
      * @throws NoResultException
      */
-    public function getBlogPost($id)
+    public function loadBlogPost($id)
     {
         /** @var BlogPost|null $blogPost */
         $blogPost = $this->blogPostRepository->find($id);
@@ -75,15 +75,13 @@ class DoctrineBlogPostService implements BlogPostService
     }
 
     /**
-     * @param int $id
+     * @param BlogPost $blogPost
      *
      * @return Comment[]
      */
-    public function findComments($id)
+    public function listCommentsByBlogPost($blogPost)
     {
-        $comments = $this->commentRepository->findBy(['blogPost' => $id], ['date' => 'DESC']);
-
-        return $comments;
+        return $this->commentRepository->findBy(['blogPost' => $blogPost], ['date' => 'desc']);
     }
 
     /**
@@ -93,7 +91,7 @@ class DoctrineBlogPostService implements BlogPostService
      *
      * @throws NoResultException
      */
-    public function getComment($commentId)
+    public function loadComment($commentId)
     {
         /** @var Comment|null $comment */
         $comment = $this->commentRepository->find($commentId);

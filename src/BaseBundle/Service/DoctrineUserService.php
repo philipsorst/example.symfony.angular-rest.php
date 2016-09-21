@@ -64,7 +64,7 @@ class DoctrineUserService implements UserService
      *
      * @throws NoResultException
      */
-    public function getUser($id)
+    public function loadUser($id)
     {
         /** @var User|null $user */
         $user = $this->userRepository->find($id);

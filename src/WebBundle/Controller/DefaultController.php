@@ -5,16 +5,11 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\Controller;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
-    /**
-     * @Route("/")
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function indexAction()
     {
-        $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);
-        $blogPosts = $blogPostRepository->findBy([], ['date' => 'desc']);
+        $blogPosts = $this->getBlogPostService()->listBlogPosts();
 
         return $this->render(
             '@DdrSymfonyAngularRestExampleWeb/Default/index.html.twig',

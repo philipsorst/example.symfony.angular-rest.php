@@ -53,7 +53,7 @@ class UserController extends RestBaseController
     public function getUserAction($id)
     {
         if (is_numeric($id)) {
-            $user = $this->getUserService()->getUser($id);
+            $user = $this->getUserService()->loadUser($id);
         } else {
             if ($id === 'me') {
                 $user = $this->getUser();

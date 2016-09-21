@@ -19,7 +19,7 @@ interface BlogPostService
      *
      * @return BlogPost
      */
-    public function getBlogPost($id);
+    public function loadBlogPost($id);
 
     /**
      * @param BlogPost $blogPost
@@ -34,18 +34,11 @@ interface BlogPostService
     public function saveBlogPost($blogPost);
 
     /**
-     * @param int $id
-     *
-     * @return Comment[]
-     */
-    public function findComments($id);
-
-    /**
      * @param $commentId
      *
      * @return Comment
      */
-    public function getComment($commentId);
+    public function loadComment($commentId);
 
     /**
      * @param Comment $comment
@@ -58,4 +51,11 @@ interface BlogPostService
      * @return Comment
      */
     public function saveComment($comment);
+
+    /**
+     * @param BlogPost|int $blogPost
+     *
+     * @return Comment[]
+     */
+    public function listCommentsByBlogPost($blogPost);
 }
