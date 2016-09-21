@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Comment
@@ -15,6 +16,9 @@ class Comment implements Entity
     private $id;
 
     /**
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
+     * @Assert\Length(min="1",max="255")
      * @var string
      */
     private $content;

@@ -5,6 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class BlogPost implements Entity
 {
@@ -14,11 +15,17 @@ class BlogPost implements Entity
     private $id;
 
     /**
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
+     * @Assert\Length(min="1",max="63")
      * @var string
      */
     private $title;
 
     /**
+     * @Assert\Type("string")
+     * @Assert\NotBlank()
+     * @Assert\Length(min="1",max="511")
      * @var string
      */
     private $content;
@@ -34,7 +41,7 @@ class BlogPost implements Entity
     private $numComments = 0;
 
     /**
-     * @var Collection
+     * @var Collection|Comment[]
      */
     private $comments;
 
@@ -48,95 +55,41 @@ class BlogPost implements Entity
         $this->comments = new ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return BlogPost
-     */
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
     }
 
-    /**
-     * Get title
-     *
-     * @return string
-     */
     public function getTitle()
     {
         return $this->title;
     }
 
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return BlogPost
-     */
     public function setContent($content)
     {
         $this->content = $content;
-
-        return $this;
     }
 
-    /**
-     * Get content
-     *
-     * @return string
-     */
     public function getContent()
     {
         return $this->content;
     }
 
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     *
-     * @return BlogPost
-     */
     public function setDate($date)
     {
         $this->date = $date;
-
-        return $this;
     }
 
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
     public function getDate()
     {
         return $this->date;
     }
 
-    /**
-     * Set author
-     *
-     * @param User $author
-     *
-     * @return BlogPost
-     */
     public function setAuthor(User $author)
     {
         $this->author = $author;
@@ -144,71 +97,18 @@ class BlogPost implements Entity
         return $this;
     }
 
-    /**
-     * Get author
-     *
-     * @return User
-     */
     public function getAuthor()
     {
         return $this->author;
     }
 
-    /**
-     * Set numComments
-     *
-     * @param int $numComments
-     *
-     * @return BlogPost
-     */
     public function setNumComments($numComments)
     {
         $this->numComments = $numComments;
-
-        return $this;
     }
 
-    /**
-     * Get numComments
-     *
-     * @return int
-     */
     public function getNumComments()
     {
         return $this->numComments;
-    }
-
-    /**
-     * Add comments
-     *
-     * @param Comment $comment
-     *
-     * @return Comment
-     */
-    public function addComment(Comment $comment)
-    {
-        $this->comments[] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * Remove comments
-     *
-     * @param Comment $comment
-     */
-    public function removeComment(Comment $comment)
-    {
-        $this->comments->removeElement($comment);
-    }
-
-    /**
-     * Get comments
-     *
-     * @return Collection
-     */
-    public function getComments()
-    {
-        return $this->comments;
     }
 }

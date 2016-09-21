@@ -72,7 +72,8 @@ class BlogPostControllerTest extends RestControllerTestCase
             ['title' => 'TestTitle'],
             $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
         );
-        $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
+        $content = $this->assertJsonResponse($response, Response::HTTP_BAD_REQUEST);
+        $this->assertEquals('This value should not be blank.', $content['children']['content']['errors'][0]);
     }
 
     public function testGetMissingBlogPost()

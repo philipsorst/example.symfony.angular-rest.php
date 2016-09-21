@@ -2,15 +2,19 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Model;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class UserCredentials
 {
 
     /**
+     * @Assert\NotBlank()
      * @var string
      */
     private $username;
 
     /**
+     * @Assert\NotBlank()
      * @var string
      */
     private $password;

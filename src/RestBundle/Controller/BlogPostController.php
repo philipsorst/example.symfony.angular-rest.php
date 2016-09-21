@@ -6,6 +6,7 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\BlogPostType;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\CommentType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -118,35 +119,27 @@ class BlogPostController extends RestBaseController
 
     public function postBlogpostCommentsAction(Request $request, $blogPostId)
     {
-        /** @var User $currentUser */
-        $currentUser = $this->getUser();
-        $blogPostService = $this->getBlogPostService();
-        $blogPost = $blogPostService->loadBlogPost($blogPostId);
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $blogPost = $this->getBlogPostService()->loadBlogPost($blogPostId);
+            /** @var Comment $comment */
+            $comment = $form->getData();
+            $comment->setAuthor($this->getUser());
+            $comment->setDate(new \DateTime());
+            $comment->setBlogPost($blogPost);
+            $view = $this->view($this->getBlogPostService()->saveComment($comment), Response::HTTP_CREATED);
+            $view->setLocation(
+                $this->generateUrl(
+                    'ddr_example_rest_get_blogpost_comments',
+                    ['blogPostId' => $blogPostId, 'commentId' => $comment->getId()],
+                    true
+                )
+            );
 
-        /** @var Comment $comment */
-        $comment = $this->unserializeRequestContent($request, get_class(new Comment()));
-
-        $errors = $this->validate($comment);
-        if (count($errors) > 0) {
-            return $this->view($errors, Response::HTTP_BAD_REQUEST);
+            return $view;
         }
 
-        $comment->setAuthor($this->getUser());
-        $comment->setDate(new \DateTime());
-        $comment->setBlogPost($blogPost);
-        $comment = $this->getBlogPostService()->saveComment($comment);
-
-        $view = $this->view($comment, Response::HTTP_CREATED);
-
-        $view->setHeader(
-            'Location',
-            $this->generateUrl(
-                'ddr_example_rest_get_blogpost_comments',
-                ['blogPostId' => $blogPostId, 'commentId' => $comment->getId()],
-                true
-            )
-        );
-
-        return $view;
+        return $this->view($form);
     }
 }
