@@ -26,8 +26,7 @@ class BlogPostController extends RestBaseController
 
     public function postBlogpostAction(Request $request)
     {
-        $form = $this->createForm(BlogPostType::class);
-        $form->handleRequest($request);
+        $form = $this->createAndHandleForm($request, BlogPostType::class);
         if ($form->isValid()) {
             /** @var BlogPost $blogPost */
             $blogPost = $form->getData();
@@ -57,22 +56,23 @@ class BlogPostController extends RestBaseController
         /** @var User $currentUser */
         $currentUser = $this->getUser();
 
-        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
-            throw $this->createAccessDeniedException('Cannot delete news entries of other users');
+        $form = $this->createAndHandleForm($request, BlogPostType::class, $blogPost);
+        if ($form->isValid()) {
+            /** @var BlogPost $blogPost */
+            $blogPost = $form->getData();
+
+            if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
+                throw $this->createAccessDeniedException('Cannot delete news entries of other users');
+            }
+
+            $blogPost->setAuthor($this->getUser());
+            $blogPost->setDate(new \DateTime());
+            $blogPost = $this->getBlogPostService()->saveBlogPost($blogPost);
+
+            return $this->view($blogPost);
         }
 
-        /** @var BlogPost $blogPost */
-        $blogPost = $this->unserializeRequestContent($request, get_class(new BlogPost()));
-
-        $errors = $this->validate($blogPost);
-        if (count($errors) > 0) {
-            return $this->view($errors, Response::HTTP_BAD_REQUEST);
-        }
-
-        $blogPost->setAuthor($blogPost->getAuthor());
-        $blogPost = $blogPostService->saveBlogPost($blogPost);
-
-        return $this->view($blogPost);
+        return $this->view($form);
     }
 
     public function deleteBlogpostAction($id)

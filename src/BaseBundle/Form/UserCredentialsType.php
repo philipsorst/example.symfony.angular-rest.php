@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class BlogPostType extends AbstractType
+class UserCredentialsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -20,7 +20,8 @@ class BlogPostType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class' => UserCredentials::class,
+                'data_class'      => UserCredentials::class,
+                'csrf_protection' => false
             ]
         );
     }

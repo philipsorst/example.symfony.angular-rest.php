@@ -13,6 +13,8 @@ class Users extends AbstractFixture implements ContainerAwareInterface
     const USER = 'user';
     const DUMMY = 'dummy';
 
+    const USER_PASSWORD = 'user';
+
     /**
      * @var ContainerInterface
      */
@@ -36,9 +38,9 @@ class Users extends AbstractFixture implements ContainerAwareInterface
         $this->addReference('user-1', $admin);
 
         $user = $userManager->createUser();
-        $user->setUsername('user');
+        $user->setUsername(self::USER);
         $user->setEmail('user@example.com');
-        $user->setPlainPassword('user');
+        $user->setPlainPassword(self::USER_PASSWORD);
         $user->setEnabled(true);
 
         $userManager->updateUser($user);

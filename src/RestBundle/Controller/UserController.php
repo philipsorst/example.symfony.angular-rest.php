@@ -3,6 +3,7 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\UserCredentialsType;
 use Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Model\UserCredentials;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,13 +32,16 @@ class UserController extends RestBaseController
      */
     public function createApiKeyAction(Request $request)
     {
-        /** @var UserCredentials $credentials */
-        $credentials = $this->unserializeRequestContent($request, get_class(new UserCredentials()));
-        $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
+        $form = $this->createAndHandleForm($request, UserCredentialsType::class);
+        if ($form->isValid()) {
+            /** @var UserCredentials $credentials */
+            $credentials = $form->getData();
+            $apiKey = $this->getUserService()->createApiKey($credentials->getUsername(), $credentials->getPassword());
 
-        $view = $this->view($apiKey, Response::HTTP_CREATED);
+            return $this->view($apiKey, Response::HTTP_CREATED);
+        }
 
-        return $this->handleView($view);
+        return $this->view($form);
     }
 
     /**
