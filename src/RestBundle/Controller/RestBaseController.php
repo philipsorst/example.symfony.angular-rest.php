@@ -57,4 +57,14 @@ class RestBaseController extends FOSRestController
 
         return $errors;
     }
+
+    protected function createForm($type, $data = null, array $options = array())
+    {
+        if ($this->isGranted('ROLE_REST_API')) {
+            /* We want a form with no name in the REST API, as the content is not prefixed with the name */
+            return $this->container->get('form.factory')->createNamed('', $type, $data, $options);
+        }
+
+        return parent::createForm($type, $data, $options);
+    }
 }

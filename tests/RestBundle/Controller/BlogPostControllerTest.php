@@ -53,7 +53,7 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals($expectedContent, $content);
     }
 
-    public function testCreateNewsEntry()
+    public function testCreateBlogPost()
     {
         $response = $this->doPostRequest(
             '/rest/blogposts',
@@ -61,6 +61,7 @@ class BlogPostControllerTest extends RestControllerTestCase
             $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
         );
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+        $this->assertEquals('/rest/blogposts/3', $response->headers->get('location'));
     }
 
     public function testCreateInvalidBlogPost()

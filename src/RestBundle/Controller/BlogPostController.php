@@ -25,7 +25,7 @@ class BlogPostController extends RestBaseController
 
     public function postBlogpostAction(Request $request)
     {
-        $form = $this->createForm(BlogPostType::class, new BlogPost());
+        $form = $this->createForm(BlogPostType::class);
         $form->handleRequest($request);
         if ($form->isValid()) {
             /** @var BlogPost $blogPost */
@@ -35,8 +35,7 @@ class BlogPostController extends RestBaseController
             $blogPost = $this->getBlogPostService()->saveBlogPost($blogPost);
 
             $view = $this->view($blogPost, Response::HTTP_CREATED);
-            $view->setHeader(
-                'Location',
+            $view->setLocation(
                 $this->generateUrl(
                     'ddr_example_rest_get_blogpost',
                     ['id' => $blogPost->getId()],
