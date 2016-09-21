@@ -10,6 +10,10 @@ ddr_example_web_blogpost_detail:
     path:     /blogposts/{id}
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:detail }
 
+ddr_example_web_comment_delete:
+    path:     /comments/{id}/delete
+    defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:BlogPost:deleteComment }
+
 ddr_example_web_index:
     path:     /
     defaults: { _controller: DdrSymfonyAngularRestExampleWebBundle:Default:index }

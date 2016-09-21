@@ -112,7 +112,7 @@ class BlogPostController extends Controller
      *
      * @return BlogPost
      */
-    public function loadBlogPost($id, $blogPostRepository = null)
+    protected function loadBlogPost($id, $blogPostRepository = null)
     {
         if (null == $blogPostRepository) {
             $blogPostRepository = $this->getDoctrine()->getRepository(BlogPost::class);

@@ -59,7 +59,7 @@ abstract class AbstractControllerTest extends WebTestCase
     protected function assertLoginRequired()
     {
         $this->assertEquals(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('http://localhost/login', $this->client->getResponse()->headers->get('location'));
+        $this->assertEquals('http://localhost/twig/login', $this->client->getResponse()->headers->get('location'));
     }
 
     /**
