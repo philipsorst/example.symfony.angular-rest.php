@@ -39,6 +39,6 @@ security:
         - { path: ^/twig/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/twig/newsentries/.*/edit$, role: ROLE_USER }
         - { path: ^/twig/newsentries/.*/delete$, role: ROLE_USER }
-        - { path: ^/rest/users/createapikey$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/rest/apikeys$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/rest/*, methods: [POST,PUT,DELETE], role: ROLE_USER }
         - { path: ^/rest/users*, role: ROLE_USER }

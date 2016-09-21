@@ -177,7 +177,7 @@ controllers.controller('LoginController', ['$scope', '$rootScope', '$http', '$ro
     $scope.submit = function () {
         delete $http.defaults.headers.common['X-Api-Key'];
         $scope.submitting = true;
-        Restangular.all('users').all('createapikey').post($scope.credentials).then(
+        Restangular.all('apikeys').post($scope.credentials).then(
             function (apiKeyResponse) {
                 verifyApiKey(apiKeyResponse.key);
             },

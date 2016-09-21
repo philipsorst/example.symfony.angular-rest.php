@@ -1,8 +1,7 @@
 ddr_symfony_angular_rest_example_rest_user:
-    prefix: users
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/UserController.php"
     type: rest
-    name_prefix: ddr_example_rest_user_
+    name_prefix: ddr_example_rest_
 
 ddr_symfony_angular_rest_example_rest_blogpost:
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/BlogPostController.php"

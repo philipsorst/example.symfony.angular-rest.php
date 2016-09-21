@@ -24,7 +24,7 @@ class UserControllerTest extends RestControllerTestCase
 
     public function testCreateApiKey()
     {
-        $url = '/rest/users/createapikey';
+        $url = '/rest/apikeys';
         $response = $this->doPostRequest($url, ['username' => Users::USER, 'password' => Users::USER_PASSWORD], null);
         $content = $this->assertJsonResponse($response, Response::HTTP_CREATED);
         $this->assertNotEmpty($content['key']);

@@ -11,12 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends RestBaseController
 {
-    /**
-     * @Rest\Get("")
-     *
-     * @return Response
-     */
-    public function listUsersAction()
+    public function getUsersAction()
     {
         $users = $this->getUserService()->listUsers();
 
@@ -25,12 +20,7 @@ class UserController extends RestBaseController
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Post("/createapikey")
-     *
-     * @param Request $request
-     */
-    public function createApiKeyAction(Request $request)
+    public function postApikeyAction(Request $request)
     {
         $form = $this->createAndHandleForm($request, UserCredentialsType::class);
         if ($form->isValid()) {
@@ -44,15 +34,6 @@ class UserController extends RestBaseController
         return $this->view($form);
     }
 
-    /**
-     * @Rest\Get("/{id}")
-     *
-     * @param int|string $id
-     *
-     * @return Response
-     *
-     * @throws \InvalidArgumentException
-     */
     public function getUserAction($id)
     {
         if (is_numeric($id)) {
@@ -69,15 +50,5 @@ class UserController extends RestBaseController
         $view->getContext()->setGroups(['Default', 'UserRoles']);
 
         return $this->handleView($view);
-    }
-
-    /**
-     * @Rest\Post("/invalidateapikey")
-     *
-     * @param Request $request
-     */
-    public function invalidateApiKeyAction(Request $request)
-    {
-        //TODO: implement
     }
 }
