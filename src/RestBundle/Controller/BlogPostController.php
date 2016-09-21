@@ -15,18 +15,12 @@ class BlogPostController extends RestBaseController
 {
     public function getBlogpostsAction()
     {
-        $blogPosts = $this->getBlogPostService()->listBlogPosts();
-        $view = $this->view($blogPosts);
-
-        return $this->handleView($view);
+        return $this->view($this->getBlogPostService()->listBlogPosts());
     }
 
     public function getBlogpostAction($id)
     {
-        $blogPost = $this->getBlogPostService()->loadBlogPost($id);
-        $view = $this->view($blogPost);
-
-        return $this->handleView($view);
+        return $this->view($this->getBlogPostService()->loadBlogPost($id));
     }
 
     public function postBlogpostAction(Request $request)
@@ -50,10 +44,10 @@ class BlogPostController extends RestBaseController
                 )
             );
 
-            return $this->handleView($view);
+            return $view;
         }
 
-        return $this->handleView($this->view($form, Response::HTTP_BAD_REQUEST));
+        return $this->view($form);
     }
 
     public function putBlogpostAction(Request $request, $id)
@@ -72,17 +66,13 @@ class BlogPostController extends RestBaseController
 
         $errors = $this->validate($blogPost);
         if (count($errors) > 0) {
-            $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
-
-            return $this->handleView($view);
+            return $this->view($errors, Response::HTTP_BAD_REQUEST);
         }
 
         $blogPost->setAuthor($blogPost->getAuthor());
         $blogPost = $blogPostService->saveBlogPost($blogPost);
 
-        $view = $this->view($blogPost);
-
-        return $this->handleView($view);
+        return $this->view($blogPost);
     }
 
     public function deleteBlogpostAction($id)
@@ -98,29 +88,17 @@ class BlogPostController extends RestBaseController
 
         $blogPostService->deleteBlogPost($blogPost);
 
-        $view = $this->view(null, Response::HTTP_NO_CONTENT);
-
-        return $this->handleView($view);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     public function getBlogpostCommentsAction($blogPostId)
     {
-        $blogPostService = $this->getBlogPostService();
-        $comments = $blogPostService->listCommentsByBlogPost($blogPostId);
-
-        $view = $this->view($comments);
-
-        return $this->handleView($view);
+        return $this->view($this->getBlogPostService()->listCommentsByBlogPost($blogPostId));
     }
 
     public function getBlogpostCommentAction($blogPostId, $commentId)
     {
-        $blogPostService = $this->getBlogPostService();
-        $comments = $blogPostService->loadComment($commentId);
-
-        $view = $this->view($comments);
-
-        return $this->handleView($view);
+        return $this->view($this->getBlogPostService()->loadComment($commentId));
     }
 
     public function deleteBlogpostCommentAction($blogPostId, $commentId)
@@ -134,11 +112,9 @@ class BlogPostController extends RestBaseController
             throw new AccessDeniedHttpException('Cannot delete comment of other users');
         }
 
-        $comments = $blogPostService->deleteComment($comment);
+        $blogPostService->deleteComment($comment);
 
-        $view = $this->view($comments, Response::HTTP_NO_CONTENT);
-
-        return $this->handleView($view);
+        return $this->view(null, Response::HTTP_NO_CONTENT);
     }
 
     public function postBlogpostCommentsAction(Request $request, $blogPostId)
@@ -153,9 +129,7 @@ class BlogPostController extends RestBaseController
 
         $errors = $this->validate($comment);
         if (count($errors) > 0) {
-            $view = $this->view($errors, Response::HTTP_BAD_REQUEST);
-
-            return $this->handleView($view);
+            return $this->view($errors, Response::HTTP_BAD_REQUEST);
         }
 
         $comment->setAuthor($this->getUser());
@@ -174,6 +148,6 @@ class BlogPostController extends RestBaseController
             )
         );
 
-        return $this->handleView($view);
+        return $view;
     }
 }

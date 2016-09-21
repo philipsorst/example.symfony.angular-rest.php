@@ -79,6 +79,9 @@ fos_rest:
     body_converter:
         enabled: true
         validate: true
+    view:
+        view_response_listener:
+            enabled: true
 
 # JMS Serializer Bundle configuration
 jms_serializer:
