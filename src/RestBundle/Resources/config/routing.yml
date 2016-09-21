@@ -5,7 +5,6 @@ ddr_symfony_angular_rest_example_rest_user:
     name_prefix: ddr_example_rest_user_
 
 ddr_symfony_angular_rest_example_rest_blogpost:
-    prefix: blogposts
     resource: "@DdrSymfonyAngularRestExampleRestBundle/Controller/BlogPostController.php"
     type: rest
-    name_prefix: ddr_example_rest_blogpost_
+    name_prefix: ddr_example_rest_

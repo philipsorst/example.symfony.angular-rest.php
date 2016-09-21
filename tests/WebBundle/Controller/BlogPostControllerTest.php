@@ -19,6 +19,12 @@ class BlogPostControllerTest extends AbstractControllerTest
         $this->assertStatusCode(Response::HTTP_OK, $this->client);
     }
 
+    public function testDetailActionMissing()
+    {
+        $this->client->request(Request::METHOD_GET, sprintf('/twig/blogposts/666'));
+        $this->assertStatusCode(Response::HTTP_NOT_FOUND, $this->client);
+    }
+
     public function testEditAction()
     {
         /** @var BlogPost $blogPost */

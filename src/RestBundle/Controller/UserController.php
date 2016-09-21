@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends RestBaseController
 {
-
     /**
      * @Rest\Get("")
      *

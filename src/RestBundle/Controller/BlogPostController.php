@@ -13,45 +13,23 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BlogPostController extends RestBaseController
 {
-
-    /**
-     * @Rest\Get("")
-     *
-     * @return Response
-     */
-    public function listBlogPostsAction()
+    public function getBlogpostsAction()
     {
         $blogPosts = $this->getBlogPostService()->listBlogPosts();
-
         $view = $this->view($blogPosts);
 
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Get("/{id}", requirements={"id" = "\d+"})
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function getBlogPostAction($id)
+    public function getBlogpostAction($id)
     {
         $blogPost = $this->getBlogPostService()->loadBlogPost($id);
-
         $view = $this->view($blogPost);
 
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Post("")
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function createBlogPostAction(Request $request)
+    public function postBlogpostAction(Request $request)
     {
         $form = $this->createForm(BlogPostType::class, new BlogPost());
         $form->handleRequest($request);
@@ -66,7 +44,7 @@ class BlogPostController extends RestBaseController
             $view->setHeader(
                 'Location',
                 $this->generateUrl(
-                    'ddr_example_rest_blogpost_get_blog_post',
+                    'ddr_example_rest_get_blogpost',
                     ['id' => $blogPost->getId()],
                     true
                 )
@@ -78,15 +56,7 @@ class BlogPostController extends RestBaseController
         return $this->handleView($this->view($form, Response::HTTP_BAD_REQUEST));
     }
 
-    /**
-     * @Rest\Put("/{id}", requirements={"id" = "\d+"})
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
-     */
-    public function updateBlogPostAction(Request $request, $id)
+    public function putBlogpostAction(Request $request, $id)
     {
         $blogPostService = $this->getBlogPostService();
         $blogPost = $blogPostService->loadBlogPost($id);
@@ -115,14 +85,7 @@ class BlogPostController extends RestBaseController
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Delete("/{id}", requirements={"id" = "\d+"})
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function deleteBlogPostAction($id)
+    public function deleteBlogpostAction($id)
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
@@ -140,32 +103,17 @@ class BlogPostController extends RestBaseController
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Get("/{id}/comments", requirements={"id" = "\d+"})
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function listCommentsAction($id)
+    public function getBlogpostCommentsAction($blogPostId)
     {
         $blogPostService = $this->getBlogPostService();
-        $comments = $blogPostService->listCommentsByBlogPost($id);
+        $comments = $blogPostService->listCommentsByBlogPost($blogPostId);
 
         $view = $this->view($comments);
 
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Get("/{blogPostId}/comments/{commentId}", requirements={"blogPostId" = "\d+", "commentId" = "\d+"})
-     *
-     * @param int $blogPostId
-     * @param int $commentId
-     *
-     * @return Response
-     */
-    public function getCommentAction($blogPostId, $commentId)
+    public function getBlogpostCommentAction($blogPostId, $commentId)
     {
         $blogPostService = $this->getBlogPostService();
         $comments = $blogPostService->loadComment($commentId);
@@ -175,15 +123,7 @@ class BlogPostController extends RestBaseController
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Delete("/{blogPostId}/comments/{commentId}", requirements={"blogPostId" = "\d+", "commentId" = "\d+"})
-     *
-     * @param int $blogPostId
-     * @param int $commentId
-     *
-     * @return Response
-     */
-    public function deleteCommentAction($blogPostId, $commentId)
+    public function deleteBlogpostCommentAction($blogPostId, $commentId)
     {
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
@@ -201,20 +141,12 @@ class BlogPostController extends RestBaseController
         return $this->handleView($view);
     }
 
-    /**
-     * @Rest\Post("/{id}/comments", requirements={"id" = "\d+"})
-     *
-     * @param Request $request
-     * @param int     $id
-     *
-     * @return Response
-     */
-    public function createCommentAction(Request $request, $id)
+    public function postBlogpostCommentsAction(Request $request, $blogPostId)
     {
         /** @var User $currentUser */
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
-        $blogPost = $blogPostService->loadBlogPost($id);
+        $blogPost = $blogPostService->loadBlogPost($blogPostId);
 
         /** @var Comment $comment */
         $comment = $this->unserializeRequestContent($request, get_class(new Comment()));
@@ -236,8 +168,8 @@ class BlogPostController extends RestBaseController
         $view->setHeader(
             'Location',
             $this->generateUrl(
-                'ddr_example_rest_blogpost_get_comment',
-                ['blogPostId' => $id, 'commentId' => $comment->getId()],
+                'ddr_example_rest_get_blogpost_comments',
+                ['blogPostId' => $blogPostId, 'commentId' => $comment->getId()],
                 true
             )
         );
