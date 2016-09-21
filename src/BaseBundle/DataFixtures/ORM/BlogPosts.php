@@ -15,7 +15,7 @@ class BlogPosts extends AbstractFixture implements DependentFixtureInterface
         $blogPost1 = new BlogPost();
         $blogPost1->setTitle('Blog Post 1');
         $blogPost1->setContent('Blog Post 1 Content');
-        $blogPost1->setAuthor($this->getUserReference('user'));
+        $blogPost1->setAuthor($this->getUserReference(Users::USER));
         $blogPost1->setDate(new \DateTime());
         $manager->persist($blogPost1);
         $manager->flush();
@@ -25,7 +25,7 @@ class BlogPosts extends AbstractFixture implements DependentFixtureInterface
         $blogPost2 = new BlogPost();
         $blogPost2->setTitle('Blog Post 2');
         $blogPost2->setContent('Blog Post 2 Content');
-        $blogPost2->setAuthor($this->getUserReference('admin'));
+        $blogPost2->setAuthor($this->getUserReference(Users::ADMIN));
         $blogPost2->setDate(new \DateTime());
         $manager->persist($blogPost2);
         $manager->flush();

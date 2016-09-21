@@ -19,11 +19,11 @@ class BlogPostController extends RestBaseController
      *
      * @return Response
      */
-    public function listNewsEntriesAction()
+    public function listBlogPostsAction()
     {
-        $newsEntries = $this->getBlogPostService()->listBlogPosts();
+        $blogPosts = $this->getBlogPostService()->listBlogPosts();
 
-        $view = $this->view($newsEntries);
+        $view = $this->view($blogPosts);
 
         return $this->handleView($view);
     }
@@ -130,7 +130,7 @@ class BlogPostController extends RestBaseController
         $blogPost = $blogPostService->getBlogPost($id);
 
         if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
-            throw new AccessDeniedHttpException('Cannot delete news entries of other users');
+            throw new AccessDeniedHttpException('Cannot delete blog posts of other users');
         }
 
         $blogPostService->deleteBlogPost($blogPost);

@@ -33,9 +33,9 @@ class DoctrineBlogPostService implements BlogPostService
      */
     public function listBlogPosts()
     {
-        $newsEntries = $this->blogPostRepository->findBy([], ['date' => 'DESC']);
+        $blogPosts = $this->blogPostRepository->findBy([], ['date' => 'DESC']);
 
-        return $newsEntries;
+        return $blogPosts;
     }
 
     /**

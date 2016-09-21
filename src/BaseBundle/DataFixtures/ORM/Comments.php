@@ -10,6 +10,7 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 class Comments extends AbstractFixture implements DependentFixtureInterface
 {
     const BLOG_POST_1_COMMENT_1 = 'blog-post-1-comment-1';
+    const BLOG_POST_1_COMMENT_2 = 'blog-post-1-comment-2';
 
     public function load(ObjectManager $manager)
     {
@@ -35,6 +36,7 @@ class Comments extends AbstractFixture implements DependentFixtureInterface
         $blogPost1comment2->setAuthor($user);
         $blogPost1comment2->setDate(new \DateTime());
         $blogPost1comment2->setContent('Blog Post 1 Comment 2');
+        $this->setReference(Comments::BLOG_POST_1_COMMENT_2, $blogPost1comment2);
 
         $manager->persist($blogPost1comment2);
         $manager->flush();

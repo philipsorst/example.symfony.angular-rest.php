@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlogPostControllerTest extends RestControllerTestCase
 {
-    public function testListNewsEntries()
+    public function testListBlogPosts()
     {
         $response = $this->doGetRequest('/rest/blogposts');
         $content = $this->assertJsonResponse($response, Response::HTTP_OK);
         $this->assertCount(2, $content);
-        $blogPost2 = $this->getNewsEntryReference(BlogPosts::BLOG_POST_2);
+        $blogPost2 = $this->getBlogPostReference(BlogPosts::BLOG_POST_2);
         $user = $this->getUserReference(Users::ADMIN);
         $expectedContent = [
             'id'           => $blogPost2->getId(),
@@ -32,11 +32,11 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals($expectedContent, $content[1]);
     }
 
-    public function testGetNewsEntry()
+    public function testGestBlogPost()
     {
         $response = $this->doGetRequest('/rest/blogposts/1');
         $content = $this->assertJsonResponse($response, Response::HTTP_OK);
-        $blogPost = $this->getNewsEntryReference(BlogPosts::BLOG_POST_1);
+        $blogPost = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
         $user = $this->getUserReference('user');
         $expectedContent = [
             'id'           => $blogPost->getId(),
@@ -63,7 +63,7 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
     }
 
-    public function testCreateInvalidNewsEntry()
+    public function testCreateInvalidBlogPost()
     {
         /* Content is missing */
         $response = $this->doPostRequest(
@@ -74,7 +74,7 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
-    public function testGetMissingNewsEntry()
+    public function testGetMissingBlogPost()
     {
         $response = $this->doGetRequest('/rest/blogposts/666');
         $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);

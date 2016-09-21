@@ -86,12 +86,37 @@ abstract class RestControllerTestCase extends WebTestCase
     }
 
     /**
+     * @param string      $url
+     * @param array       $parameters
+     * @param ApiKey|null $apiKey
+     *
+     * @return Response
+     */
+    protected function doDeleteRequest($url, ApiKey $apiKey = null)
+    {
+        $headers = [];
+        if (null !== $apiKey) {
+            $headers['X-API-KEY'] = $apiKey->getKey();
+        }
+        $this->client->request(
+            Request::METHOD_DELETE,
+            $url,
+            [],
+            [],
+            $this->transformHeaders($headers)
+        );
+        $response = $this->client->getResponse();
+
+        return $response;
+    }
+
+    /**
      * @param Response $response
      * @param int      $statusCode
      *
      * @return array
      */
-    protected function assertJsonResponse(Response $response, $statusCode = 200)
+    protected function assertJsonResponse(Response $response, $statusCode = Response::HTTP_OK)
     {
         $content = $response->getContent();
         $this->assertEquals(
@@ -99,6 +124,11 @@ abstract class RestControllerTestCase extends WebTestCase
             $response->getStatusCode(),
             $content
         );
+
+        if (Response::HTTP_NO_CONTENT == $statusCode) {
+            return null;
+        }
+
         $this->assertTrue(
             $response->headers->contains('Content-Type', 'application/json'),
             $response->headers
@@ -112,7 +142,7 @@ abstract class RestControllerTestCase extends WebTestCase
      *
      * @return BlogPost
      */
-    protected function getNewsEntryReference($name)
+    protected function getBlogPostReference($name)
     {
         return $this->referenceRepository->getReference($name);
     }
