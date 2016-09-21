@@ -119,8 +119,7 @@ class BlogPostController extends RestBaseController
 
     public function postBlogpostCommentsAction(Request $request, $blogPostId)
     {
-        $form = $this->createForm(CommentType::class);
-        $form->handleRequest($request);
+        $form = $this->createAndHandleForm($request, CommentType::class);
         if ($form->isValid()) {
             $blogPost = $this->getBlogPostService()->loadBlogPost($blogPostId);
             /** @var Comment $comment */
