@@ -37,7 +37,8 @@ class CommentControllerTest extends RestControllerTestCase
         $url = sprintf('/rest/blogposts/%s/comments', $blogPost->getId());
         $response = $this->doPostRequest($url, ['content' => ''], $apiKey);
         $content = $this->assertJsonResponse($response, Response::HTTP_BAD_REQUEST);
-        $this->assertEquals('This value should not be blank.', $content['children']['content']['errors'][0]);
+        $this->assertEquals('Validation Failed', $content['message']);
+        $this->assertEquals('This value should not be blank.', $content['errors']['children']['content']['errors'][0]);
     }
 
     public function testCommentGetAction()

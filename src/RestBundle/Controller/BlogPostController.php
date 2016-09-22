@@ -62,7 +62,7 @@ class BlogPostController extends RestBaseController
             $blogPost = $form->getData();
 
             if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
-                throw $this->createAccessDeniedException('Cannot delete news entries of other users');
+                throw $this->createAccessDeniedException('Cannot update blog posts of other users');
             }
 
             $blogPost->setAuthor($this->getUser());

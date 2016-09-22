@@ -76,9 +76,6 @@ fos_rest:
             - { path: '^/rest/', priorities: ['json', 'xml'], prefer_extension: true }
             - { path: '^/', stop: true }
     disable_csrf_role: ROLE_REST_API
-    body_converter:
-        enabled: true
-        validate: true
     view:
         view_response_listener:
             enabled: true

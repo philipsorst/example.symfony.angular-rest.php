@@ -1,4 +1,6 @@
 parameters:
+    # TODO: This should actually already be overriden by FOS Rest Bundle. Recheck why it is not working.
+    jms_serializer.form_error_handler.class: FOS\RestBundle\Serializer\Normalizer\FormErrorHandler
 services:
 
     ddr.symfonyangularrestexample.security.api_key_authenticator:

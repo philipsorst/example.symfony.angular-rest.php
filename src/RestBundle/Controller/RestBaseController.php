@@ -5,6 +5,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\RestBundle\Controller;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\ContainerServicesTrait;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 
 class RestBaseController extends FOSRestController
@@ -21,6 +22,9 @@ class RestBaseController extends FOSRestController
             $form = parent::createForm($type, $data, $options);
         }
         $form->handleRequest($request);
+        if (!$form->isSubmitted()) {
+            $form->addError(new FormError('You did not submit any data'));
+        }
 
         return $form;
     }
