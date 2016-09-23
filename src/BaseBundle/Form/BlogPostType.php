@@ -21,7 +21,8 @@ class BlogPostType extends AbstractType
     {
         $resolver->setDefaults(
             [
-                'data_class'      => BlogPost::class,
+                'data_class'         => BlogPost::class,
+                'allow_extra_fields' => true
             ]
         );
     }

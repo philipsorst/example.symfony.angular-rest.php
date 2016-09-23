@@ -56,7 +56,7 @@ class BlogPostController extends RestBaseController
         /** @var User $currentUser */
         $currentUser = $this->getUser();
 
-        $form = $this->createAndHandleForm($request, BlogPostType::class, $blogPost);
+        $form = $this->createAndHandleForm($request, BlogPostType::class, $blogPost, ['method' => Request::METHOD_PUT]);
         if ($form->isValid()) {
             /** @var BlogPost $blogPost */
             $blogPost = $form->getData();

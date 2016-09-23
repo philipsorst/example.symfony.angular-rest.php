@@ -78,6 +78,42 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals('This value should not be blank.', $content['errors']['children']['content']['errors'][0]);
     }
 
+    public function testUpdateBlogPost()
+    {
+        $blogPost = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
+        $apiKey = $this->getApiKeyReference(ApiKeys::USER_API_KEY);
+        $url = sprintf('/rest/blogposts/%d', $blogPost->getId());
+        $response = $this->doPutRequest($url, ['title' => 'New title', 'content' => 'New Content'], $apiKey);
+        $content = $this->assertJsonResponse($response, Response::HTTP_OK);
+        $this->assertEquals('New title', $content['title']);
+        $this->assertEquals('New Content', $content['content']);
+    }
+
+    public function testUpdateBlogPostWithDifferentId()
+    {
+        $blogPost = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
+        $apiKey = $this->getApiKeyReference(ApiKeys::USER_API_KEY);
+        $url = sprintf('/rest/blogposts/%d', $blogPost->getId());
+        $response = $this->doPutRequest(
+            $url,
+            ['id' => 666, 'title' => 'New title', 'content' => 'New Content'],
+            $apiKey
+        );
+        $content = $this->assertJsonResponse($response, Response::HTTP_OK);
+        $this->assertEquals('1', $content['id']);
+        $this->assertEquals('New title', $content['title']);
+        $this->assertEquals('New Content', $content['content']);
+    }
+
+    public function testUpdateBlogPostWithDifferentUser()
+    {
+        $blogPost = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
+        $apiKey = $this->getApiKeyReference(ApiKeys::DUMMY_API_KEY);
+        $url = sprintf('/rest/blogposts/%d', $blogPost->getId());
+        $response = $this->doPutRequest($url, ['title' => 'New title', 'content' => 'New Content'], $apiKey);
+        $content = $this->assertJsonResponse($response, Response::HTTP_FORBIDDEN);
+    }
+
     public function testCreateInvalidBlogPost()
     {
         /* Content is missing */
@@ -95,6 +131,18 @@ class BlogPostControllerTest extends RestControllerTestCase
     {
         $response = $this->doGetRequest('/rest/blogposts/666');
         $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
+    }
+
+    public function testDeleteBlogPost()
+    {
+        $blogPost = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
+        $apiKey = $this->getApiKeyReference(ApiKeys::USER_API_KEY);
+        $url = sprintf('/rest/blogposts/%d', $blogPost->getId());
+        $response = $this->doDeleteRequest($url, $apiKey);
+        $content = $this->assertJsonResponse($response, Response::HTTP_NO_CONTENT);
+
+        $response = $this->doGetRequest($url, [], $apiKey);
+        $content = $this->assertJsonResponse($response, Response::HTTP_NOT_FOUND);
     }
 
     /**

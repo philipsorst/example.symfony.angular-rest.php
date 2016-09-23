@@ -87,6 +87,32 @@ abstract class RestControllerTestCase extends WebTestCase
 
     /**
      * @param string      $url
+     * @param array       $content
+     * @param ApiKey|null $apiKey
+     *
+     * @return Response
+     */
+    protected function doPutRequest($url, $content, ApiKey $apiKey = null)
+    {
+        $headers = [];
+        if (null !== $apiKey) {
+            $headers['X-API-KEY'] = $apiKey->getKey();
+        }
+        $this->client->request(
+            Request::METHOD_PUT,
+            $url,
+            [],
+            [],
+            $this->transformHeaders($headers),
+            json_encode($content)
+        );
+        $response = $this->client->getResponse();
+
+        return $response;
+    }
+
+    /**
+     * @param string      $url
      * @param array       $parameters
      * @param ApiKey|null $apiKey
      *
