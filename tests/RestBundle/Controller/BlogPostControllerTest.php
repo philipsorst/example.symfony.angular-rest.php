@@ -64,19 +64,19 @@ class BlogPostControllerTest extends RestControllerTestCase
         $this->assertEquals('/rest/blogposts/3', $response->headers->get('location'));
     }
 
-
-    // TODO: continue
-//    public function testCreateEmptyBlogPost()
-//    {
-//        /* Content is missing */
-//        $response = $this->doPostRequest(
-//            '/rest/blogposts',
-//            [],
-//            $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
-//        );
-//        $content = $this->assertJsonResponse($response, Response::HTTP_BAD_REQUEST);
-//        $this->assertEquals('This value should not be blank.', $content['children']['content']['errors'][0]);
-//    }
+    public function testCreateEmptyBlogPost()
+    {
+        /* Content is missing */
+        $response = $this->doPostRequest(
+            '/rest/blogposts',
+            [],
+            $this->getApiKeyReference(ApiKeys::ADMIN_API_KEY)
+        );
+        $content = $this->assertJsonResponse($response, Response::HTTP_BAD_REQUEST);
+        $this->assertEquals('Validation Failed', $content['message']);
+        $this->assertEquals('This value should not be blank.', $content['errors']['children']['title']['errors'][0]);
+        $this->assertEquals('This value should not be blank.', $content['errors']['children']['content']['errors'][0]);
+    }
 
     public function testCreateInvalidBlogPost()
     {
