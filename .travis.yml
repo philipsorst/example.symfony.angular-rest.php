@@ -13,4 +13,7 @@ before_script:
   - bin/console doctrine:schema:create
 
 script:
-  - bin/run-tests
+  - bin/phpunit --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
