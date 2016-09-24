@@ -15,5 +15,5 @@ web_profiler:
 doctrine:
     dbal:
         driver: "pdo_sqlite"
-        memory: true
         charset: UTF8
+        path: "/dev/shm/symfony-angular-test.db"

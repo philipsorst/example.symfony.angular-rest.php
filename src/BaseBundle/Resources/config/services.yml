@@ -1,5 +1,21 @@
 services:
 
+    # Security
+
+    ddr.symfonyangularrestexample.voter.blogpost:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\BlogPostVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+
+    ddr.symfonyangularrestexample.voter.comment:
+        class: Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\CommentVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+
     # Repositories
 
     ddr.symfonyangularrestexample.repository.user:

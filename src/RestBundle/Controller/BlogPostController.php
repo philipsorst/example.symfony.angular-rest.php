@@ -7,10 +7,11 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\BlogPostType;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\CommentType;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\BlogPostVoter;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\CommentVoter;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class BlogPostController extends RestBaseController
 {
@@ -60,13 +61,7 @@ class BlogPostController extends RestBaseController
         if ($form->isValid()) {
             /** @var BlogPost $blogPost */
             $blogPost = $form->getData();
-
-            if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
-                throw $this->createAccessDeniedException('Cannot update blog posts of other users');
-            }
-
-            $blogPost->setAuthor($this->getUser());
-            $blogPost->setDate(new \DateTime());
+            $this->denyAccessUnlessGranted(BlogPostVoter::EDIT, $blogPost);
             $blogPost = $this->getBlogPostService()->saveBlogPost($blogPost);
 
             return $this->view($blogPost);
@@ -81,11 +76,7 @@ class BlogPostController extends RestBaseController
         $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
         $blogPost = $blogPostService->loadBlogPost($id);
-
-        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $blogPost->getAuthor()->getId()) {
-            throw new AccessDeniedHttpException('Cannot delete blog posts of other users');
-        }
-
+        $this->denyAccessUnlessGranted(BlogPostVoter::DELETE, $blogPost);
         $blogPostService->deleteBlogPost($blogPost);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);
@@ -103,15 +94,9 @@ class BlogPostController extends RestBaseController
 
     public function deleteBlogpostCommentAction($blogPostId, $commentId)
     {
-        $currentUser = $this->getUser();
         $blogPostService = $this->getBlogPostService();
-
         $comment = $blogPostService->loadComment($commentId);
-
-        if (!$currentUser->hasRole('ROLE_ADMIN') && $currentUser->getId() !== $comment->getAuthor()->getId()) {
-            throw new AccessDeniedHttpException('Cannot delete comment of other users');
-        }
-
+        $this->denyAccessUnlessGranted(CommentVoter::DELETE, $comment);
         $blogPostService->deleteComment($comment);
 
         return $this->view(null, Response::HTTP_NO_CONTENT);

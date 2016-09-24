@@ -2,16 +2,19 @@
 
 {% block content %}
     <div class="page-header">
-        {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == blogPost.author.id) %}
+
             <div class="btn-group pull-right">
+                {% if is_granted('EDIT', blogPost) %}
                 <a class="btn btn-lg btn-default" href="{{ path('ddr_example_web_blogpost_edit',{'id':blogPost.id}) }}">
                     <i class="fa fa-pencil"></i>
                 </a>
+                {% endif %}
+                {% if is_granted('DELETE', blogPost) %}
                 <a class="btn btn-lg btn-default" href="{{ path('ddr_example_web_blogpost_delete', {'id':blogPost.id}) }}">
                     <i class="fa fa-trash-o"></i>
                 </a>
+                {% endif %}
             </div>
-        {% endif %}
         <h1>{{ blogPost.title }}</h1>
 
         <span class="text-muted">Written by</span> {{ blogPost.author.username }} <span class="text-muted">on</span>

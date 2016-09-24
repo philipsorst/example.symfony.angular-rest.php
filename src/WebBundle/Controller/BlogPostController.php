@@ -6,12 +6,9 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\BlogPostType;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\CommentType;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\BlogPostRepository;
-use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service\ContainerServicesTrait;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\BlogPostVoter;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\CommentVoter;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BlogPostController extends BaseController
@@ -50,9 +47,7 @@ class BlogPostController extends BaseController
             $blogPost->setAuthor($this->getUser());
         } else {
             $blogPost = $this->getBlogPostService()->loadBlogPost($id);
-            if (!$this->isGranted('ROLE_ADMIN') || !$blogPost->getAuthor()->getId() === $this->getUser()->getId()) {
-                throw new AccessDeniedException();
-            }
+            $this->denyAccessUnlessGranted(BlogPostVoter::EDIT, $blogPost);
         }
 
         $form = $this->createForm(BlogPostType::class, $blogPost);
@@ -75,11 +70,7 @@ class BlogPostController extends BaseController
     public function deleteAction($id)
     {
         $blogPost = $this->getBlogPostService()->loadBlogPost($id);
-
-        if (!$this->isGranted('ROLE_ADMIN') || !$blogPost->getAuthor()->getId() === $this->getUser()->getId()) {
-            throw new AccessDeniedException();
-        }
-
+        $this->denyAccessUnlessGranted(BlogPostVoter::DELETE, $blogPost);
         $this->getBlogPostService()->deleteBlogPost($blogPost);
 
         return $this->redirectToRoute('ddr_example_web_index');
@@ -88,11 +79,7 @@ class BlogPostController extends BaseController
     public function deleteCommentAction($id)
     {
         $comment = $this->getBlogPostService()->loadComment($id);
-
-        if (!$this->isGranted('ROLE_ADMIN') || !$comment->getAuthor()->getId() === $this->getUser()->getId()) {
-            throw new AccessDeniedException();
-        }
-
+        $this->denyAccessUnlessGranted(CommentVoter::DELETE, $comment);
         $this->getBlogPostService()->deleteComment($comment);
 
         return $this->redirectToRoute(
