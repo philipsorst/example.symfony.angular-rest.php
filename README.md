@@ -36,6 +36,11 @@ Installation
 * Create the database: Run ```bin/console doctrine:schema:create``` and ```bin/console doctrine:fixtures:load```
 * [Make sure var/cache/, var/data/ and var/logs/ are writeable for the web server](https://symfony.com/doc/current/setup/file_permissions.html). If you use Ubuntu and have ACL enabled you can use the ```bin/set-permissions``` script.
 
+Domain
+------
+
+The domain for this example is fairly simple, it is a simple blog system. Users can create blog posts and comment on blog posts. Users can only edit and delete their own blog posts and comments. The admin is able to perform every operation.
+
 Further reading
 ---------------
 
