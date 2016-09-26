@@ -9,7 +9,6 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Form\CommentType;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\BlogPostVoter;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Security\CommentVoter;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class BlogPostController extends BaseController
 {
@@ -20,9 +19,7 @@ class BlogPostController extends BaseController
         $commentForm = $this->createForm(CommentType::class);
         $commentForm->handleRequest($request);
         if ($commentForm->isValid()) {
-            if (!$this->isGranted('ROLE_USER')) {
-                throw new AccessDeniedException();
-            }
+            $this->denyAccessUnlessGranted('ROLE_USER');
             /** @var Comment $comment */
             $comment = $commentForm->getData();
             $comment->setBlogPost($blogPost);

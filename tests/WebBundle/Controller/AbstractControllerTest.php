@@ -4,6 +4,7 @@ namespace Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\Controller;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ReferenceTrait;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -13,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 abstract class AbstractControllerTest extends WebTestCase
 {
+    use ReferenceTrait;
+
     /**
      * @var ReferenceRepository
      */
@@ -60,6 +63,14 @@ abstract class AbstractControllerTest extends WebTestCase
     {
         $this->assertEquals(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('http://localhost/twig/login', $this->client->getResponse()->headers->get('location'));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getReference($name)
+    {
+        return $this->referenceRepository->getReference($name);
     }
 
     /**
