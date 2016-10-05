@@ -110,7 +110,6 @@ class BlogPostController extends RestBaseController
             /** @var Comment $comment */
             $comment = $form->getData();
             $comment->setAuthor($this->getUser());
-            $comment->setDate(new \DateTime());
             $comment->setBlogPost($blogPost);
             $view = $this->view($this->getBlogPostService()->saveComment($comment), Response::HTTP_CREATED);
             $view->setLocation(

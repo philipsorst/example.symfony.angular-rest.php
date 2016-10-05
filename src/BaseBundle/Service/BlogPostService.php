@@ -50,7 +50,7 @@ interface BlogPostService
      *
      * @return Comment
      */
-    public function saveComment($comment);
+    public function saveComment(Comment $comment);
 
     /**
      * @param BlogPost|int $blogPost

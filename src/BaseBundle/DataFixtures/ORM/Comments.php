@@ -11,15 +11,16 @@ class Comments extends AbstractFixture implements DependentFixtureInterface
 {
     const BLOG_POST_1_COMMENT_1 = 'blog-post-1-comment-1';
     const BLOG_POST_1_COMMENT_2 = 'blog-post-1-comment-2';
+    const BLOG_POST_2_COMMENT_1 = 'blog-post-2-comment-1';
 
     public function load(ObjectManager $manager)
     {
         $blogPost1 = $this->getBlogPostReference(BlogPosts::BLOG_POST_1);
         $blogPost2 = $this->getBlogPostReference(BlogPosts::BLOG_POST_2);
 
-        $admin = $this->getUserReference('admin');
-        $user = $this->getUserReference('user');
-        $dummy = $this->getUserReference('dummy');
+        $admin = $this->getUserReference(Users::ADMIN);
+        $user = $this->getUserReference(Users::USER);
+        $dummy = $this->getUserReference(Users::DUMMY);
 
         $blogPost1comment1 = new Comment();
         $blogPost1comment1->setBlogPost($blogPost1);
@@ -50,6 +51,7 @@ class Comments extends AbstractFixture implements DependentFixtureInterface
         $blogPost2comment1->setAuthor($user);
         $blogPost2comment1->setDate(new \DateTime());
         $blogPost2comment1->setContent('Blog Post 2 Comment 1');
+        $this->setReference(Comments::BLOG_POST_2_COMMENT_1, $blogPost2comment1);
 
         $manager->persist($blogPost2comment1);
         $manager->flush();

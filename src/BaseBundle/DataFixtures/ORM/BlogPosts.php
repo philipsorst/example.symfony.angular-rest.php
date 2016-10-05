@@ -12,25 +12,25 @@ class BlogPosts extends AbstractFixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager)
     {
-        $blogPost1 = new BlogPost();
-        $blogPost1->setTitle('Blog Post 1');
-        $blogPost1->setContent('Blog Post 1 Content');
-        $blogPost1->setAuthor($this->getUserReference(Users::USER));
-        $blogPost1->setDate(new \DateTime());
-        $manager->persist($blogPost1);
+        $blogPost = new BlogPost();
+        $blogPost->setTitle('Blog Post 1');
+        $blogPost->setContent('Blog Post 1 Content');
+        $blogPost->setAuthor($this->getUserReference(Users::USER));
+        $blogPost->setDate(new \DateTime());
+        $manager->persist($blogPost);
         $manager->flush();
 
-        $this->setReference(self::BLOG_POST_1, $blogPost1);
+        $this->setReference(self::BLOG_POST_1, $blogPost);
 
-        $blogPost2 = new BlogPost();
-        $blogPost2->setTitle('Blog Post 2');
-        $blogPost2->setContent('Blog Post 2 Content');
-        $blogPost2->setAuthor($this->getUserReference(Users::ADMIN));
-        $blogPost2->setDate(new \DateTime());
-        $manager->persist($blogPost2);
+        $blogPost = new BlogPost();
+        $blogPost->setTitle('Blog Post 2');
+        $blogPost->setContent('Blog Post 2 Content');
+        $blogPost->setAuthor($this->getUserReference(Users::ADMIN));
+        $blogPost->setDate(new \DateTime());
+        $manager->persist($blogPost);
         $manager->flush();
 
-        $this->setReference(self::BLOG_POST_2, $blogPost2);
+        $this->setReference(self::BLOG_POST_2, $blogPost);
     }
 
     public function getDependencies()

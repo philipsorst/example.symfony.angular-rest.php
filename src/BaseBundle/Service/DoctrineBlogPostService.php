@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Service;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
@@ -11,12 +10,10 @@ use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Repository\CommentRepo
 
 class DoctrineBlogPostService implements BlogPostService
 {
-
     /**
      * @var BlogPostRepository
      */
     protected $blogPostRepository;
-
     /**
      * @var CommentRepository
      */
@@ -108,6 +105,7 @@ class DoctrineBlogPostService implements BlogPostService
     public function deleteComment(Comment $comment)
     {
         $this->commentRepository->remove($comment);
+        $this->updateNumComments($comment->getBlogPost());
     }
 
     /**
@@ -115,8 +113,21 @@ class DoctrineBlogPostService implements BlogPostService
      *
      * @return Comment
      */
-    public function saveComment($comment)
+    public function saveComment(Comment $comment)
     {
-        return $this->commentRepository->save($comment);
+        $comment->setDate(new \DateTime());
+        $savedComment = $this->commentRepository->save($comment);
+
+        $this->updateNumComments($comment->getBlogPost());
+
+        return $savedComment;
+    }
+
+    protected function updateNumComments(BlogPost $blogPost)
+    {
+        $numComments = $this->commentRepository->findCountByBlogPost($blogPost);
+        $blogPost->setNumComments($numComments);
+
+        $this->blogPostRepository->save($blogPost);
     }
 }

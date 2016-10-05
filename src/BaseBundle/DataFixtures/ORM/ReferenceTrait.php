@@ -3,6 +3,7 @@
 namespace Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM;
 
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\BlogPost;
+use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\Comment;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
 
 trait ReferenceTrait
@@ -25,6 +26,16 @@ trait ReferenceTrait
     protected function getBlogPostReference($name)
     {
         return $this->getAssertedReference($name, BlogPost::class);
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return Comment
+     */
+    protected function getCommentReference($name)
+    {
+        return $this->getAssertedReference($name, Comment::class);
     }
 
     /**

@@ -2,17 +2,16 @@
 
 namespace Dontdrinkandroot\SymfonyAngularRestExample\WebBundle\Controller;
 
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\ReferenceRepository;
+use Dontdrinkandroot\SymfonyAngularRestExample\AbstractIntegrationTest;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\DataFixtures\ORM\ReferenceTrait;
 use Dontdrinkandroot\SymfonyAngularRestExample\BaseBundle\Entity\User;
-use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-abstract class AbstractControllerTest extends WebTestCase
+abstract class AbstractControllerTest extends AbstractIntegrationTest
 {
     use ReferenceTrait;
 
@@ -28,9 +27,7 @@ abstract class AbstractControllerTest extends WebTestCase
 
     protected function setUp()
     {
-        /** @var ORMExecutor $executor */
-        $executor = $this->loadFixtures($this->getFixtureClasses());
-        $this->referenceRepository = $executor->getReferenceRepository();
+        parent::setUp();
         $this->client = static::makeClient();
     }
 
@@ -64,17 +61,4 @@ abstract class AbstractControllerTest extends WebTestCase
         $this->assertEquals(Response::HTTP_FOUND, $this->client->getResponse()->getStatusCode());
         $this->assertEquals('http://localhost/twig/login', $this->client->getResponse()->headers->get('location'));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getReference($name)
-    {
-        return $this->referenceRepository->getReference($name);
-    }
-
-    /**
-     * @return string[]
-     */
-    abstract protected function getFixtureClasses();
 }

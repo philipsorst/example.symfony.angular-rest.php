@@ -38,6 +38,13 @@ class Comment implements Entity
      */
     private $blogPost;
 
+    public function __construct(BlogPost $blogPost = null, User $author = null, $content = null)
+    {
+        $this->blogPost = $blogPost;
+        $this->author = $author;
+        $this->content = $content;
+    }
+
     public function getId()
     {
         return $this->id;
