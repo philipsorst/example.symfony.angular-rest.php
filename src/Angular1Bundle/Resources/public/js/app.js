@@ -1,45 +1,51 @@
-var app = angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular', 'ngRoute', 'ngCookies'])
-    .config(
-        ['RestangularProvider',
-        '$routeProvider',
-        '$locationProvider',
-        '$httpProvider',
-        function (RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
+(function () {
+    angular.module('ExampleApp', ['ExampleApp.controllers', 'restangular', 'ngRoute', 'ngCookies'])
+        .config(config)
+        .run(runBlock);
+    angular.module('ExampleApp.controllers', []);
 
-            $routeProvider.when('/login', {
-                templateUrl: partialsPath + '/login.html',
-                controller: 'LoginController'
-            });
+    config.$inject = ['RestangularProvider', '$routeProvider', '$locationProvider', '$httpProvider'];
 
-            $routeProvider.when('/logout', {
-                templateUrl: partialsPath + '/logout.html',
-                controller: 'LogoutController'
-            });
+    function config(RestangularProvider, $routeProvider, $locationProvider, $httpProvider) {
 
-            $routeProvider.when('/blogposts/create', {
-                templateUrl: partialsPath + '/blogpost/edit.html',
-                controller: 'BlogPostCreateController'
-            });
+        $routeProvider.when('/login', {
+            templateUrl: partialsPath + '/login.html',
+            controller: 'ExampleApp.controller.login'
+        });
 
-            $routeProvider.when('/blogposts/:id/edit', {
-                templateUrl: partialsPath + '/blogpost/edit.html',
-                controller: 'BlogPostEditController'
-            });
+        $routeProvider.when('/logout', {
+            templateUrl: partialsPath + '/logout.html',
+            controller: 'ExampleApp.controller.logout'
+        });
 
-            $routeProvider.when('/blogposts/:id', {
-                templateUrl: partialsPath + '/blogpost/detail.html',
-                controller: 'BlogPostDetailController'
-            });
+        $routeProvider.when('/blogposts/create', {
+            templateUrl: partialsPath + '/blogpost/edit.html',
+            controller: 'ExampleApp.controller.blogpost.create'
+        });
 
-            $routeProvider.otherwise({
-                templateUrl: partialsPath + '/index.html',
-                controller: 'IndexController'
-            });
+        $routeProvider.when('/blogposts/:id/edit', {
+            templateUrl: partialsPath + '/blogpost/edit.html',
+            controller: 'ExampleApp.controller.blogpost.edit'
+        });
 
-            $locationProvider.hashPrefix('!');
+        $routeProvider.when('/blogposts/:id', {
+            templateUrl: partialsPath + '/blogpost/detail.html',
+            controller: 'ExampleApp.controller.blogpost.detail'
+        });
 
-            RestangularProvider.setBaseUrl(restPath);
-        }]
-    ).run(['$rootScope', '$location', function ($rootScope, $location) {
+        $routeProvider.otherwise({
+            templateUrl: partialsPath + '/index.html',
+            controller: 'ExampleApp.controller.index'
+        });
+
+        $locationProvider.hashPrefix('!');
+
+        RestangularProvider.setBaseUrl(restPath);
+    }
+
+    runBlock.$inject = ['$rootScope', '$location'];
+
+    function runBlock($rootScope, $location) {
         $rootScope.originalPath = $location.path();
-    }]);
+    }
+})();

@@ -52,9 +52,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.8/angular-cookies.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.15.0/lodash.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.2/restangular.min.js"></script>
-    <script type="text/javascript"
-            src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/js/controllers.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/ddrsymfonyangularrestexampleangular1/js/app.js') }}"></script>
+    {% javascripts output="js/app.js"
+    '@DdrSymfonyAngularRestExampleAngular1Bundle/Resources/public/js/app.js'
+    '@DdrSymfonyAngularRestExampleAngular1Bundle/Resources/public/js/controller/*.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     <script type="text/javascript">
         $(function () {
             angular.bootstrap(document, ['ExampleApp'])
