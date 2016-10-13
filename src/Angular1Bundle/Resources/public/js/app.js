@@ -38,6 +38,7 @@
             controller: 'ExampleApp.controller.index'
         });
 
+        $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
 
         RestangularProvider.setBaseUrl(restPath);

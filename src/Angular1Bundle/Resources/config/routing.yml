@@ -1,3 +1,5 @@
 ddr_example_angular1_homepage:
-    path:     /
-    defaults: { _controller: DdrSymfonyAngularRestExampleAngular1Bundle:Default:index }
+    path:     /{catchall}
+    defaults: { _controller: DdrSymfonyAngularRestExampleAngular1Bundle:Default:index, catchall: '' }
+    requirements:
+        catchall: ".*"

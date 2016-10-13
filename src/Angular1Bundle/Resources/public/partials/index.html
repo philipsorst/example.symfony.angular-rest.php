@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="btn-group pull-right" ng-show="user">
-        <a href="#!/blogposts/create" class="btn btn-default btn-large">&nbsp;<span class="fa fa-plus"></span>&nbsp;
+        <a href="blogposts/create" class="btn btn-default btn-large">&nbsp;<span class="fa fa-plus"></span>&nbsp;
         </a>
     </div>
     <h1>Welcome</h1>
@@ -15,7 +15,7 @@
         <div class="pull-right">
             {{blogPost.date | date:'short'}}
         </div>
-        <h2 class="panel-title"><a href="#!/blogposts/{{blogPost.id}}">{{blogPost.title}}</a></h2>
+        <h2 class="panel-title"><a href="blogposts/{{blogPost.id}}">{{blogPost.title}}</a></h2>
     </div>
     <div class="panel-body">
         {{blogPost.content}}

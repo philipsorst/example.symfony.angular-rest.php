@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SymfonyAngularRestExample - {{ '{{ title }}' }}</title>
+    <base href="{{ url('ddr_example_angular1_homepage') }}/" />
     {% block css %}
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" />
@@ -14,19 +15,19 @@
 
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-        <a class="navbar-brand" href="#!/">Home</a>
+        <a class="navbar-brand" href="{{ url('ddr_example_angular1_homepage') }}">Home</a>
         <ul class="nav navbar-nav navbar-left">
             <li class="active"><a href="{{ url('ddr_example_angular1_homepage') }}">Angular1</a></li>
             <li><a href="{{ url('ddr_example_angular2_homepage') }}">Angular2</a></li>
             <li><a href="{{ url('ddr_example_web_index') }}">Twig</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-hide="user"><a href="#!/login">Login</a></li>
+            <li ng-hide="user"><a href="login">Login</a></li>
             <li ng-show="user" class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">{{ '{{ user.username }}' }} <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#!/logout">Logout</a></li>
+                    <li><a href="logout">Logout</a></li>
                 </ul>
             </li>
         </ul>
